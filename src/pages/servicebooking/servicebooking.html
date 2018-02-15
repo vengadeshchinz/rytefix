@@ -1,0 +1,138 @@
+<!--
+  Generated template for the ServicebookingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Service Booking</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding *ngIf="mobile">
+  <form [formGroup]="form" (ngSubmit)="serviceReq()">
+    <ion-item class="selectbg">
+      <ion-label>Select Make</ion-label>
+      <ion-select formControlName="make" name="make" [(ngModel)]="userData.make" (ionChange)="servicemake($event)">
+        <ion-option *ngFor="let key  of makedropdown" value="{{key.id}}">{{key.make_name}}</ion-option>
+        <ion-option value="others">others</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="other">
+      <ion-input formControlName="make" name="make" type="text" [(ngModel)]="userData.make" placeholder="Enter Service Make" clearInput></ion-input>
+    </ion-item>
+    <div *ngIf="make.touched && make.invalid" class="alertstyle">
+      <div *ngIf="make.errors.required">Select Make</div>
+    </div>
+
+    <ion-item>
+      <ion-input formControlName="modelno" name="modelno" type="text" [(ngModel)]="userData.modelno" placeholder="Enter Model Number"
+        clearInput></ion-input>
+    </ion-item>
+    <div *ngIf="modelno.touched && modelno.invalid" class="alertstyle">
+      <div *ngIf="modelno.errors.required">Select Model</div>
+    </div>
+
+    <ion-item>
+      <ion-label>Select Service Required</ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Software</ion-label>
+      <ion-select formControlName="soft" name="soft" [(ngModel)]="userData.soft">
+        <ion-option *ngFor="let key  of softdropdown" value="{{key.id}}">{{key.service}}</ion-option>
+      </ion-select>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label>Hardware</ion-label>
+      <ion-select formControlName="hard" name="hard" [(ngModel)]="userData.hard">
+        <ion-option *ngFor="let key  of harddropdown" value="{{key.id}}">{{key.service}}</ion-option>
+      </ion-select>
+    </ion-item>
+   
+    <ion-item>
+      <ion-input formControlName="others" name="others" type="text" [(ngModel)]="userData.others" placeholder="Others" clearInput></ion-input>
+    </ion-item>
+    <div *ngIf="others.touched && others.invalid||hard.touched && hard.invalid||soft.touched && soft.invalid" class="alertstyle">
+      <div *ngIf="others.errors.required||hard.errors.required||soft.errors.required">Select Model</div>
+    </div>
+
+    <ion-list radio-group formControlName="pickup" [(ngModel)]="userData.pickup">
+      <ion-item>
+        <ion-label>Required</ion-label>
+        <ion-radio value="required" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Not required</ion-label>
+        <ion-radio value="notrequired"></ion-radio>
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+      <ion-label>Select Preferred Locationfor Service</ion-label>
+      <ion-select formControlName="loc" name="loc" multiple [(ngModel)]="userData.loc" (ionChange)="serviceLoc($event)">
+        <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>
+    </ion-item> -->
+    <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Service Request</button>
+  </form>
+
+</ion-content>
+<ion-content padding *ngIf="printer">
+  <form [formGroup]="form" (ngSubmit)="serviceReq()">
+    <ion-item >
+      <ion-input formControlName="make" name="make" type="text" [(ngModel)]="userdata.make" placeholder="Enter Service Make" clearInput></ion-input>
+    </ion-item>
+    <div *ngIf="make.touched && make.invalid" class="alertstyle">
+      <div *ngIf="make.errors.required">Select Make</div>
+    </div>
+
+    <ion-item>
+      <ion-input formControlName="modelno" name="modelno" type="text" [(ngModel)]="userdata.modelno" placeholder="Enter Model Number"
+        clearInput></ion-input>
+    </ion-item>
+    <div *ngIf="modelno.touched && modelno.invalid" class="alertstyle">
+      <div *ngIf="modelno.errors.required">Select Model</div>
+    </div>
+
+    <ion-item>
+      <ion-label>Describe Problem</ion-label>
+      <ion-input formControlName="describe" name="describe" type="text" [(ngModel)]="userdata.describe" placeholder="Enter Model Number"
+        clearInput></ion-input>
+    </ion-item>
+
+    <ion-list radio-group formControlName="pickup" [(ngModel)]="userdata.pickup">
+      <ion-item>
+        <ion-label>Required</ion-label>
+        <ion-radio value="required" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Not required</ion-label>
+        <ion-radio value="notrequired"></ion-radio>
+      </ion-item>
+    </ion-list>
+
+    <ion-item>
+      <ion-label>Select Preferred Locationfor Service</ion-label>
+      <ion-select formControlName="loc" name="loc" multiple [(ngModel)]="userdata.loc" (ionChange)="serviceLoc($event)">
+        <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>
+    </ion-item> -->
+    <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Service Request</button>
+  </form>
+
+</ion-content>

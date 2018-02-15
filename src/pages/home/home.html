@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Home</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding *ngIf="home">
+    <ion-list>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-6><a  (click)="Gadgets()">
+                    <ion-item class="selectbg">
+                        <!-- <ion-label hidden>Select Gadgets</ion-label>
+                        <ion-select [(ngModel)]="toppings" (ionChange)="Gadgets($event);">
+                            <ion-option value="Mobile" selected>Mobile</ion-option>
+                            <ion-option value="Laptop">Laptop</ion-option>
+                            <ion-option value="Tablet">Tablet</ion-option>
+                            <ion-option value="Printer">Printer,cam &others</ion-option>
+                        </ion-select> -->
+                    </ion-item></a>
+                </ion-col>
+                <ion-col col-6><a  (click)="quoteHistory()">
+                    <ion-item class="QHSbg"></ion-item>
+                </a>
+                   
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-list>
+</ion-content> 
+<!-- 
+<ion-content *ngIf="print">
+    <section class = "home-container">
+      <div class="row row-center" >
+          <div class="col text-center" >
+              <img alt="Logo" height="100" src="assets/imgs/watch.gif" >
+          </div>
+     </div>
+    </section>
+</ion-content> -->
+
+

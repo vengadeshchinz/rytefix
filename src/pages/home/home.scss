@@ -1,0 +1,23 @@
+page-home {
+    ion-content{
+        background-image: url('../assets/imgs/bg.jpg');
+    }
+    .selectbg{
+        background-image: url('../assets/imgs/Booknewserice.png');
+        min-height: 97px;
+    }
+    .QHSbg{
+        background-image: url('../assets/imgs/QSH.png');
+        min-height: 97px;
+    }
+    .home-container .row-center img {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        top: 50%;
+        filter: invert(140%);
+    }
+  
+}

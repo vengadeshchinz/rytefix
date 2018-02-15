@@ -1,0 +1,22 @@
+page-quoteview {
+    #map {
+        width: 100%;
+        height: 100%;
+      }
+      .scroll {
+        height: 100%
+      }
+      .switch {
+        position: fixed;
+        bottom: 33px;
+        left: 45%;
+        transform: translate3d(-50%, -50%, 0);
+        width: 80%;
+        border-radius: 10px;
+        text-align: center;
+        z-index: 100;
+        opacity: .9;
+  margin: 0px;
+  }
+      }
+

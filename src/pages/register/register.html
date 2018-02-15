@@ -1,0 +1,96 @@
+<!--
+  Generated template for the RegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Register</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding *ngIf="registerpage" >
+  <form [formGroup]="form" (ngSubmit)="register()" >
+    <ion-item>
+      <ion-label  floating><ion-icon name="contact"></ion-icon> Username</ion-label>
+      <ion-input formControlName="username" focuser id="usersignup" type="text" [(ngModel)]="userData.username"></ion-input>
+     
+   </ion-item>
+   <div *ngIf="username.touched && username.invalid" class="alertstyle">
+     <div *ngIf="username.errors.required">Please provide a username</div>
+   </div>
+
+    <ion-item>
+    <ion-label floating><ion-icon name="ios-call"></ion-icon> Mobile</ion-label>
+    <ion-input formControlName="mobile" type="number" [(ngModel)]="userData.mobile"></ion-input>
+  </ion-item>
+  <div *ngIf="mobile.touched && mobile.invalid" class="alertstyle">
+    <div *ngIf="mobile.errors.required">Please provide a mobile no</div>
+  </div>
+
+   <ion-item>
+     <ion-label floating><ion-icon name="mail"></ion-icon> Email</ion-label>
+     <ion-input formControlName="mail" type="text" [(ngModel)]="userData.mail"></ion-input>
+   </ion-item>
+   <div *ngIf="mail.touched && mail.invalid" class="alertstyle">
+     <div *ngIf="mail.errors.required">Email is required</div>
+     <div *ngIf="mail.errors.email">Invaild email format</div>
+   </div>
+
+   <ion-item>
+     <ion-label floating><ion-icon name="lock"></ion-icon> Password</ion-label>
+     <ion-input formControlName="password" type="password" (focusout)="pass($event.target.value)" [(ngModel)]="userData.password"></ion-input>
+   </ion-item>
+   <div *ngIf="password.touched && password.invalid" class="alertstyle">
+     <div *ngIf="password.errors.required">Please provide a password</div>
+    
+   </div>
+   <ion-item>
+    <ion-label floating><ion-icon name="lock"></ion-icon>Conform Password</ion-label>
+    <ion-input formControlName="cpassword" type="password" (focusout)="cpass($event.target.value)" [(ngModel)]="userData.cpassword"></ion-input>
+  </ion-item>
+  <div *ngIf="cpassword.touched && cpassword.invalid" class="alertstyle">
+    <div *ngIf="cpassword.errors.required">Please provide a password</div>
+  </div>  
+  <div *ngIf="userCpass">Password not match</div>
+  <ion-item>
+    <ion-label floating><ion-icon name="ios-pin"></ion-icon>Area</ion-label>
+    <ion-input formControlName="area" type="text"[(ngModel)]="userData.area"></ion-input>
+  </ion-item>
+  <div *ngIf="area.touched && area.invalid" class="alertstyle">
+    <div *ngIf="area.errors.required">Please provide a area</div>
+  </div> 
+  <ion-item>
+    <ion-label floating><ion-icon name="ios-pin"></ion-icon>City</ion-label>
+    <ion-input formControlName="city" type="text"  [(ngModel)]="userData.city"></ion-input>
+  </ion-item>
+  <div *ngIf="city.touched && city.invalid" class="alertstyle">
+    <div *ngIf="city.errors.required">Please provide a password</div>
+  </div> 
+  <ion-item>
+    <ion-label floating><ion-icon name="ios-pin"></ion-icon>Pincode</ion-label>
+    <ion-input formControlName="pincode" type="number"  [(ngModel)]="userData.pincode"></ion-input>
+  </ion-item>
+  <div *ngIf="pincode.touched && pincode.invalid" class="alertstyle">
+    <div *ngIf="pincode.errors.required">Please provide a pincode</div>
+  </div>   
+  
+   <button ion-button type="submit" [disabled]="disable" class="sign_btn"   round full>Register</button>
+   </form> 
+</ion-content>
+
+<ion-content padding  *ngIf="otpverify">
+  <form [formGroup]="form1" (ngSubmit)="otpVerify()" >
+
+  <ion-item>
+    <ion-label floating><ion-icon name="lock"></ion-icon>OTP</ion-label>
+    <ion-input formControlName="otp" type="password" [(ngModel)]="otpData.otp"></ion-input>
+  </ion-item>
+  
+   <button ion-button type="submit"  class="sign_btn"   round full>Verify</button>
+   </form> 
+</ion-content> 
