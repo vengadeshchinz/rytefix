@@ -105,8 +105,10 @@ this.disable=false;
     });
     console.log(this.otpData);
     let logged=JSON.parse(localStorage.getItem("loggedData"));
-    let otpverify=this.jsonConcat(this.otpData, logged);
-    this.AuthServiceProvider.postData(otpverify[0],'otpVerify').then((result) => {
+    //let otpverify=this.jsonConcat(this.otpData, logged);
+    logged[0]['otp']=this.otpData['otp'];
+      console.log(logged);
+    this.AuthServiceProvider.postData(logged[0],'otpVerify').then((result) => {
       this.responsedata=result;
       if(this.responsedata.status==true){
         localStorage.setItem('loggedData',JSON.stringify(this.responsedata.data));

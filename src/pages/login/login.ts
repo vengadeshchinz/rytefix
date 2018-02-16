@@ -91,7 +91,7 @@ export class LoginPage {
         //let loggedData=this.jsonConcat(service, logged);
       
         loggedData['id']=loggedid[0].id;
-        loggedData['gadget']=JSON.parse(localStorage.getItem('gadget'));
+        loggedData['gadget']=localStorage.getItem('gadget');
         console.log(loggedData);
         this.AuthServiceProvider.postData(loggedData,'ser1Logged').then((result) => {
           console.log(result);
@@ -208,6 +208,20 @@ this.AuthServiceProvider.postData(this.forgotData,'forgotPass').then((result) =>
         }
       
           } );
+    }else{
+      this.AuthServiceProvider.postData(this.loginData,'Login').then((result) => {
+        this.responsedata=result;
+        if(this.responsedata.status==true){
+          loader.dismiss();
+          localStorage.setItem('loggedData',JSON.stringify(this.responsedata.data)); 
+          console.log(result);
+          toast.present();
+          this.navCtrl.setRoot(HomePage);
+        }else{
+          toast1.present();
+        }
+      
+          } );
     }
   }
   reg(){
@@ -227,8 +241,10 @@ this.otpverify=false;
     console.log(this.otpData);
     if(localStorage.getItem("loggedData")){
       let logged=JSON.parse(localStorage.getItem("loggedData"));
-      let otpverify=this.jsonConcat(this.otpData, logged);
-      this.AuthServiceProvider.postData(otpverify[0],'otpVerify').then((result) => {
+     // let otpverify=this.jsonConcat(this.otpData, logged);
+      logged[0]['otp']=this.otpData['otp'];
+      console.log(logged);
+      this.AuthServiceProvider.postData(logged[0],'otpVerify').then((result) => {
         this.responsedata=result;
         if(this.responsedata.status==true){
           localStorage.setItem('loggedData',JSON.stringify(this.responsedata.data));
@@ -242,8 +258,8 @@ this.otpverify=false;
           } );
     }else{
       console.log(this.otpData['otp']);
-      delete this.responsedata.data[0]['otp'];
-      delete this.responsedata.data['otp'];
+//      delete this.responsedata.data['otp'];
+  //    delete this.responsedata.data['otp'];
       console.log(this.responsedata.data);
       this.responsedata.data[0]['otp']=this.otpData['otp'];
       let otpdata=this.responsedata.data[0];

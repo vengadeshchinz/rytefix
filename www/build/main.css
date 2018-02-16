@@ -25796,22 +25796,25 @@ page-wallet h5 {
 }
 
 page-wallet h1, page-wallet p {
-  width: 80%;
+  width: 60%;
   text-align: center;
   color: #333;
 }
 
 page-wallet h1 {
-  margin-bottom: 0;
   text-align: center;
 }
 
 page-wallet p {
   margin: 0 auto 0.5rem;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 page-wallet h1 {
   margin: 1.5rem auto 0.5rem;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 page-wallet .card {
@@ -25826,7 +25829,7 @@ page-wallet .card {
 page-wallet .cover {
   overflow: hidden;
   padding: 0 0 1.5rem;
-  height: 180px;
+  height: 200px;
   background: #afafaf url(http://sunrisetechs.com/images/imgs/background.png) center center no-repeat;
   background-size: cover;
 }
@@ -25843,4 +25846,8 @@ page-wallet h1 {
 page-wallet .p {
   margin-top: 50px;
   font-size: 80px;
+}
+
+page-wallet .redeem {
+  margin: 1.5rem auto 0.5rem;
 }

@@ -74,7 +74,7 @@ export class HomePage {
 
     if(JSON.parse(localStorage.getItem("loggedData"))){
       console.log(JSON.parse(localStorage.getItem("loggedData")));
-    this.navCtrl.setRoot(WalletPage);
+    this.navCtrl.push(WalletPage);
     }else{
       // alert("please login Required");
       console.log(JSON.parse(localStorage.getItem("loggedData")));

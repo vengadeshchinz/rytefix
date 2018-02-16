@@ -24,6 +24,7 @@ import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@io
 import { IntrosliderPage } from '../pages/introslider/introslider';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { WalletPage } from '../pages/wallet/wallet';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { WalletPage } from '../pages/wallet/wallet';
     Geolocation,
     CallNumber,
     Facebook,
+    EmailComposer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider
   ]
