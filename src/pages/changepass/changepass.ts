@@ -37,7 +37,7 @@ export class ChangepassPage {
   constructor(public navCtrl: NavController,private loadingCtrl: LoadingController, public navParams: NavParams,private toastCtrl: ToastController,public AuthServiceProvider:AuthServiceProvider) {
     this.userCpass=false;
     this.disable=true;
-    if(JSON.parse(localStorage.getItem("loggedData"))){
+    if(localStorage.getItem("loggedData")){
       this.ionViewDidLoad();
     }else{
       this.navCtrl.setRoot(LoginPage);
@@ -71,8 +71,10 @@ changePass(){
   let loader = this.loadingCtrl.create({content: "Please wait.."});
   loader.present();
   console.log(this.passData);
- 
-    this.AuthServiceProvider.postData(this.passData,'resetPassword').then((result) => {
+  let loggedData=JSON.parse(localStorage.getItem("loggedData"));
+  console.log(loggedData);
+  loggedData['resetpass']=this.passData['npass'];
+    this.AuthServiceProvider.postData(loggedData,'resetPassword').then((result) => {
       this.responsedata=result;
       if(this.responsedata.status==true){
         loader.dismiss();

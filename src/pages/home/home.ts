@@ -57,23 +57,31 @@ export class HomePage {
         handler: data => {
           console.log(data);
           if(data){
-            localStorage.setItem('gadget', JSON.stringify(data)); 
+            localStorage.setItem('gadget', data); 
+            console.log("search clicked");
             this.navCtrl.setRoot(ServicebookingPage);
           }
-        console.log("search clicked");
+       
         }
     }]});
     prompt.present();
 
   }
   quoteHistory(){
+    let alert = this.alertCtrl.create({
+      title: 'Login',
+      subTitle: 'Login Required.',
+      buttons: ['Ok']
+    });
+    
+  
    // alert("test");
-    if(JSON.parse(localStorage.getItem("loggedData"))){
+    if(localStorage.getItem("loggedData")){
     this.navCtrl.setRoot(QuotehistoryPage);
     }else{
-      alert("please login Required");
+      alert.present();
     }
-  }
+  } 
 //   Gadgets(filtermonthwise){
 //    // alert(filtermonthwise);
 // if(filtermonthwise=="Printer"){

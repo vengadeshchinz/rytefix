@@ -74,6 +74,17 @@ export class QuoteviewPage {
           this.othermodel= this.quoteview[0].othermodel;
           this.pickup= this.quoteview[0].pickup_type;
           this.booking_date= this.quoteview[0].posted_on;
+          this.regionals=result;
+          this.regionals.forEach(function (o) {
+            Object.keys(o).forEach(function (k) {
+                if (isFinite(o[k])) {
+                    o[k] = +o[k];
+                }
+            });
+        });
+
+        console.log(this.regionals);
+  this.mapload();
               // this.navCtrl.setRoot(HomePage);
       });
 
@@ -135,14 +146,74 @@ this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
     let latLng = new google.maps.LatLng(lat, long);
     let mapOptions = {
       center: latLng,
-      zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-      //styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }]
+      zoom: 10,
+      visible:false,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }]
     }
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.addMarker();
-
+    let markers = [];
+    console.log(this.regionals);
+    for (let regional of this.regionals) {
+   
+      console.log(regional.latitude+','+regional.longitude);
+      let markerData = {
+        position: {
+          lat: regional.latitude,
+          lng: regional.longitude
+        },
+        map: this.map,
+       // icon:this.nabo_img,
+        title: regional.username,
+      };
+    
+      regional.marker = new google.maps.Marker(markerData);
+      markers.push(regional.marker);
+      //let content = regional.username; 
+    
+      //infoWindow.open(this.map, regional.marker);
+      regional.marker.addListener('click', () => {
+       
+        let content = "<div id='iw-content' class='iw-content'><div class='iw-subTitle'>Vendor name: "+regional.username +"</div><p>Exact price: "+regional.exactprice+"</p><p>Warranty: "+regional.warranty+",</p><p>Description: "+regional.description+"</p><button ion-button color='red'  class='button' (click)='quoteChat("+regional.id+")' icon-only>Chat</button>"+
+        "<button ion-button color='light'  class='button' (click)='quoteCall("+regional.mobile+")' icon-only>Call</button>"+
+        "<button ion-button color='red'  class='button' (click)='quoteAccept("+regional.id+")' icon-only>Accept</button>"+
+        "<button ion-button color='light'  class='button' (click)='quoteIgnore("+regional.id+")' icon-only>Ignore</button></div>'";                   
+        let infoWindow = new google.maps.InfoWindow({
+        content: content
+        });
+        infoWindow.open(this.map, regional.marker);
+        for (let c of this.regionals) {
+          console.log(c);
+          c.current = false;
+         // c.infoWindow.close();
+        }
+        this.regionals = regional;
+        
+        let markerData = {
+          position: {
+            lat: regional.latitude,
+            lng: regional.longitude
+          },
+          map: this.map,
+        
+          title: regional.title,
+        };
+        regional.marker = new google.maps.Marker(markerData);
+        markers.push(regional.marker);
+        console.log(regional.marker);
+        console.log(regional);
+     
+        console.log(regional.latitude+','+regional.longitude);
+      
+        //this.othersAddress = regional.username+','+regional.street_address+regional.city +regional.country ;
+       // this.othersAddress = ` ${regional.username}, ${regional.street_address}, ${regional.city}, ${regional.country} ` ;
+   
+       this.map.panTo(regional.marker.getPosition());
+  
+      });
+    }
 
   }
 loadMap(lat,long){

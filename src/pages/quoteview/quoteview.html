@@ -17,7 +17,16 @@
 
 
  <ion-content *ngIf="mapview">
-    <div #map id="map"></div> 
+    Make:{{make}}<br>
+     Model:{{model}}<br>
+     Problem: <p *ngIf="soft!=''||hard !=''||othermodel !=''">{{soft}}{{hard}}{{othermodel}}</p>
+    
+    Pickup:{{pickup}}<br>
+    Booking Date:{{booking_date}}<br> 
+    <ion-content class="map-pin">
+        <div #map id="map"></div> 
+    </ion-content>
+  
     <div class="btn-group switch">
       <button ion-button color="light" class="button" (click)="listshow()" icon-only>List View</button>
       <button ion-button color="light" class="button" (click)="mapshow()" icon-only>Map View</button>

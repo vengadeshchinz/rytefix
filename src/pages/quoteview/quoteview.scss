@@ -18,5 +18,23 @@ page-quoteview {
         opacity: .9;
   margin: 0px;
   }
+  ion-content.map-pin.content.content-md {
+    overflow-x: hidden !important;
+}
+
+.map-pin .scroll-content {
+    padding: 0px !important;
+    overflow-y: hidden;
+}
+
+ion-content.map-pin.content.content-md {
+    background: #ff7f5000 !important;
+    height: 74%;
+}ion-content.map-pin #marker {
+   // width: 5% !important;
+    margin: 0 auto !important;
+    margin-top: -54% !important;
+    position: relative !important;
+}
       }
 

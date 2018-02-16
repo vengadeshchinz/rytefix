@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform,NavController,LoadingController,ToastController } from 'ionic-angular';
+import { Nav, Platform,NavController,AlertController,LoadingController,ToastController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
@@ -29,7 +29,7 @@ responseData:any;
   constructor(private uniqueDeviceID: UniqueDeviceID,
     public AuthServiceProvider:AuthServiceProvider,private toastCtrl: ToastController,
     public platform: Platform, public statusBar: StatusBar,private loadingCtrl:LoadingController, 
-    public splashScreen: SplashScreen) {
+    public splashScreen: SplashScreen,private alertCtrl: AlertController) {
     this.initializeApp();
     console.log("test");
    console.log(this.uniqueDeviceID.get().then((uuid: any) => console.log(uuid)).catch((error: any) => console.log(error))) ;
@@ -41,10 +41,10 @@ responseData:any;
       { title: 'Home', component: HomePage },
       { title: 'Profile', component: ProfilePage },
       { title: 'Change Password', component: ChangepassPage },
-      { title: 'FAQ', component: FaqPage},
+      // { title: 'FAQ', component: FaqPage},
       { title: 'Invite Friends', component:InvitefrdPage },
       // { title: 'Rate This App', component:   },
-      { title: 'Contact Us', component: ContactusPage },
+      // { title: 'Contact Us', component: ContactusPage },
       { title: 'Quote & Response', component: QuotehistoryPage },
       { title: 'Quote', component: QuoteviewPage },
 
@@ -53,32 +53,62 @@ responseData:any;
 
   }
   logout(){
+   
+      let alert = this.alertCtrl.create({
+        title: 'Confirm Logout',
+        message: 'Do you want to Logout?',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: () => {
+              this.nav.setRoot(HomePage);
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+             this.logoutconf();
+            }
+          }
+        ]
+      });
+     
+ alert.present();
+  
+  }
+  logoutconf(){
     let loader = this.loadingCtrl.create({content: "Please wait.."});
-    loader.present();
-  //  alert("logout");
-  let toast = this.toastCtrl.create({
-    message: 'Logout successfully',
-    duration: 3000,
-    position: 'bottom'
-  });
-  
-     let userData = JSON.parse(localStorage.getItem('loggedData'));
-     console.log(userData);
-     this.AuthServiceProvider.postData(userData[0], 'logout').then((result) => {
-      this.responseData = result;
-      if (true == this.responseData.status) {
-        loader.dismiss();
-        console.log(this.responseData);
-        localStorage.setItem('loggedData', "");
-        localStorage.setItem('serviceBooking', "");
-        localStorage.setItem('gadget', "");
-        this.nav.setRoot(HomePage);
-        toast.present();
-      } 
-    }, (err) => {
-      // Error log
+      
+    //  alert("logout");
+    let toast = this.toastCtrl.create({
+      message: 'Logout successfully',
+      duration: 3000,
+      position: 'bottom'
     });
-  
+    if(JSON.parse(localStorage.getItem("loggedData"))){
+      loader.present();
+       let userData = JSON.parse(localStorage.getItem('loggedData'));
+       console.log(userData);
+       this.AuthServiceProvider.postData(userData[0], 'logout').then((result) => {
+        this.responseData = result;
+        if (true == this.responseData.status) {
+          loader.dismiss();
+          console.log(this.responseData);
+          localStorage.setItem('loggedData', "");
+          localStorage.setItem('serviceBooking', "");
+          localStorage.setItem('gadget', "");
+          this.nav.setRoot(HomePage);
+          toast.present();
+        } 
+      }, (err) => {
+        // Error log
+      });
+    }else{
+      console.log("not logged");
+      this.nav.setRoot(HomePage);
+    }
   }
   initializeApp() {
     this.platform.ready().then(() => {

@@ -50,31 +50,61 @@ export class ServicebookingPage {
   get others() {
     return this.form.get('others');
   }
+  form1 = new FormGroup({
+    pickup1: new FormControl('',Validators.required),
+    make1: new FormControl('', Validators.required),
+    modelno1: new FormControl('', Validators.required),
+    describe: new FormControl('', Validators.required),
+    loc1: new FormControl('', Validators.required)
+     });
+  get make1() {
+    return this.form1.get('make1');
+  }
+  get modelno1() {
+    return this.form1.get('modelno1');
+  }
+  get describe() {
+    return this.form1.get('describe');
+  }
+
+  get loc1() {
+    return this.form1.get('loc1');
+  }
   printer:any;
   mobile:any;
   userData = {"make":"","modelno":"","soft":"","hard": "","others": "","pickup":"","loc":""};
+  userdata1 = {"make1":"","modelno1":"","describe":"","pickup1":"","loc1":""};
   constructor(
      public navCtrl: NavController,
      public navParams: NavParams,
      public AuthServiceProvider:AuthServiceProvider,
      public Toast:ToastController) {
     //this.userData.require = this.form.controls['name="check"'].value;
+    if(localStorage.getItem('gadget')=="Mobile"||localStorage.getItem('gadget')=="Laptop"||localStorage.getItem('gadget')=="Tablet"){
+      this.makeService();
+      this.softService();
+      this.hardService();
+      this.preferLocation();
+      this.mobile=true;
+      this.printer=false;
+    }else{
+      this.preferLocation();
+      this.printer=true;
+    }
+
     this.disable=true;
     this.other=false;
     this.searchBar=false;
-    this.printer=true;
-    this.mobile=false;
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ServicebookingPage');
-    this.makeService();
-    this.softService();
-    this.hardService();
-    this.preferLocation();
+  
   }
   makeService(){
     console.log(localStorage.getItem('gadget'));
+    
     let gadget=localStorage.getItem('gadget');
     this.AuthServiceProvider.postData(gadget,'makeService').then((result) => {
       this.makedropdown=result;
@@ -119,7 +149,20 @@ export class ServicebookingPage {
        alert("All fileds required");
      }
   }
-  
+  serviceReq1() {   
+    console.log(this.userdata1.loc1);
+ 
+    this.userdata1['deviceId'] =localStorage.getItem('deviceId');
+   // let serviceUser=this.jsonConcat(device, this.userData);
+ 
+    console.log(this.userdata1);
+    if (this.userdata1.make1 && this.userdata1.modelno1 && this.userdata1.describe  || this.userdata1.pickup1 && this.userdata1.loc1) {
+        localStorage.setItem('serviceBooking1',JSON.stringify(this.userdata1)); 
+     this.navCtrl.setRoot(LoginPage);
+      }else{
+        alert("All fileds required");
+      }
+   }
   servicemake(data){
    
     if(data=="others"||data==""){

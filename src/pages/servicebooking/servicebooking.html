@@ -90,29 +90,29 @@
 
 </ion-content>
 <ion-content padding *ngIf="printer">
-  <form [formGroup]="form" (ngSubmit)="serviceReq()">
+  <form [formGroup]="form1" (ngSubmit)="serviceReq1()">
     <ion-item >
-      <ion-input formControlName="make" name="make" type="text" [(ngModel)]="userdata.make" placeholder="Enter Service Make" clearInput></ion-input>
+      <ion-input formControlName="make1" name="make1" type="text" [(ngModel)]="userdata1.make1" placeholder="Enter Service Make" clearInput></ion-input>
     </ion-item>
-    <div *ngIf="make.touched && make.invalid" class="alertstyle">
-      <div *ngIf="make.errors.required">Select Make</div>
+    <div *ngIf="make1.touched && make1.invalid" class="alertstyle">
+      <div *ngIf="make1.errors.required">Select Make</div>
     </div>
 
     <ion-item>
-      <ion-input formControlName="modelno" name="modelno" type="text" [(ngModel)]="userdata.modelno" placeholder="Enter Model Number"
+      <ion-input formControlName="modelno1" name="modelno1" type="text" [(ngModel)]="userdata1.modelno1" placeholder="Enter Model Number"
         clearInput></ion-input>
     </ion-item>
-    <div *ngIf="modelno.touched && modelno.invalid" class="alertstyle">
-      <div *ngIf="modelno.errors.required">Select Model</div>
+    <div *ngIf="modelno1.touched && modelno1.invalid" class="alertstyle">
+      <div *ngIf="modelno1.errors.required">Select Model</div>
     </div>
 
     <ion-item>
       <ion-label>Describe Problem</ion-label>
-      <ion-input formControlName="describe" name="describe" type="text" [(ngModel)]="userdata.describe" placeholder="Enter Model Number"
-        clearInput></ion-input>
+      <ion-textarea formControlName="describe" name="describe" type="text" [(ngModel)]="userdata1.describe" placeholder="Enter description"
+        clearInput></ion-textarea>
     </ion-item>
 
-    <ion-list radio-group formControlName="pickup" [(ngModel)]="userdata.pickup">
+    <ion-list radio-group formControlName="pickup1" [(ngModel)]="userdata1.pickup1">
       <ion-item>
         <ion-label>Required</ion-label>
         <ion-radio value="required" checked></ion-radio>
@@ -125,13 +125,13 @@
 
     <ion-item>
       <ion-label>Select Preferred Locationfor Service</ion-label>
-      <ion-select formControlName="loc" name="loc" multiple [(ngModel)]="userdata.loc" (ionChange)="serviceLoc($event)">
+      <ion-select formControlName="loc1" name="loc1" multiple [(ngModel)]="userdata1.loc1" (ionChange)="serviceLoc($event)">
         <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>
       </ion-select>
     </ion-item>
-    <!-- <ion-item>
+ <!-- <ion-item>
       <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>
-    </ion-item> -->
+    </ion-item>  -->
     <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Service Request</button>
   </form>
 
