@@ -14,7 +14,9 @@ import { ContactusPage } from '../pages/contactus/contactus';
 import { ChangepassPage } from '../pages/changepass/changepass';
 import { InvitefrdPage } from  '../pages/invitefrd/invitefrd';
 import { ProfilePage } from '../pages/profile/profile';
-
+import { IntrosliderPage } from '../pages/introslider/introslider';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { WalletPage } from '../pages/wallet/wallet';
 @Component({
   templateUrl: 'app.html'
 })
@@ -22,14 +24,14 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 device:any;
 responseData:any;
-  rootPage: any = HomePage;
+  rootPage: any = IntrosliderPage;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(private uniqueDeviceID: UniqueDeviceID,
     public AuthServiceProvider:AuthServiceProvider,private toastCtrl: ToastController,
     public platform: Platform, public statusBar: StatusBar,private loadingCtrl:LoadingController, 
-    public splashScreen: SplashScreen,private alertCtrl: AlertController) {
+    public splashScreen: SplashScreen,private alertCtrl: AlertController,private fb: Facebook) {
     this.initializeApp();
     console.log("test");
    console.log(this.uniqueDeviceID.get().then((uuid: any) => console.log(uuid)).catch((error: any) => console.log(error))) ;
@@ -50,6 +52,13 @@ responseData:any;
 
 
     ];
+
+    this.fb.login(['public_profile', 'user_friends', 'email'])
+  .then((res: FacebookLoginResponse) => console.log('Logged into Facebook!', res))
+  .catch(e => console.log('Error logging into Facebook', e));
+
+  // this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ACTIVATED_APP);
+
 
   }
   logout(){

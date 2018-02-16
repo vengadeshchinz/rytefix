@@ -4,6 +4,8 @@ import { NavController, NavParams, ToastController, AlertController } from 'ioni
 // import { Http, Headers, RequestOptions } from '@angular/http';
 import{ ServicebookingPage } from '../servicebooking/servicebooking';
 import { QuotehistoryPage } from '../quotehistory/quotehistory';
+import { LoginPage } from '../login/login';
+import { WalletPage } from '../wallet/wallet';
 
 @Component({
   selector: 'page-home',
@@ -67,6 +69,39 @@ export class HomePage {
     prompt.present();
 
   }
+
+  wallet(){
+
+    if(JSON.parse(localStorage.getItem("loggedData"))){
+      console.log(JSON.parse(localStorage.getItem("loggedData")));
+    this.navCtrl.setRoot(WalletPage);
+    }else{
+      // alert("please login Required");
+      console.log(JSON.parse(localStorage.getItem("loggedData")));
+      let alert = this.alertCtrl.create({
+        title: 'Warning',
+        message: 'Please login or register to use this feature !',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'OK',
+            handler: () => {
+              console.log('Buy clicked');
+              // this.navCtrl.push(RegisterPage);
+              this.navCtrl.push(WalletPage);
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+  }
   quoteHistory(){
     let alert = this.alertCtrl.create({
       title: 'Login',
@@ -79,6 +114,26 @@ export class HomePage {
     if(localStorage.getItem("loggedData")){
     this.navCtrl.setRoot(QuotehistoryPage);
     }else{
+      let alert = this.alertCtrl.create({
+        title: 'Warning',
+        message: 'Please login or register to use this feature !',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'OK',
+            handler: () => {
+              console.log('Buy clicked');
+              this.navCtrl.push(LoginPage);
+            }
+          }
+        ]
+      });
       alert.present();
     }
   } 

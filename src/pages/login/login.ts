@@ -74,7 +74,7 @@ export class LoginPage {
         //let loggedData=this.jsonConcat(service, logged);
       
         loggedData['id']=loggedid[0].id;
-        loggedData['gadget']=JSON.parse(localStorage.getItem('gadget'));
+        loggedData['gadget']=localStorage.getItem('gadget');
         console.log(loggedData);
         this.AuthServiceProvider.postData(loggedData,'serLogged').then((result) => {
           console.log(result);
@@ -163,7 +163,7 @@ this.AuthServiceProvider.postData(this.forgotData,'forgotPass').then((result) =>
     if(localStorage.getItem('serviceBooking')){
       let service =JSON.parse(localStorage.getItem('serviceBooking'));
       let serviceUser=this.jsonConcat(service, this.loginData);
-      serviceUser['gadget']=JSON.parse(localStorage.getItem('gadget'));
+      serviceUser['gadget']=localStorage.getItem('gadget');
       this.AuthServiceProvider.postData(serviceUser,'serLogin').then((result) => {
         this.responsedata=result;
         if(this.responsedata.status==true){
@@ -181,7 +181,7 @@ this.AuthServiceProvider.postData(this.forgotData,'forgotPass').then((result) =>
     }else if(localStorage.getItem('serviceBooking1')){
       let service =JSON.parse(localStorage.getItem('serviceBooking1'));
       let serviceUser=this.jsonConcat(service, this.loginData);
-      serviceUser['gadget']=JSON.parse(localStorage.getItem('gadget'));
+      serviceUser['gadget']=localStorage.getItem('gadget');
       this.AuthServiceProvider.postData(serviceUser,'ser1Login').then((result) => {
         this.responsedata=result;
         if(this.responsedata.status==true){

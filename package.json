@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "5.0.3",
     "@ionic-native/call-number": "^4.5.3",
     "@ionic-native/core": "4.4.0",
+    "@ionic-native/facebook": "^4.5.3",
     "@ionic-native/geolocation": "^4.5.3",
     "@ionic-native/splash-screen": "4.4.0",
     "@ionic-native/status-bar": "4.4.0",
@@ -30,6 +31,7 @@
     "call-number": "^1.0.1",
     "cordova-android": "6.3.0",
     "cordova-plugin-device": "^1.1.7",
+    "cordova-plugin-facebook4": "^1.9.1",
     "cordova-plugin-geolocation": "^4.0.1",
     "cordova-plugin-ionic-webview": "^1.1.16",
     "cordova-plugin-splashscreen": "^4.1.0",
@@ -58,7 +60,11 @@
       "cordova-plugin-uniquedeviceid": {},
       "cordova-plugin-geolocation": {},
       "mx.ferreyra.callnumber": {},
-      "call-number": {}
+      "call-number": {},
+      "cordova-plugin-facebook4": {
+        "APP_ID": "683675215154550",
+        "APP_NAME": "Rytefix"
+      }
     },
     "platforms": [
       "android"

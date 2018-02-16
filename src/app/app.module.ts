@@ -21,6 +21,9 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { CallNumber } from '@ionic-native/call-number';
 import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation'; 
+import { IntrosliderPage } from '../pages/introslider/introslider';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { WalletPage } from '../pages/wallet/wallet';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@io
     ProfilePage,
     InvitefrdPage,
     QuoteviewPage,
-    RegisterPage
+    RegisterPage,
+    IntrosliderPage,
+    WalletPage
   ],
   imports: [
     BrowserModule,HttpModule,
@@ -56,7 +61,9 @@ import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@io
     InvitefrdPage,
     ProfilePage,
     QuotehistoryPage,
-    QuoteviewPage
+    QuoteviewPage,
+    IntrosliderPage,
+    WalletPage,
   ],
   providers: [
     UniqueDeviceID,
@@ -64,6 +71,7 @@ import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@io
     SplashScreen,
     Geolocation,
     CallNumber,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider
   ]

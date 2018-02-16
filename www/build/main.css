@@ -25703,6 +25703,34 @@ page-home .home-container .row-center img {
   filter: invert(140%);
 }
 
+page-introslider ion-content {
+  background: #e6e6e6;
+}
+
+page-introslider .toolbar-background {
+  background: #e6e6e6;
+  border-color: transparent;
+}
+
+page-introslider b {
+  font-weight: 500;
+}
+
+page-introslider p {
+  padding: 0 40px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #60646B;
+}
+
+page-introslider p b {
+  color: #000000;
+}
+
+page-introslider .bonusButton {
+  margin-top: 60px;
+}
+
 page-quoteview #map {
   width: 100%;
   height: 100%;
@@ -25752,4 +25780,67 @@ page-servicebooking .alertstyle {
 
 page-servicebooking ion-searchbar.searchbar.searchbar-md.searchbar-left-aligned {
   margin-top: 53px;
+}
+
+page-wallet .item {
+  margin-top: 5px;
+}
+
+page-wallet body {
+  max-height: 100%;
+  background-color: #eee;
+}
+
+page-wallet h5 {
+  color: #333;
+}
+
+page-wallet h1, page-wallet p {
+  width: 80%;
+  text-align: center;
+  color: #333;
+}
+
+page-wallet h1 {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+page-wallet p {
+  margin: 0 auto 0.5rem;
+}
+
+page-wallet h1 {
+  margin: 1.5rem auto 0.5rem;
+}
+
+page-wallet .card {
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.03);
+}
+
+page-wallet .cover {
+  overflow: hidden;
+  padding: 0 0 1.5rem;
+  height: 180px;
+  background: #afafaf url(http://sunrisetechs.com/images/imgs/background.png) center center no-repeat;
+  background-size: cover;
+}
+
+page-wallet .cover h1,
+page-wallet .cover p {
+  color: #464646;
+}
+
+page-wallet h1 {
+  font-size: 13px;
+}
+
+page-wallet .p {
+  margin-top: 50px;
+  font-size: 80px;
 }

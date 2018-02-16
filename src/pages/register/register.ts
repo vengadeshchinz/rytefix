@@ -143,7 +143,7 @@ this.disable=false;
         let service =JSON.parse(localStorage.getItem('serviceBooking'));
         
         let serviceUser=this.jsonConcat(service, this.userData);
-        serviceUser['gadget']=JSON.parse(localStorage.getItem('gadget'));
+        serviceUser['gadget']=localStorage.getItem('gadget');
       console.log(serviceUser);
         this.AuthServiceProvider.postData(serviceUser,'regUser').then((result) => {
           this.responsedata=result;
