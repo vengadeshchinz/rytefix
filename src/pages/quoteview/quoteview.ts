@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation'; 
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { CallNumber } from '@ionic-native/call-number';
+import {ViewacceptQuotePage} from '../viewaccept-quote/viewaccept-quote';
 /**
  * Generated class for the QuoteviewPage page.
  *
@@ -29,12 +30,15 @@ export class QuoteviewPage {
   hard:any;
   othermodel:any;
   booking_date:any;
+ image:any;
+ audio:any;
   @ViewChild('map') mapElement: ElementRef;
   mapview:any;
   listview:any;
   quoteview:any;
   quotview:any;
   responsedata:any;
+  nabo_img:any;
   constructor(public navCtrl: NavController,
     public AuthServiceProvider:AuthServiceProvider, 
     public navParams: NavParams,
@@ -74,6 +78,8 @@ export class QuoteviewPage {
           this.othermodel= this.quoteview[0].othermodel;
           this.pickup= this.quoteview[0].pickup_type;
           this.booking_date= this.quoteview[0].posted_on;
+          this.image=this.quoteview[0].image;
+          this.audio=this.quoteview[0].audio;
           this.regionals=result;
           this.regionals.forEach(function (o) {
             Object.keys(o).forEach(function (k) {
@@ -89,7 +95,8 @@ export class QuoteviewPage {
       });
 
   }
-  quoteChat(rid){
+  quoteChat(){
+    alert("test");
 
   }
   quoteCall(mobile){
@@ -98,17 +105,22 @@ export class QuoteviewPage {
     .then(() => console.log('Launched dialer!'))
     .catch(() => console.log('Error launching dialer'));
   }
-  quoteAccept(id){
+  quoteAccept(id,data){
 console.log(id);
 this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
   this.responsedata=result;
   if(this.responsedata.status==true){
-    this.refresh();
+    //this.refresh();
+    this.quoteAccept1(data);
    alert("Service accept successfully");
   }
 });
   }
-
+  quoteAccept1(data){
+    console.log("data",data);
+    this.navCtrl.push(ViewacceptQuotePage,{"data":data});
+  }
+  
   quoteIgnore(id){
     console.log(id);
     this.AuthServiceProvider.postData(id,'serviceIgnore').then((result) => {
@@ -116,7 +128,9 @@ this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
       if(this.responsedata.status==true){
         this.refresh();
        alert("Service ignore successfully");
+      
       }
+      
     });
   }
   refresh() {
@@ -155,9 +169,9 @@ this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     this.addMarker();
     let markers = [];
-    console.log(this.regionals);
+    console.log("regionals",this.regionals);
     for (let regional of this.regionals) {
-   
+      this.nabo_img="http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
       console.log(regional.latitude+','+regional.longitude);
       let markerData = {
         position: {
@@ -165,7 +179,7 @@ this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
           lng: regional.longitude
         },
         map: this.map,
-       // icon:this.nabo_img,
+        icon:this.nabo_img,
         title: regional.username,
       };
     
@@ -176,10 +190,14 @@ this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
       //infoWindow.open(this.map, regional.marker);
       regional.marker.addListener('click', () => {
        
-        let content = "<div id='iw-content' class='iw-content'><div class='iw-subTitle'>Vendor name: "+regional.username +"</div><p>Exact price: "+regional.exactprice+"</p><p>Warranty: "+regional.warranty+",</p><p>Description: "+regional.description+"</p><button ion-button color='red'  class='button' (click)='quoteChat("+regional.id+")' icon-only>Chat</button>"+
-        "<button ion-button color='light'  class='button' (click)='quoteCall("+regional.mobile+")' icon-only>Call</button>"+
-        "<button ion-button color='red'  class='button' (click)='quoteAccept("+regional.id+")' icon-only>Accept</button>"+
-        "<button ion-button color='light'  class='button' (click)='quoteIgnore("+regional.id+")' icon-only>Ignore</button></div>'";                   
+        let content = "<div><div><b>Vendor name:</b> "+regional.username +
+        "</div><p><b>Exact price:</b> "+regional.exactprice+
+        "</p><p><b>Warranty:</b> "+regional.warranty+
+        "</p><p><b>Description:</b> "+regional.description+
+        "</p><button ion-button color='dark'  class='buttonchat' (click)='quoteChat()' icon-only>Chat</button>"+
+        "<button ion-button color='secondary'  class='buttoncall' (click)='quoteCall("+regional.mobile+")' icon-only>Call</button>"+
+        "<button ion-button color='primary'  class='buttonacc' (click)='quoteAccept("+regional.id+regional+")' icon-only>Accept</button>"+
+        "<button ion-button color='light'  class='buttonig' (click)='quoteIgnore("+regional.id+")' icon-only>Ignore</button></div>'";                   
         let infoWindow = new google.maps.InfoWindow({
         content: content
         });
@@ -188,7 +206,7 @@ this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
           console.log(c);
           c.current = false;
          // c.infoWindow.close();
-        }
+        }                                                      
         this.regionals = regional;
         
         let markerData = {

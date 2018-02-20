@@ -3,6 +3,9 @@ import { IonicPage, NavController,ToastController,LoadingController, AlertContro
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
+import {LoginPage}from '../login/login';
+import { File } from '@ionic-native/file';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 
 /**
  * Generated class for the RegisterPage page.
@@ -63,9 +66,12 @@ export class RegisterPage {
   get otp() {
     return this.form1.get('otp');
   }
+  imgData:any;
+  audioData:any;
   otpData={"otp":""};
   userData = { "username": "", "mobile":"","mail": "","password": "","cpassword":"","area":"","city":"","pincode":""};
-  constructor(private alertCtrl: AlertController,public navCtrl: NavController,private loadingCtrl: LoadingController,private toastCtrl: ToastController,
+  constructor(private alertCtrl: AlertController,public transfer: FileTransfer,public file: File,
+    public navCtrl: NavController,private loadingCtrl: LoadingController,private toastCtrl: ToastController,
     public AuthServiceProvider:AuthServiceProvider, public navParams: NavParams) {
     this.userCpass=false;
     this.disable=true;
@@ -75,6 +81,12 @@ export class RegisterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
+    if(localStorage.getItem('imageList')){
+      this.imgData =JSON.parse(localStorage.getItem('imageList'));
+    }
+    if(localStorage.getItem('audiolist')){
+      this.audioData =JSON.parse(localStorage.getItem('audiolist'));
+    }
   }
   pass(data){
     console.log(data);
@@ -140,11 +152,12 @@ this.disable=false;
      loader.present();
     console.log(this.userData);
     if(this.userData.username && this.userData.password && this.userData.cpassword && this.userData.mail && this.userData.mobile && this.userData.area && this.userData.city && this.userData.pincode){
-      if(JSON.parse(localStorage.getItem('serviceBooking'))){
+      if(localStorage.getItem('serviceBooking')){
         console.log(JSON.parse(localStorage.getItem('serviceBooking')));
         let service =JSON.parse(localStorage.getItem('serviceBooking'));
         
         let serviceUser=this.jsonConcat(service, this.userData);
+        if(serviceUser['image']==""){serviceUser['image']="user_avatar.png";}
         serviceUser['gadget']=localStorage.getItem('gadget');
       console.log(serviceUser);
         this.AuthServiceProvider.postData(serviceUser,'regUser').then((result) => {
@@ -153,6 +166,34 @@ this.disable=false;
             loader.dismiss();
             localStorage.setItem('loggedData',JSON.stringify(this.responsedata.data)); 
             //toast.present();
+            if(service.image){this.uploadFile();}
+            if(service.audio){this.uploadAudio(); }
+            this.otpverify=true;
+
+            this.registerpage=false;
+            console.log(result);
+          }else if(this.responsedata.status==false){
+            loader.dismiss();
+            this.pushSendAlert(); 
+          }
+            } );
+    
+      }else if(localStorage.getItem('serviceBooking1')){
+        console.log(JSON.parse(localStorage.getItem('serviceBooking1')));
+        let service =JSON.parse(localStorage.getItem('serviceBooking1'));
+        
+        let serviceUser=this.jsonConcat(service, this.userData);
+        if(serviceUser['image']==""){serviceUser['image']="user_avatar.png";}
+        serviceUser['gadget']=localStorage.getItem('gadget');
+      console.log(serviceUser);
+        this.AuthServiceProvider.postData(serviceUser,'reg1User').then((result) => {
+          this.responsedata=result;
+          if(this.responsedata.status==true){
+            loader.dismiss();
+            localStorage.setItem('loggedData',JSON.stringify(this.responsedata.data)); 
+            //toast.present();
+            if(service.image){this.uploadFile();}
+           if(service.audio){this.uploadAudio(); }
             this.otpverify=true;
             this.registerpage=false;
             console.log(result);
@@ -183,5 +224,75 @@ this.disable=false;
       alert("All fileds are required");
     }
   }
+  loginPage(){
+    this.navCtrl.push(LoginPage);
+   }
+   uploadAudio(){
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    let options = {
+      fileKey: "file",
+    fileName: this.audioData[0]['filename'],
+    chunkedMode: false,
+    mimeType: "multipart/form-data",
+    params : {'fileName': this.audioData[0]['filename']}
+   };
+   
+   console.log('filepath',this.audioData[0]['filePath']);
+   console.log('filename',this.audioData[0]['filename']);
+  // console.log("userid",this.userid);
+  //  fileTransfer.upload('<file path>', '<api endpoint>', options)
+   fileTransfer.upload(this.audioData[0]['filePath'],'http://sunrisetechs.com/images/audio.php',options)
+   .then((data) => {
+     console.log(data);
+   }, (err) => {
+     // error
+     console.log(err);
+     alert('error');
+   })
+
+  }
+  uploadFile() {
+      let loader = this.loadingCtrl.create({
+        content: "Uploading..."
+      });
+      loader.present();
+      const fileTransfer: FileTransferObject = this.transfer.create();
+    
+     
+      console.log('image name',this.imgData['imgfilename']);
+      let options: FileUploadOptions = {
+        fileKey: 'file',
+        fileName: this.imgData['imgfilename'],
+        chunkedMode: false,
+        mimeType: "image/jpeg",
+        headers: {},
+      params : {'fileName': this.imgData['imgfilename']}
+        
+      }
+    
+      fileTransfer.upload(this.imgData['imgfilePath'], 'http://sunrisetechs.com/images/image.php', options)
+        .then((data) => {
+        console.log(data+" Uploaded Successfully");
+        loader.dismiss();
+       // this.presentToast("Image uploaded successfully");
+      }, (err) => {
+        console.log(err);
+        loader.dismiss();
+        this.presentToast(err);
+      });
+    }
+    presentToast(msg) {
+      let toast = this.toastCtrl.create({
+        message: msg,
+        duration: 3000,
+        position: 'bottom'
+      });
+    
+      toast.onDidDismiss(() => {
+        console.log('Dismissed toast');
+      });
+    
+     // toast.present();
+    }
 
 }

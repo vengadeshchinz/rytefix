@@ -17,6 +17,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import { IntrosliderPage } from '../pages/introslider/introslider';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { WalletPage } from '../pages/wallet/wallet';
+import {TabsPage} from '../pages/tabs/tabs';
 @Component({
   templateUrl: 'app.html'
 })
@@ -25,7 +26,10 @@ export class MyApp {
 device:any;
 responseData:any;
   rootPage: any = IntrosliderPage;
-
+  // tab1Root = HomePage;
+  // tab2Root = FaqPage;
+  // tab3Root = ContactusPage;
+  // rootPage: any = TabsPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(private uniqueDeviceID: UniqueDeviceID,
@@ -40,7 +44,7 @@ responseData:any;
   // localStorage.setItem("deviceId",this.device);
    // used for an example of ngFor, and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
+      { title: 'Home', component: TabsPage },
       { title: 'Profile', component: ProfilePage },
       { title: 'Change Password', component: ChangepassPage },
       // { title: 'FAQ', component: FaqPage},
@@ -61,6 +65,7 @@ responseData:any;
 
 
   }
+  
   logout(){
    
       let alert = this.alertCtrl.create({
@@ -107,6 +112,7 @@ responseData:any;
           console.log(this.responseData);
           localStorage.setItem('loggedData', "");
           localStorage.setItem('serviceBooking', "");
+          localStorage.setItem('serviceBooking1', "");
           localStorage.setItem('gadget', "");
           this.nav.setRoot(HomePage);
           toast.present();

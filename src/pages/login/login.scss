@@ -1,3 +1,55 @@
 page-login {
-
+   
+    .toolbar-background {
+        background-color: transparent;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+   .content{
+         background-image: url('../assets/imgs/bg.jpg');
+         margin-top: 0px !important;
+    }
+.sign_btn{
+    background-color: #fff;
+    color: #0679c9;
+    margin-top:20px;
 }
+.item-md{
+    background-color: transparent !important;
+}
+.logo {
+    margin-left: 55px;
+   // height: 60%;
+   margin-top: -70px;
+    width: 60% !important;
+}
+.item , .label, .icon , .color-wh{
+    color:#fff !important;
+}
+.color-wh{
+    color:#fff !important;
+}
+.register{
+   color:#fff;
+   font-weight: 900;
+   text-align: center;
+ 
+}
+.frpw{
+    color:#fff;
+    text-align: center;
+ 
+}
+// a {
+//     text-decoration: none !important;
+// }
+.text{
+    color: #fff;
+    text-align: center;
+    margin-top: -50px;
+}
+}
+
+
+

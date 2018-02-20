@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { AddDataProvider } from '../../providers/add-data/add-data'; 
 /**
  * Generated class for the FaqPage page.
  *
@@ -14,12 +14,22 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'faq.html',
 })
 export class FaqPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  fdata:any={};
+  item:any={};
+  constructor(public navCtrl: NavController,public faqapi:AddDataProvider, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FaqPage');
   }
-
+  gotoFaq(){
+   
+    this.faqapi.getFaq()
+      .subscribe(data =>{
+        this.item=data;
+        this.fdata=this.item.fdata;
+        console.log(this.fdata.content);
+       
+      })
+}
 }

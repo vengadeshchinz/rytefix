@@ -4,19 +4,22 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header no-border>
 
-  <ion-navbar>
+  <!-- <ion-navbar>
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
       </button>
     <ion-title>login</ion-title>
-  </ion-navbar>
-
+  </ion-navbar> -->
+  <ion-toolbar no-padding>
+  </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding *ngIf="loginscreen">
+<ion-content padding *ngIf="loginscreen" class="content">
+    <img class="logo" src="assets/imgs/logo.png"> 
+    <p class="text">Rytefix</p>
   <form [formGroup]="form" (ngSubmit)="login()" >
   
 

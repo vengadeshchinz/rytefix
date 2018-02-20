@@ -4,16 +4,15 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Register</ion-title>
-  </ion-navbar>
+<ion-header no-border>
+    <ion-toolbar no-padding>
+    <ion-title>New User Register</ion-title>
+  </ion-toolbar>
 
 </ion-header>
 
 
-<ion-content padding *ngIf="registerpage" >
+<ion-content padding *ngIf="registerpage" class="content">
   <form [formGroup]="form" (ngSubmit)="register()" >
     <ion-item>
       <ion-label  floating><ion-icon name="contact"></ion-icon> Username</ion-label>
@@ -69,7 +68,7 @@
     <ion-input formControlName="city" type="text"  [(ngModel)]="userData.city"></ion-input>
   </ion-item>
   <div *ngIf="city.touched && city.invalid" class="alertstyle">
-    <div *ngIf="city.errors.required">Please provide a password</div>
+    <div *ngIf="city.errors.required">Please provide a city</div>
   </div> 
   <ion-item>
     <ion-label floating><ion-icon name="ios-pin"></ion-icon>Pincode</ion-label>
@@ -81,9 +80,14 @@
   
    <button ion-button type="submit" [disabled]="disable" class="sign_btn"   round full>Register</button>
    </form> 
+   <ion-row>
+      <ion-col col-12 text-center>
+         <b>Existing User ? </b><a href="#" (click)="loginPage()">Login</a>
+      </ion-col>
+    </ion-row>
 </ion-content>
 
-<ion-content padding  *ngIf="otpverify">
+<ion-content padding class="content" *ngIf="otpverify">
   <form [formGroup]="form1" (ngSubmit)="otpVerify()" >
 
   <ion-item>

@@ -15,26 +15,36 @@ import { ContactusPage } from '../pages/contactus/contactus';
 import { ChangepassPage } from '../pages/changepass/changepass';
 import { InvitefrdPage } from  '../pages/invitefrd/invitefrd';
 import { ProfilePage } from '../pages/profile/profile';
+import { ViewacceptQuotePage } from '../pages/viewaccept-quote/viewaccept-quote';
+import { TabsPage } from '../pages/tabs/tabs';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
+import { SelectSearchableModule } from 'ionic-select-searchable'
 import { CallNumber } from '@ionic-native/call-number';
 import { Geolocation ,GeolocationOptions ,Geoposition ,PositionError } from '@ionic-native/geolocation'; 
 import { IntrosliderPage } from '../pages/introslider/introslider';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { WalletPage } from '../pages/wallet/wallet';
 import { EmailComposer } from '@ionic-native/email-composer';
-
+import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { AddDataProvider } from '../providers/add-data/add-data'; 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
+    TabsPage,
     ServicebookingPage,
     LoginPage,
     QuotehistoryPage,
     FaqPage,
+    ViewacceptQuotePage,
     ContactusPage,
     ChangepassPage,
     ProfilePage,
@@ -45,7 +55,7 @@ import { EmailComposer } from '@ionic-native/email-composer';
     WalletPage
   ],
   imports: [
-    BrowserModule,HttpModule,
+    BrowserModule,HttpModule,SelectSearchableModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -56,6 +66,8 @@ import { EmailComposer } from '@ionic-native/email-composer';
     ServicebookingPage,
     LoginPage,
     RegisterPage,
+    TabsPage,
+    ViewacceptQuotePage,
     FaqPage,
     ContactusPage,
     ChangepassPage,
@@ -72,10 +84,13 @@ import { EmailComposer } from '@ionic-native/email-composer';
     SplashScreen,
     Geolocation,
     CallNumber,
+    Media,
     Facebook,
+    File,FileTransfer,FilePath,
+    Camera,
     EmailComposer,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider
+    AuthServiceProvider,AddDataProvider
   ]
 })
 export class AppModule {}

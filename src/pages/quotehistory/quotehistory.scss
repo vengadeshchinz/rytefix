@@ -1,3 +1,36 @@
 page-quotehistory {
+    .toolbar-background {
+        background-color: transparent;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+   .content{
+         background-image: url('../assets/imgs/bg-pic.jpg');
+         margin-top: 0px !important;
+    }
+    .toolbar-title{
+        font-size: 2rem;
+          font-weight: 500;
+          color: #fff;
+          text-align: center;
+      }
+    //   .ion-card{
+    //     background-color: rgba(0, 0, 0, 0.1);
+    //   }
+.card{
+    border-radius:20px !important;
+    margin-top:10px;
+    margin-bottom:20px;
+}
+    .card-header,h5 {
+        background-color:#4cd1e6 !important; 
+        color:#fff !important;
+        text-align:center;
+        font-weight:bold !important;
+    }
+// .h5{
+//     color:#fff !important;
+// }
 
 }

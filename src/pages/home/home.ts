@@ -43,9 +43,15 @@ export class HomePage {
   },
   {
     type:'radio',
-    label:'Printer, cam & others',
-    value:'Printer'
-}
+    label:'Desktop & Computer',
+    value:'Computer'
+},
+{
+  type:'radio',
+  label:'Printer, Tv & Others',
+  value:'Printer'
+},
+
   ],
     buttons : [
     {

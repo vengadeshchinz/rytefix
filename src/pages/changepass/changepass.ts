@@ -73,8 +73,8 @@ changePass(){
   console.log(this.passData);
   let loggedData=JSON.parse(localStorage.getItem("loggedData"));
   console.log(loggedData);
-  loggedData['resetpass']=this.passData['npass'];
-    this.AuthServiceProvider.postData(loggedData,'resetPassword').then((result) => {
+  loggedData[0]['resetpass']=this.passData['npass'];
+    this.AuthServiceProvider.postData(loggedData[0],'resetPassword').then((result) => {
       this.responsedata=result;
       if(this.responsedata.status==true){
         loader.dismiss();
@@ -82,6 +82,8 @@ changePass(){
         console.log(result);
         toast.present();
         this.navCtrl.setRoot(LoginPage);
+      }else{
+        loader.dismiss();
       }
         } );
 }
