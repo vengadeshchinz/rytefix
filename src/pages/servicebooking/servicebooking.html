@@ -108,7 +108,7 @@
       <ion-col col-6>
         <div class="upload-img" (click)="getImage()">
           {{userData.image}} <ion-icon name="camera"></ion-icon> 
-          <div class="upload-img" (click)="imageDelete()" *ngIf="!recording">
+          <div *ngIf="!userData.image==''" class="upload-img" (click)="imageDelete()" >
             <ion-icon name="ios-close-circle"></ion-icon>
         </div>  
         </div>
@@ -117,7 +117,7 @@
     <ion-row class="voice">
       <ion-col col-5> <h6 style="color:#fff" >Voice Note:</h6></ion-col>
       <ion-col col-6 ><div *ngFor="let audio of audioList; index as i;"> {{audio.filename}}
-          <div class="upload-audio" (click)="audioDelete()" *ngIf="!recording">
+          <div class="upload-audio" (click)="audioDelete()" >
               <ion-icon name="ios-close-circle"></ion-icon>
           </div></div>
              
@@ -211,27 +211,36 @@
  <!-- <ion-item>
       <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>
     </ion-item>  -->
-    <div class="upload-img" (click)="getImage()">
-        <ion-icon name="camera"></ion-icon>
-        <p>{{imageURI}}</p>
-        {{userData.image}}
-    </div>
+    <ion-row class="img">
+      <ion-col col-5> <h6 style="color:#fff" >Image :</h6></ion-col>
+      <ion-col col-6>
+        <div class="upload-img" (click)="getImage()">
+          {{userData.image}} <ion-icon name="camera"></ion-icon> 
+          <div *ngIf="!userData.image==''" class="upload-img" (click)="imageDelete()" >
+            <ion-icon name="ios-close-circle"></ion-icon>
+        </div>   
+        </div>
+     </ion-col>
+    </ion-row>
     
     <ion-row class="voice">
-      <ion-col col-5> <h6 style="color:#fff" >Voice Note :</h6></ion-col>
-      <ion-col col-4>
-          <!-- <button class="record" ion-button (click)="audio()"></button>
-              <ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon> record</button> -->
-              <div class="upload-audio" (click)="stopRecord()" *ngIf="recording">
+      <ion-col col-5> <h6 style="color:#fff" >Voice Note:</h6></ion-col>
+      <ion-col col-6 ><div *ngFor="let audio of audioList; index as i;"> {{audio.filename}}
+          <div class="upload-audio" (click)="audioDelete()" >
+              <ion-icon name="ios-close-circle"></ion-icon>
+          </div></div>
+             
+              <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">
                   <ion-icon name="ios-mic"></ion-icon>
               </div>
-              <div class="upload-audio" (click)="startRecord()"  *ngIf="!recording" >
-                  <ion-icon name="ios-mic"></ion-icon>
+              <div class="upload-audio audiostart"  (click)="startRecord()"  *ngIf="!recording" >
+                  <ion-icon name="ios-mic-outline"></ion-icon>
               </div>
               <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>
               <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->
       </ion-col>
     </ion-row>
+    
     <ion-list>
       <ion-item *ngFor="let audio of audioList; index as i;">
         <p>{{audio.filename}}</p>

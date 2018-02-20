@@ -31,7 +31,7 @@
             </ion-col>
             <ion-col col-1><b>:</b></ion-col>
             <ion-col col-7 text-left>
-                {{item.make_name}}
+                {{item.make_name}}<p *ngIf="item.make_name==null">{{item.make}}</p>
             </ion-col>
           </ion-row>
           <ion-row>
@@ -40,7 +40,7 @@
               </ion-col>
               <ion-col col-1><b>:</b></ion-col>
               <ion-col col-7 text-left>
-                  {{item.othermodel}}
+                  {{item.model}}
               </ion-col>
             </ion-row>
             <ion-row>

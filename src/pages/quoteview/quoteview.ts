@@ -71,7 +71,14 @@ export class QuoteviewPage {
       this.AuthServiceProvider.postData(quotedata[0],'quoteView').then((result) => {
            console.log(result);
           this.quoteview=result;
-          this.make= this.quoteview[0].make;
+          console.log(this.quoteview[0].make_name);
+          if(this.quoteview[0].make_name==null){
+            this.make= this.quoteview[0].make;
+          }else{
+            this.make= this.quoteview[0].make_name;
+            
+          }
+          //this.make= this.quoteview[0].make_name;
           this.model= this.quoteview[0].model;
           this.soft= this.quoteview[0].softService;
           this.hard= this.quoteview[0].hardService;
@@ -160,14 +167,14 @@ this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
     let latLng = new google.maps.LatLng(lat, long);
     let mapOptions = {
       center: latLng,
-      zoom: 10,
+      zoom: 5,
       visible:false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }]
     }
 
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    this.addMarker();
+   // this.addMarker();
     let markers = [];
     console.log("regionals",this.regionals);
     for (let regional of this.regionals) {
@@ -194,7 +201,7 @@ this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
         "</div><p><b>Exact price:</b> "+regional.exactprice+
         "</p><p><b>Warranty:</b> "+regional.warranty+
         "</p><p><b>Description:</b> "+regional.description+
-        "</p><button ion-button color='dark'  class='buttonchat' (click)='quoteChat()' icon-only>Chat</button>"+
+        "</p><button   class='buttonchat' (ng-click)='quoteChat()' >Chat</button>"+
         "<button ion-button color='secondary'  class='buttoncall' (click)='quoteCall("+regional.mobile+")' icon-only>Call</button>"+
         "<button ion-button color='primary'  class='buttonacc' (click)='quoteAccept("+regional.id+regional+")' icon-only>Accept</button>"+
         "<button ion-button color='light'  class='buttonig' (click)='quoteIgnore("+regional.id+")' icon-only>Ignore</button></div>'";                   
@@ -234,19 +241,19 @@ this.AuthServiceProvider.postData(id,'serviceAccept').then((result) => {
     }
 
   }
-loadMap(lat,long){
- console.log(lat+","+long);
-  console.log("lat and lang")
-  let latLng= new google.maps.LatLng(lat, long);
-  console.log(latLng);
-  let mapOptions={
-    center:latLng,
-    zoom:15,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-this.map=new google.maps.Map(this.mapElement.nativeElement,mapOptions);
-this.addMarker();
-}
+// loadMap(lat,long){
+//  console.log(lat+","+long);
+//   console.log("lat and lang")
+//   let latLng= new google.maps.LatLng(lat, long);
+//   console.log(latLng);
+//   let mapOptions={
+//     center:latLng,
+//     zoom:15,
+//     mapTypeId: google.maps.MapTypeId.ROADMAP
+//   }
+// this.map=new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+// this.addMarker();
+// }
 /*##user location mark in map##*/
 addMarker(){
   console.log("marker");
