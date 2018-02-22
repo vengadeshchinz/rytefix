@@ -100,5 +100,9 @@
     <plugin name="cordova-plugin-filepath" spec="^1.2.0" />
     <allow-navigation href="http://192.168.0.106:8100" />
     <allow-navigation href="http://192.168.1.11:8100" />
-    <engine name="android" spec="6.3.0" />
+    <engine name="android" spec="~6.3.0" />
+    <plugin name="phonegap-plugin-push" spec="^2.1.3">
+        <variable name="SENDER_ID" value="800075748918" />
+        <variable name="FCM_VERSION" value="11.6.2" />
+    </plugin>
 </widget>

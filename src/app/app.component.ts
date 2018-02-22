@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { UniqueDeviceID } from '@ionic-native/unique-device-id';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -26,6 +27,7 @@ export class MyApp {
 device:any;
 responseData:any;
   rootPage: any = IntrosliderPage;
+  deviceID:any;
   // tab1Root = HomePage;
   // tab2Root = FaqPage;
   // tab3Root = ContactusPage;
@@ -35,7 +37,7 @@ responseData:any;
   constructor(private uniqueDeviceID: UniqueDeviceID,
     public AuthServiceProvider:AuthServiceProvider,private toastCtrl: ToastController,
     public platform: Platform, public statusBar: StatusBar,private loadingCtrl:LoadingController, 
-    public splashScreen: SplashScreen,private alertCtrl: AlertController,private fb: Facebook) {
+    public splashScreen: SplashScreen,private alertCtrl: AlertController,private fb: Facebook,private push: Push,) {
     this.initializeApp();
     console.log("test");
    console.log(this.uniqueDeviceID.get().then((uuid: any) => console.log(uuid)).catch((error: any) => console.log(error))) ;
@@ -62,6 +64,7 @@ responseData:any;
   .catch(e => console.log('Error logging into Facebook', e));
 
   // this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ACTIVATED_APP);
+
 
 
   }
@@ -92,6 +95,8 @@ responseData:any;
  alert.present();
   
   }
+
+
   logoutconf(){
     let loader = this.loadingCtrl.create({content: "Please wait.."});
       
@@ -131,6 +136,51 @@ responseData:any;
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.push.hasPermission()
+      .then((res: any) => {
+    
+        if (res.isEnabled) {
+          console.log('We have permission to send push notifications');
+        } else {
+          console.log('We do not have permission to send push notifications');
+        }
+    
+      });
+      localStorage.setItem('deviceID', "");
+      const options: any = {
+        android: {
+          // SENDER_ID:'357015216809'
+        },
+        ios: {
+            alert: 'true',
+            badge: true,
+            sound: 'false'
+        },
+        windows: {},
+        browser: {
+            pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+        }
+     };
+     
+     const pushObject: PushObject = this.push.init(options);
+     
+     pushObject.on('notification').subscribe((notification: any) => {
+       
+        console.log('Received a notification', notification);
+      });
+     
+     pushObject.on('registration').subscribe((registration: any) => { 
+       console.log('Device registered', registration);
+       this.deviceID = {};
+      this.deviceID["deviceid"] = registration['registrationId'];
+       //this.deviceID["deviceid"]='cxHIRxjGUdE:APA91bGJqzhwsBbhxDLnaBXwcl7PLHZu3fDbm9pZ4QMN1kzRiJP5MFRAksg37aySQvhHoKfHTaDlt80AreZIeP9JG5MJc0AYGWAM1v3kT58sQsEgxZO74RdwNAaVazG2PZPlkKqE9m4M';
+       console.log("deviceid ="+this.deviceID["deviceid"]);
+       localStorage.setItem('deviceID', this.deviceID["deviceid"]);
+       console.log(localStorage.getItem('deviceID'));
+      });
+     
+     pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+
     });
   }
 
@@ -139,4 +189,5 @@ responseData:any;
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
+
 }

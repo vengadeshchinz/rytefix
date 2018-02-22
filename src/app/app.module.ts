@@ -34,6 +34,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 import { FilePath } from '@ionic-native/file-path';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AddDataProvider } from '../providers/add-data/add-data'; 
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 @NgModule({
   declarations: [
     MyApp,
@@ -82,6 +83,7 @@ import { AddDataProvider } from '../providers/add-data/add-data';
     UniqueDeviceID,
     StatusBar,
     SplashScreen,
+    Push,
     Geolocation,
     CallNumber,
     Media,
