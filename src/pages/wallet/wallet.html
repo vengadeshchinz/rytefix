@@ -18,7 +18,6 @@
         <div class="cover">
           <h1>WALLET BALANCE</h1>
           <p class="p">₹{{walletamount}}</p>
-          <button ion-button clear class="redeem" block (click)="openModal()"> Redeem your money</button>
         </div>
         </div>
         <div class="segment">
@@ -35,13 +34,19 @@
 
               <div [ngSwitch]="earns">
                   <ion-list>
-                          <button ion-item *ngFor="let item of items">
-                              <button ion-item >
+                    <div ion-item *ngFor="let item of items">
+                          <!-- <button > -->
+                              <!-- <button ion-item > -->
                                   <h2>Earning amount : {{item.promo_credits}}</h2>
+                                  <h5>Make     : {{item.make_name}}</h5>
+                                  <h6>problem     : {{item.softService}}</h6>
+                                  <h6>problem     : {{item.hardService}}</h6>
                                   <h5>Earned by     : promocode {{item.promo_code}}</h5>
-                                  <!-- <h5>Earned on     : 14-2-18</h5> -->
-                                </button>
-                          </button>
+                                <!-- </button> -->
+                          <!-- </button> -->
+                          <button *ngIf="item.customer_completed==1" ion-button  class="redeem" block (click)="openModal(item.promo_credits)"> Redeem your money</button>
+                          <button *ngIf="item.customer_completed==0" [disabled]="true" ion-button  class="redeem" block (click)="openModal(item.promo_credits)"> Redeem your money</button>
+                        </div>
                         </ion-list>
                         </div>
           </ion-scroll>

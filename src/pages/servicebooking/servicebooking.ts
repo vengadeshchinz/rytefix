@@ -10,6 +10,7 @@ import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import {ServicestateProvider} from '../../providers/servicestate/servicestate';
+import { Http,Headers, RequestOptions} from '@angular/http';
 /**
  * Generated class for the ServicebookingPage page.
  *
@@ -26,6 +27,7 @@ class Port {
   templateUrl: 'servicebooking.html',
 })
 export class ServicebookingPage {
+  deviceId:any;
   ports: Port[];
     port: Port;
   responseData : any;
@@ -47,6 +49,7 @@ export class ServicebookingPage {
   imageFileName:any;
   imgList:any;
   countStart:any;
+  pushData ={"deviceId":"","message":"Thanks Your booking is received will be processed within 24 hours"};
   form = new FormGroup({
     pickup: new FormControl('',Validators.required),
     make: new FormControl('', Validators.required),
@@ -109,7 +112,13 @@ export class ServicebookingPage {
      private camera: Camera,
      public AuthServiceProvider:AuthServiceProvider,
      public toastCtrl: ToastController,
-     public serviceState:ServicestateProvider) {
+     public serviceState:ServicestateProvider,
+     public http: Http) {
+
+      this.deviceId = localStorage.getItem('deviceID');
+      this.pushData.deviceId = this.deviceId;
+      // console.log('deviceId', this.pushData);
+      // this.push(this.pushData);
     
       localStorage.setItem('serviceBooking', "");
       localStorage.setItem('serviceBooking1', "");
@@ -149,6 +158,16 @@ export class ServicebookingPage {
     }else{
       this.disable=false;
     }
+}
+
+push(data){
+  console.log("pushData",data);
+this.http.post('http://sunrisetechs.com/sunapi/push.php',data).subscribe((result) => {
+  this.responseData = result;
+  console.log(this.responseData);
+  }, (err) => {
+  console.log(err);
+  });
 }
 // time(){
 //   if(this.countStart==true){

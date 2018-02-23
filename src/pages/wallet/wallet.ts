@@ -46,10 +46,10 @@ export class WalletPage {
 
   }
 
-  openModal(){
+  openModal(credit){
     const data = {
       username: this.userdata[0].username,
-      walletbalance: this.userdata[0].rf_wallet_bal
+      walletbalance: credit
     };
     const myModal =  this.modal.create('RedeemPage',{data : data});
     myModal.present();

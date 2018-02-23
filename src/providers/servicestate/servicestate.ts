@@ -58,4 +58,12 @@ creditearns(cid){
   })
   }
 
+  // push(cid,bid,pcode){
+  //   return this.http.get("http://sunrisetechs.com/api/cusapi.php?action=promoApply&cid="+cid+"&bid="+bid+"&pcode="+pcode)
+  // .map(res =>{ 
+  //    console.log(res.json());
+  //   return res.json()
+  // })
+  // }
+
 }

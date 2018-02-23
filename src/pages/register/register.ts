@@ -6,7 +6,7 @@ import { HomePage } from '../home/home';
 import {LoginPage}from '../login/login';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
-
+import { Http,Headers, RequestOptions} from '@angular/http';
 /**
  * Generated class for the RegisterPage page.
  *
@@ -20,6 +20,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
   templateUrl: 'register.html',
 })
 export class RegisterPage {
+  pushData ={"deviceId":"","message":"Thanks Your booking is received will be processed within 24 hours"};
   uesrPass:any;
   userCpass:any;
   disable:any;
@@ -72,14 +73,24 @@ export class RegisterPage {
   userData = { "username": "", "mobile":"","mail": "","password": "","cpassword":"","area":"","city":"","pincode":"","deviceId":""};
   constructor(private alertCtrl: AlertController,public transfer: FileTransfer,public file: File,
     public navCtrl: NavController,private loadingCtrl: LoadingController,private toastCtrl: ToastController,
-    public AuthServiceProvider:AuthServiceProvider, public navParams: NavParams) {
+    public AuthServiceProvider:AuthServiceProvider, public navParams: NavParams,public http: Http) {
     this.userCpass=false;
     this.disable=true;
     this.otpverify=false;
     this.registerpage=true;
     
     this.userData.deviceId = localStorage.getItem('deviceID');
+    this.pushData.deviceId = this.userData.deviceId;
     console.log('device ID = ',this.userData.deviceId);
+  }
+
+  push(data){
+    console.log("pushData",data);
+  this.http.post('http://sunrisetechs.com/sunapi/push.php',data).subscribe((result) => {
+    console.log(result);
+    }, (err) => {
+    console.log(err);
+    });
   }
 
   ionViewDidLoad() {
@@ -167,6 +178,7 @@ this.disable=false;
           this.responsedata=result;
           if(this.responsedata.status==true){
             loader.dismiss();
+            this.push(this.pushData);
             localStorage.setItem('loggedData',JSON.stringify(this.responsedata.data)); 
             //toast.present();
             if(service.image){this.uploadFile();}
@@ -193,6 +205,7 @@ this.disable=false;
           this.responsedata=result;
           if(this.responsedata.status==true){
             loader.dismiss();
+            this.push(this.pushData);
             localStorage.setItem('loggedData',JSON.stringify(this.responsedata.data)); 
             //toast.present();
             if(service.image){this.uploadFile();}

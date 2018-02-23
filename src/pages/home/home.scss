@@ -1,6 +1,7 @@
 page-home {
     ion-content{
-        background-image: url('../assets/imgs/bg.png');
+       background-image: url('../assets/imgs/bg-pic.jpg');
+     // background-color: #9dddf
     }
     .selectbg{
         background-image: url('../assets/imgs/Booknewserice.png');
@@ -9,6 +10,19 @@ page-home {
     .QHSbg{
         background-image: url('../assets/imgs/QSH.png');
         min-height: 97px;
+    }
+    .img-1{
+        
+            border-radius: 50%;
+            max-width: 60%;
+            border: 0;
+            background-color: #fff;
+          // background-color: rgba(14, 14, 14, 0.43);
+        
+    }
+    p{
+        color: #fff;
+        font-weight: bold;
     }
     .home-container .row-center img {
         width: 100%;
@@ -26,7 +40,7 @@ page-home {
         background-repeat: no-repeat;
     }
     .color-wh{
-        color:#fff;
+        color:#fff !important;
     }
     .toolbar-title{
         font-size: 2rem;
@@ -35,6 +49,14 @@ page-home {
           text-align: center;
       }
       .slides{
-        height: 40%;
+        height: 33%;
+    }
+    .balance{
+        color: #fff;
+        font-weight: bold;
+        position: relative;
+        top: -100px;
+        font-size: 2.0rem;
+        right: 0%;
     }
 }

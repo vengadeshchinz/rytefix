@@ -9,12 +9,13 @@ webpackJsonp([16],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_media__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_servicestate_servicestate__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_http__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -24,6 +25,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -46,7 +48,7 @@ var Port = (function () {
     return Port;
 }());
 var ServicebookingPage = (function () {
-    function ServicebookingPage(navCtrl, platform, navParams, media, file, loadingCtrl, transfer, camera, AuthServiceProvider, toastCtrl, serviceState) {
+    function ServicebookingPage(navCtrl, platform, navParams, media, file, loadingCtrl, transfer, camera, AuthServiceProvider, toastCtrl, serviceState, http) {
         this.navCtrl = navCtrl;
         this.platform = platform;
         this.navParams = navParams;
@@ -58,8 +60,10 @@ var ServicebookingPage = (function () {
         this.AuthServiceProvider = AuthServiceProvider;
         this.toastCtrl = toastCtrl;
         this.serviceState = serviceState;
+        this.http = http;
         this.recording = false;
         this.audioList = [];
+        this.pushData = { "deviceId": "", "message": "Thanks Your booking is received will be processed within 24 hours" };
         this.form = new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormGroup"]({
             pickup: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required),
             make: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required),
@@ -80,6 +84,10 @@ var ServicebookingPage = (function () {
         });
         this.userData = { "make": "", "modelno": "", "soft": "", "hard": "", "others": "", "pickup": "", "loc": "", "image": "", "audio": "", "promocode": "" };
         this.userdata1 = { "make1": "", "modelno1": "", "describe": "", "pickup1": "", "loc1": "", "image": "", "audio": "", "promocode1": "" };
+        this.deviceId = localStorage.getItem('deviceID');
+        this.pushData.deviceId = this.deviceId;
+        // console.log('deviceId', this.pushData);
+        // this.push(this.pushData);
         localStorage.setItem('serviceBooking', "");
         localStorage.setItem('serviceBooking1', "");
         localStorage.setItem("imageList", "");
@@ -179,6 +187,16 @@ var ServicebookingPage = (function () {
         else {
             this.disable = false;
         }
+    };
+    ServicebookingPage.prototype.push = function (data) {
+        var _this = this;
+        console.log("pushData", data);
+        this.http.post('http://sunrisetechs.com/sunapi/push.php', data).subscribe(function (result) {
+            _this.responseData = result;
+            console.log(_this.responseData);
+        }, function (err) {
+            console.log(err);
+        });
     };
     // time(){
     //   if(this.countStart==true){
@@ -463,7 +481,8 @@ var ServicebookingPage = (function () {
             __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__["a" /* Camera */],
             __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"],
-            __WEBPACK_IMPORTED_MODULE_9__providers_servicestate_servicestate__["a" /* ServicestateProvider */]])
+            __WEBPACK_IMPORTED_MODULE_9__providers_servicestate_servicestate__["a" /* ServicestateProvider */],
+            __WEBPACK_IMPORTED_MODULE_10__angular_http__["b" /* Http */]])
     ], ServicebookingPage);
     return ServicebookingPage;
 }());
@@ -659,10 +678,10 @@ var ContactusPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_media__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_transfer__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__quotehistory_quotehistory__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_transfer__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__quotehistory_quotehistory__ = __webpack_require__(38);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1189,10 +1208,10 @@ var WalletPage = (function () {
         // Send a text message using default options
         this.emailComposer.open(email);
     };
-    WalletPage.prototype.openModal = function () {
+    WalletPage.prototype.openModal = function (credit) {
         var data = {
             username: this.userdata[0].username,
-            walletbalance: this.userdata[0].rf_wallet_bal
+            walletbalance: credit
         };
         var myModal = this.modal.create('RedeemPage', { data: data });
         myModal.present();
@@ -1208,7 +1227,7 @@ var WalletPage = (function () {
     };
     WalletPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-wallet',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\wallet\wallet.html"*/'<!--\n\n  Generated template for the WalletPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>wallet</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n    <div class="card">\n\n        <div class="cover">\n\n          <h1>WALLET BALANCE</h1>\n\n          <p class="p">₹{{walletamount}}</p>\n\n          <button ion-button clear class="redeem" block (click)="openModal()"> Redeem your money</button>\n\n        </div>\n\n        </div>\n\n        <div class="segment">\n\n            <ion-segment [(ngModel)]="earns">\n\n              <ion-segment-button value="Earns">\n\n                  Earns\n\n              </ion-segment-button>\n\n              <!-- <ion-segment-button value="Spends">\n\n                Spends\n\n              </ion-segment-button> -->\n\n            </ion-segment>\n\n          </div>\n\n          <ion-scroll scrollY="true" style="width: 100%; height: 100%;">\n\n\n\n              <div [ngSwitch]="earns">\n\n                  <ion-list>\n\n                          <button ion-item *ngFor="let item of items">\n\n                              <button ion-item >\n\n                                  <h2>Earning amount : {{item.promo_credits}}</h2>\n\n                                  <h5>Earned by     : promocode {{item.promo_code}}</h5>\n\n                                  <!-- <h5>Earned on     : 14-2-18</h5> -->\n\n                                </button>\n\n                          </button>\n\n                        </ion-list>\n\n                        </div>\n\n          </ion-scroll>\n\n         \n\n\n\n                    \n\n</ion-content>\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\wallet\wallet.html"*/,
+            selector: 'page-wallet',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\wallet\wallet.html"*/'<!--\n\n  Generated template for the WalletPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>wallet</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n    <div class="card">\n\n        <div class="cover">\n\n          <h1>WALLET BALANCE</h1>\n\n          <p class="p">₹{{walletamount}}</p>\n\n        </div>\n\n        </div>\n\n        <div class="segment">\n\n            <ion-segment [(ngModel)]="earns">\n\n              <ion-segment-button value="Earns">\n\n                  Earns\n\n              </ion-segment-button>\n\n              <!-- <ion-segment-button value="Spends">\n\n                Spends\n\n              </ion-segment-button> -->\n\n            </ion-segment>\n\n          </div>\n\n          <ion-scroll scrollY="true" style="width: 100%; height: 100%;">\n\n\n\n              <div [ngSwitch]="earns">\n\n                  <ion-list>\n\n                    <div ion-item *ngFor="let item of items">\n\n                          <!-- <button > -->\n\n                              <!-- <button ion-item > -->\n\n                                  <h2>Earning amount : {{item.promo_credits}}</h2>\n\n                                  <h5>Make     : {{item.make_name}}</h5>\n\n                                  <h6>problem     : {{item.softService}}</h6>\n\n                                  <h6>problem     : {{item.hardService}}</h6>\n\n                                  <h5>Earned by     : promocode {{item.promo_code}}</h5>\n\n                                <!-- </button> -->\n\n                          <!-- </button> -->\n\n                          <button *ngIf="item.customer_completed==1" ion-button  class="redeem" block (click)="openModal(item.promo_credits)"> Redeem your money</button>\n\n                          <button *ngIf="item.customer_completed==0" [disabled]="true" ion-button  class="redeem" block (click)="openModal(item.promo_credits)"> Redeem your money</button>\n\n                        </div>\n\n                        </ion-list>\n\n                        </div>\n\n          </ion-scroll>\n\n         \n\n\n\n                    \n\n</ion-content>\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\wallet\wallet.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__ionic_native_email_composer__["a" /* EmailComposer */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ModalController"], __WEBPACK_IMPORTED_MODULE_3__providers_servicestate_servicestate__["a" /* ServicestateProvider */]])
     ], WalletPage);
@@ -1227,7 +1246,7 @@ var WalletPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_register__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(39);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1359,11 +1378,11 @@ var InvitefrdPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_transfer__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_transfer__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_path__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__login_login__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__login_login__ = __webpack_require__(33);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1861,11 +1880,11 @@ var map = {
 		9
 	],
 	"../pages/profile/profile.module": [
-		312,
+		313,
 		8
 	],
 	"../pages/quotehistory/quotehistory.module": [
-		313,
+		312,
 		7
 	],
 	"../pages/quoteview/quoteview.module": [
@@ -1881,19 +1900,19 @@ var map = {
 		5
 	],
 	"../pages/servicebooking/servicebooking.module": [
-		318,
+		317,
 		4
 	],
 	"../pages/tabs/tabs.module": [
-		317,
+		318,
 		3
 	],
 	"../pages/viewaccept-quote/viewaccept-quote.module": [
-		320,
+		319,
 		2
 	],
 	"../pages/wallet/wallet.module": [
-		319,
+		320,
 		1
 	]
 };
@@ -1921,7 +1940,7 @@ module.exports = webpackAsyncContext;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1969,7 +1988,7 @@ var AddDataProvider = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthServiceProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2042,8 +2061,8 @@ var AuthServiceProvider = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_call_number__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tabs_tabs__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tabs_tabs__ = __webpack_require__(39);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2255,25 +2274,25 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_list_list__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_servicebooking_servicebooking__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_register_register__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_login_login__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_quotehistory_quotehistory__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_quoteview_quoteview__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_login_login__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_quotehistory_quotehistory__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_quoteview_quoteview__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_faq_faq__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_contactus_contactus__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_changepass_changepass__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_invitefrd_invitefrd__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_profile_profile__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_viewaccept_quote_viewaccept_quote__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_tabs_tabs__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_tabs_tabs__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_status_bar__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_splash_screen__ = __webpack_require__(222);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__providers_auth_service_auth_service__ = __webpack_require__(20);
@@ -2287,10 +2306,10 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_wallet_wallet__ = __webpack_require__(121);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__ionic_native_email_composer__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__ionic_native_media__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_file__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_file_transfer__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_file__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_file_transfer__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_file_path__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_camera__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_camera__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__providers_add_data_add_data__ = __webpack_require__(180);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_push__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__providers_servicestate_servicestate__ = __webpack_require__(57);
@@ -2378,15 +2397,15 @@ var AppModule = (function () {
                         { loadChildren: '../pages/introslider/introslider.module#IntrosliderPageModule', name: 'IntrosliderPage', segment: 'introslider', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/invitefrd/invitefrd.module#InvitefrdPageModule', name: 'InvitefrdPage', segment: 'invitefrd', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/quotehistory/quotehistory.module#QuotehistoryPageModule', name: 'QuotehistoryPage', segment: 'quotehistory', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/quoteview/quoteview.module#QuoteviewPageModule', name: 'QuoteviewPage', segment: 'quoteview', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/redeem/redeem.module#RedeemPageModule', name: 'RedeemPage', segment: 'redeem', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/servicebooking/servicebooking.module#ServicebookingPageModule', name: 'ServicebookingPage', segment: 'servicebooking', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/wallet/wallet.module#WalletPageModule', name: 'WalletPage', segment: 'wallet', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/viewaccept-quote/viewaccept-quote.module#ViewacceptQuotePageModule', name: 'ViewacceptQuotePage', segment: 'viewaccept-quote', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/viewaccept-quote/viewaccept-quote.module#ViewacceptQuotePageModule', name: 'ViewacceptQuotePage', segment: 'viewaccept-quote', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/wallet/wallet.module#WalletPageModule', name: 'WalletPage', segment: 'wallet', priority: 'low', defaultHistory: [] }
                     ]
                 }),
             ],
@@ -2449,15 +2468,15 @@ var AppModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_unique_device_id__ = __webpack_require__(223);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_push__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_quotehistory_quotehistory__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_quoteview_quoteview__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_quotehistory_quotehistory__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_quoteview_quoteview__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_changepass_changepass__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_invitefrd_invitefrd__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_profile_profile__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_introslider_introslider__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_facebook__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_tabs_tabs__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_tabs_tabs__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_social_sharing__ = __webpack_require__(226);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2620,13 +2639,13 @@ var MyApp = (function () {
                 console.log('Received a notification', notification);
                 var alert = _this.alertCtrl.create({
                     title: notification['title'],
-                    message: notification.additionalData['subtitle'],
+                    message: notification['message'],
                     buttons: [
                         {
                             text: 'ok',
                             handler: function () {
                                 console.log('called');
-                                _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_7__pages_home_home__["a" /* HomePage */]);
+                                _this.nav.setRoot(__WEBPACK_IMPORTED_MODULE_15__pages_tabs_tabs__["a" /* TabsPage */]);
                             }
                         }
                     ]
@@ -2786,7 +2805,7 @@ var ListPage = (function () {
 
 /***/ }),
 
-/***/ 32:
+/***/ 33:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2794,12 +2813,13 @@ var ListPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_register__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__changepass_changepass__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_file_transfer__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_file_transfer__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_http__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2818,6 +2838,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -2825,7 +2846,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var LoginPage = (function () {
-    function LoginPage(navCtrl, transfer, file, alertCtrl, loadingCtrl, navParams, toastCtrl, AuthServiceProvider) {
+    function LoginPage(navCtrl, transfer, file, alertCtrl, loadingCtrl, navParams, toastCtrl, AuthServiceProvider, http) {
         this.navCtrl = navCtrl;
         this.transfer = transfer;
         this.file = file;
@@ -2834,6 +2855,8 @@ var LoginPage = (function () {
         this.navParams = navParams;
         this.toastCtrl = toastCtrl;
         this.AuthServiceProvider = AuthServiceProvider;
+        this.http = http;
+        this.pushData = { "deviceId": "", "message": "Thanks Your booking is received will be processed within 24 hours" };
         this.form = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["FormGroup"]({
             mobile: new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_4__angular_forms__["Validators"].required),
             pass: new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_4__angular_forms__["Validators"].required)
@@ -2851,7 +2874,8 @@ var LoginPage = (function () {
         this.loginscreen = true;
         this.otpverify = false;
         this.loginData.deviceId = localStorage.getItem('deviceID');
-        console.log('device ID = ', this.loginData.deviceid);
+        console.log('device ID = ', this.loginData.deviceId);
+        this.pushData.deviceId = this.loginData.deviceId;
     }
     Object.defineProperty(LoginPage.prototype, "mobile", {
         get: function () {
@@ -2924,6 +2948,7 @@ var LoginPage = (function () {
                         if (loggedid_1[0].audio) {
                             _this.uploadAudio();
                         }
+                        _this.push(_this.pushData);
                     }
                     else {
                         toast1.present();
@@ -2947,6 +2972,7 @@ var LoginPage = (function () {
                     _this.responseData = result;
                     if (_this.responseData.status == true) {
                         toast.present();
+                        _this.push(_this.pushData);
                         if (loggedid_1[0].image) {
                             _this.uploadFile();
                         }
@@ -2961,6 +2987,15 @@ var LoginPage = (function () {
                 });
             }
         }
+    };
+    LoginPage.prototype.push = function (data) {
+        console.log("pushData", data);
+        this.http.post('http://sunrisetechs.com/sunapi/push.php', data).subscribe(function (result) {
+            // this.responseData = result;
+            console.log(result);
+        }, function (err) {
+            console.log(err);
+        });
     };
     LoginPage.prototype.forgotPass = function () {
         var _this = this;
@@ -3226,24 +3261,122 @@ var LoginPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-login',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\login\login.html"*/'<!--\n\n  Generated template for the LoginPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n\n\n  <!-- <ion-navbar>\n\n      <button ion-button menuToggle>\n\n          <ion-icon name="menu"></ion-icon>\n\n      </button>\n\n    <ion-title>login</ion-title>\n\n  </ion-navbar> -->\n\n  <ion-toolbar no-padding>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content padding *ngIf="loginscreen" class="content">\n\n    <img class="logo" src="assets/imgs/logo.png"> \n\n    <p class="text">Rytefix</p>\n\n  <form [formGroup]="form" (ngSubmit)="login()" >\n\n  \n\n\n\n    <ion-item>\n\n  <ion-label> <ion-icon name="ios-call"></ion-icon> </ion-label>\n\n    <ion-input formControlName="mobile" type="number" [(ngModel)]="loginData.mobile" placeholder="Mobile"></ion-input>\n\n  </ion-item>\n\n  <ion-item>\n\n    <ion-label> <ion-icon name="lock"></ion-icon> </ion-label>\n\n    <ion-input formControlName="pass" type="password" [(ngModel)]="loginData.pass" placeholder="Password"></ion-input>\n\n  </ion-item>\n\n  \n\n   <button ion-button type="submit"  class="sign_btn"   round full>Login</button>\n\n   </form> \n\n   <ion-row style="margin-top: 20px">\n\n    <ion-col col-12 text-center>\n\n       <a href="#" (click)="forgot()" class="frpw">Forgot Password</a>\n\n    </ion-col>\n\n  </ion-row>\n\n  <ion-row style="margin-top: 30px">\n\n      <ion-col col-12 text-center>\n\n          <b class="color-wh">New to Rytefix ?</b><a href="#" (click)="reg()" class="register"> SIGN UP</a>\n\n      </ion-col>\n\n    </ion-row>\n\n   <!-- <a href="#" (click)="reg()">Register</a>\n\n   <a href="#" (click)="forgot()">Forgot password</a> -->\n\n</ion-content>\n\n<ion-content padding  *ngIf="forgotMobile" class="content">\n\n  <form [formGroup]="form1" (ngSubmit)="forgotPass()" >\n\n\n\n  <ion-item>\n\n    <ion-label>   <ion-icon name="lock"></ion-icon> </ion-label>\n\n    <ion-input formControlName="mobile1" type="number" [(ngModel)]="forgotData.mobile1" placeholder="Mobile"></ion-input>\n\n  </ion-item>\n\n  \n\n   <button ion-button type="submit"  class="sign_btn"   round full>Verify</button>\n\n   </form> \n\n</ion-content> \n\n<ion-content padding  *ngIf="otpverify" class="content">\n\n  <form [formGroup]="form2" (ngSubmit)="otpVerify()" >\n\n\n\n  <ion-item>\n\n    <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n    <ion-input formControlName="otp" type="text" [(ngModel)]="otpData.otp" placeholder="OTP"></ion-input>\n\n  </ion-item>\n\n  \n\n   <button ion-button type="submit"  class="sign_btn"   round full>Verify</button>\n\n   </form> \n\n</ion-content> '/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\login\login.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_8__ionic_native_file_transfer__["a" /* FileTransfer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8__ionic_native_file_transfer__["a" /* FileTransfer */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_file__["a" /* File */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_file__["a" /* File */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__["a" /* AuthServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]) === "function" && _h || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_8__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_7__ionic_native_file__["a" /* File */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"], __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__["a" /* AuthServiceProvider */], __WEBPACK_IMPORTED_MODULE_9__angular_http__["b" /* Http */]])
     ], LoginPage);
     return LoginPage;
-    var _a, _b, _c, _d, _e, _f, _g, _h;
 }());
 
 //# sourceMappingURL=login.js.map
 
 /***/ }),
 
-/***/ 37:
+/***/ 38:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuotehistoryPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__editservicebooking_editservicebooking__ = __webpack_require__(120);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+/**
+ * Generated class for the QuotehistoryPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+var QuotehistoryPage = (function () {
+    function QuotehistoryPage(navCtrl, navParams, AuthServiceProvider) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.AuthServiceProvider = AuthServiceProvider;
+    }
+    QuotehistoryPage.prototype.jsonConcat = function (o1, o2) {
+        for (var key in o2) {
+            o1[key] = o2[key];
+        }
+        return o1;
+    };
+    QuotehistoryPage.prototype.ionViewDidLoad = function () {
+        var _this = this;
+        console.log('ionViewDidLoad QuotehistoryPage');
+        if (JSON.parse(localStorage.getItem("loggedData"))) {
+            var logged = JSON.parse(localStorage.getItem("loggedData"));
+            console.log(logged);
+            this.AuthServiceProvider.postData(logged[0], 'quoteHistory').then(function (result) {
+                console.log(result);
+                _this.quoteHistory = result;
+                // this.navCtrl.setRoot(HomePage);
+            });
+        }
+    };
+    QuotehistoryPage.prototype.refresh = function () {
+        this.navCtrl.push(this.navCtrl.getActive().component);
+        console.log("refresh");
+    };
+    QuotehistoryPage.prototype.quoteShow = function (book_id) {
+        console.log(book_id);
+        var service = JSON.parse(localStorage.getItem('loggedData'));
+        service[0]['book_id'] = book_id;
+        console.log(service);
+        localStorage.setItem('loggedData', JSON.stringify(service));
+        console.log(JSON.parse(localStorage.getItem('loggedData')));
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__["a" /* QuoteviewPage */]);
+    };
+    QuotehistoryPage.prototype.ServiceCancel = function (cancel_id) {
+        var _this = this;
+        this.AuthServiceProvider.postData(cancel_id, 'serviceCancel').then(function (result) {
+            _this.responsedata = result;
+            if (_this.responsedata.status == true) {
+                _this.refresh();
+                alert("Service cancel successfully");
+            }
+            else {
+            }
+        });
+    };
+    QuotehistoryPage.prototype.editBooking = function (book_id, gadget) {
+        var data = { booking_id: book_id, gadget: gadget };
+        console.log(data);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__editservicebooking_editservicebooking__["a" /* EditservicebookingPage */], { item: data });
+    };
+    QuotehistoryPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-quotehistory',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quotehistory\quotehistory.html"*/'<!--\n\n  Generated template for the QuotehistoryPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n\n\n  <ion-toolbar no-padding>\n\n      <button ion-button menuToggle>\n\n          <ion-icon name="menu"></ion-icon>\n\n      </button>\n\n    <ion-title>Quote & Response</ion-title>\n\n  </ion-toolbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding class="content">\n\n  <!-- <ion-card *ngFor="let item of quoteHistory"> -->\n\n    <!-- <ion-card-header>\n\n            \n\n      <h2 *ngIf="item.softService">{{item.softService}}<br></h2>\n\n      <h2 *ngIf="item.hardService">{{item.hardService}}<br></h2>\n\n      <h2 *ngIf="item.othermodel">{{item.othermodel}}<br></h2>\n\n    </ion-card-header> -->\n\n    <!-- <ion-card-content>\n\n        <ion-row>\n\n            <ion-col col-4 text-left>\n\n             <b>Make</b>\n\n            </ion-col>\n\n            <ion-col col-1><b>:</b></ion-col>\n\n            <ion-col col-7 text-left>\n\n                {{item.make_name}}<p *ngIf="item.make_name==null">{{item.make}}</p>\n\n            </ion-col>\n\n          </ion-row>\n\n          <ion-row>\n\n              <ion-col col-4 text-left>\n\n               <b>Model</b>\n\n              </ion-col>\n\n              <ion-col col-1><b>:</b></ion-col>\n\n              <ion-col col-7 text-left>\n\n                  {{item.model}}\n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n                <ion-col col-4 text-left>\n\n                 <b> Booking Date</b>\n\n                </ion-col>\n\n                <ion-col col-1><b>:</b></ion-col>\n\n                <ion-col col-7 text-left>\n\n                    {{item.posted_on}}\n\n                </ion-col>\n\n              </ion-row> -->\n\n              <!-- <ion-card-content> -->\n\n              <!-- <ion-row>\n\n                  <ion-col col-4 text-left>\n\n                   <b>Status</b>\n\n                  </ion-col>\n\n                  <ion-col col-1><b>:</b></ion-col>\n\n                  <ion-col col-7 text-left>\n\n                     \n\n              <div *ngIf="!item.cancel_status">\n\n                <p *ngIf="!item.id||!item.accept_status">In-progress</p>\n\n                <p *ngIf="item.accept_status==1">In-progress</p>\n\n                <p *ngIf="item.accept_status==4">Decline</p>\n\n                <p *ngIf="item.accept_status==3&&item.customer_completed==0">Accepted</p>\n\n              </div>\n\n              <div *ngIf="item.cancel_status==1||item.cancel_status==2">Booking Cancelled</div>\n\n              <div *ngIf="item.customer_completed==1">Service completed</div>\n\n                  </ion-col>\n\n                </ion-row>\n\n    </ion-card-content> -->\n\n    \n\n  <!-- </ion-card> -->\n\n  <!-- ///////////////////////////////////////////////////////////////// -->\n\n\n\n\n\n  <ion-list>\n\n    <ion-item *ngFor="let item of quoteHistory">\n\n            <ion-row >\n\n                    <ion-col col-5 text-left>\n\n                     <b>Make</b>\n\n                    </ion-col>\n\n                    <ion-col col-1><b>:</b></ion-col>\n\n                    <ion-col col-6 text-left>\n\n                        <p>  {{item.make_name}}</p><p *ngIf="item.make_name==null">{{item.make}}</p>\n\n                    </ion-col>\n\n                  </ion-row>\n\n                  <ion-row>\n\n                        <ion-col col-5 text-left>\n\n                         <b>Model</b>\n\n                        </ion-col>\n\n                        <ion-col col-1><b>:</b></ion-col>\n\n                        <ion-col col-6 text-left>\n\n                            <p>   {{item.model}}</p>\n\n                        </ion-col>\n\n                      </ion-row>\n\n                      <ion-row>\n\n                          <ion-col col-5 text-left>\n\n                           <b> Booking Date</b>\n\n                          </ion-col>\n\n                          <ion-col col-1><b>:</b></ion-col>\n\n                          <ion-col col-6 text-left>\n\n                             <p> {{item.posted_on}}</p>\n\n                          </ion-col>\n\n                        </ion-row>\n\n\n\n                        <ion-row>\n\n                          <ion-col col-5 text-left>\n\n                           <b>Status</b>\n\n                          </ion-col>\n\n                          <ion-col col-1><b>:</b></ion-col>\n\n                          <ion-col col-6 text-left>\n\n                             \n\n                            <div *ngIf="!item.cancel_status">\n\n                              <p *ngIf="!item.id||!item.accept_status">In-progress</p>\n\n                              <p *ngIf="item.accept_status==1">In-progress</p>\n\n                              <p *ngIf="item.accept_status==4">Decline</p>\n\n                              <p *ngIf="item.accept_status==3&&item.customer_completed==0">Accepted</p>\n\n                            </div>\n\n                            <div *ngIf="item.cancel_status==1||item.cancel_status==2">Booking Cancelled</div>\n\n                            <div *ngIf="item.customer_completed==1">Service completed</div>\n\n                          </ion-col>\n\n                        </ion-row>\n\n                        <div class="btn-group">\n\n                          <ion-row>\n\n                            <ion-col col-4 text-center>\n\n                                <button ion-button color="primary" [disabled]="!item.booking_id" class="button" small (click)="quoteShow(item.book_id)" icon-only>Quotes</button>\n\n                            </ion-col>\n\n                            <ion-col col-2 text-center>\n\n                              <button ion-button color="primary" [disabled]="item.id" class="button" small (click)="editBooking(item.book_id,item.gadget)" icon-only>Edit</button>\n\n                            </ion-col>\n\n                              <ion-col col-6 text-center>\n\n                                  <button ion-button color="danger" [hidden]="item.cancel_status" class="button" small (click)="ServiceCancel(item.book_id)" icon-only>Cancel Booking</button>\n\n                              </ion-col>\n\n                            </ion-row>\n\n                              </div>\n\n                        </ion-item></ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quotehistory\quotehistory.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]])
+    ], QuotehistoryPage);
+    return QuotehistoryPage;
+}());
+
+//# sourceMappingURL=quotehistory.js.map
+
+/***/ }),
+
+/***/ 39:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__faq_faq__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__contactus_contactus__ = __webpack_require__(119);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3290,7 +3423,7 @@ var TabsPage = (function () {
 
 /***/ }),
 
-/***/ 47:
+/***/ 49:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3298,8 +3431,8 @@ var TabsPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__servicebooking_servicebooking__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quotehistory_quotehistory__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quotehistory_quotehistory__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__wallet_wallet__ = __webpack_require__(121);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3460,7 +3593,7 @@ var HomePage = (function () {
     ], HomePage.prototype, "slides", void 0);
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-home',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\home\home.html"*/'<ion-header no-border>\n\n    <ion-toolbar no-padding>\n\n        <button ion-button menuToggle>\n\n            <ion-icon name="menu" class="color-wh"></ion-icon>\n\n        </button>\n\n        <ion-title>Home</ion-title>\n\n    </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-content padding *ngIf="home">\n\n\n\n    <ion-slides class="slides" pager="true" (ionSlideDidChange)="slideChanged()">\n\n        <ion-slide>\n\n          <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banner2.jpg\'>\n\n        </ion-slide>\n\n        <ion-slide>\n\n                <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banner1.jpg\'>\n\n        </ion-slide>\n\n        <ion-slide>\n\n                <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banners.jpg\'>\n\n        </ion-slide>\n\n      </ion-slides>\n\n    <ion-list>\n\n        <ion-grid>\n\n            <ion-row>\n\n                <ion-col col-6><a  (click)="Gadgets()">\n\n                    <ion-item class="selectbg">\n\n                        <!-- <ion-label hidden>Select Gadgets</ion-label>\n\n                        <ion-select [(ngModel)]="toppings" (ionChange)="Gadgets($event);">\n\n                            <ion-option value="Mobile" selected>Mobile</ion-option>\n\n                            <ion-option value="Laptop">Laptop</ion-option>\n\n                            <ion-option value="Tablet">Tablet</ion-option>\n\n                            <ion-option value="Printer">Printer,cam &others</ion-option>\n\n                        </ion-select> -->\n\n                    </ion-item></a>\n\n                </ion-col>\n\n                <ion-col col-6><a  (click)="quoteHistory()">\n\n                    <ion-item class="QHSbg"></ion-item>\n\n                </a>\n\n                   \n\n                </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n                <ion-col col-6><a  (click)="Gadgets()">\n\n                    <ion-item class="selectbg">\n\n                    </ion-item></a>\n\n                </ion-col>\n\n                <ion-col col-6><a  (click)="wallet()">\n\n                    <ion-item class="QHSbg"></ion-item>\n\n                </a>\n\n                   \n\n                </ion-col>\n\n            </ion-row>\n\n        </ion-grid>\n\n    </ion-list>\n\n</ion-content> \n\n<!-- \n\n<ion-content *ngIf="print">\n\n    <section class = "home-container">\n\n      <div class="row row-center" >\n\n          <div class="col text-center" >\n\n              <img alt="Logo" height="100" src="assets/imgs/watch.gif" >\n\n          </div>\n\n     </div>\n\n    </section>\n\n</ion-content> -->\n\n\n\n\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\home\home.html"*/'<ion-header no-border>\n\n        <ion-toolbar no-padding>\n\n            <button ion-button menuToggle>\n\n                <ion-icon class="color-wh" name="menu"></ion-icon>\n\n            </button>\n\n            <ion-title>Home</ion-title>\n\n        </ion-toolbar>\n\n    </ion-header>\n\n    \n\n    <ion-content no-padding *ngIf="home">\n\n      \n\n            <ion-slides class="slides" pager="true"autoplay="2000" loop="true" speed="1000" >\n\n                    <ion-slide>\n\n                      <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banner2.jpg\'>\n\n                    </ion-slide>\n\n                    <ion-slide>\n\n                            <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banner1.jpg\'>\n\n                    </ion-slide>\n\n                    <ion-slide>\n\n                            <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banners.jpg\'>\n\n                    </ion-slide>\n\n                  </ion-slides>\n\n                  <ion-grid>\n\n                  <ion-row>\n\n                      <ion-col col-6 text-center (click)="Gadgets()">\n\n                            <img src="../assets/imgs/icon-1.png" class="img-1"/>\n\n                            <p>Book New Service</p>\n\n                      </ion-col>\n\n                      <ion-col col-6 text-center (click)="quoteHistory()">\n\n                            <img src="../assets/imgs/icon-2.png" class="img-1"/>\n\n                            <p>Booking History</p>\n\n                      </ion-col>\n\n                  </ion-row>\n\n                  <ion-row>\n\n                        <ion-col col-6  text-center (click)="wallet()">\n\n                                <img src="../assets/imgs/icon-3.png" class="img-1"  style="opacity:0.5"/>\n\n                                <p>RF Wallet</p>\n\n                                <span class="balance">₹20</span>\n\n                                \n\n                        </ion-col>\n\n                        <ion-col col-6 text-center>\n\n                                <img src="../assets/imgs/icon-4.png" class="img-1"/>\n\n                                <p>Refer & Earn</p>\n\n                        </ion-col>\n\n                    </ion-row>\n\n                </ion-grid>\n\n       \n\n      \n\n       \n\n        <!-- <ion-card>\n\n    <p>hjfbdsygf</p>\n\n        </ion-card> -->\n\n        <!-- <ion-list>\n\n            <ion-grid>\n\n                <ion-row>\n\n                    <ion-col col-6><a  >\n\n                        <ion-item class="selectbg"> -->\n\n                            <!-- <ion-label hidden>Select Gadgets</ion-label>\n\n                            <ion-select [(ngModel)]="toppings" (ionChange)="Gadgets($event);">\n\n                                <ion-option value="Mobile" selected>Mobile</ion-option>\n\n                                <ion-option value="Laptop">Laptop</ion-option>\n\n                                <ion-option value="Tablet">Tablet</ion-option>\n\n                                <ion-option value="Printer">Printer,cam &others</ion-option>\n\n                            </ion-select> -->\n\n                        <!-- </ion-item></a>\n\n                    </ion-col>\n\n                    <ion-col col-6><a  >\n\n                        <ion-item class="QHSbg"></ion-item>\n\n                    </a>\n\n                       \n\n                    </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                    <ion-col col-6><a  (click)="Gadgets()">\n\n                        <ion-item class="selectbg">\n\n                        </ion-item></a>\n\n                    </ion-col>\n\n                    <ion-col col-6><a >\n\n                        <ion-item class="QHSbg"></ion-item>\n\n                    </a>\n\n                       \n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-grid>\n\n        </ion-list>\n\n    </ion-content>  -->\n\n    <!-- \n\n    <ion-content *ngIf="print">\n\n        <section class = "home-container">\n\n          <div class="row row-center" >\n\n              <div class="col text-center" >\n\n                  <img alt="Logo" height="100" src="assets/imgs/watch.gif" >\n\n              </div>\n\n         </div>\n\n        </section>\n\n    </ion-content> -->\n\n    \n\n    \n\n    '/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\home\home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"]])
     ], HomePage);
@@ -3471,105 +3604,7 @@ var HomePage = (function () {
 
 /***/ }),
 
-/***/ 49:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuotehistoryPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__editservicebooking_editservicebooking__ = __webpack_require__(120);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-/**
- * Generated class for the QuotehistoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var QuotehistoryPage = (function () {
-    function QuotehistoryPage(navCtrl, navParams, AuthServiceProvider) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.AuthServiceProvider = AuthServiceProvider;
-    }
-    QuotehistoryPage.prototype.jsonConcat = function (o1, o2) {
-        for (var key in o2) {
-            o1[key] = o2[key];
-        }
-        return o1;
-    };
-    QuotehistoryPage.prototype.ionViewDidLoad = function () {
-        var _this = this;
-        console.log('ionViewDidLoad QuotehistoryPage');
-        if (JSON.parse(localStorage.getItem("loggedData"))) {
-            var logged = JSON.parse(localStorage.getItem("loggedData"));
-            console.log(logged);
-            this.AuthServiceProvider.postData(logged[0], 'quoteHistory').then(function (result) {
-                console.log(result);
-                _this.quoteHistory = result;
-                // this.navCtrl.setRoot(HomePage);
-            });
-        }
-    };
-    QuotehistoryPage.prototype.refresh = function () {
-        this.navCtrl.push(this.navCtrl.getActive().component);
-        console.log("refresh");
-    };
-    QuotehistoryPage.prototype.quoteShow = function (book_id) {
-        console.log(book_id);
-        var service = JSON.parse(localStorage.getItem('loggedData'));
-        service[0]['book_id'] = book_id;
-        console.log(service);
-        localStorage.setItem('loggedData', JSON.stringify(service));
-        console.log(JSON.parse(localStorage.getItem('loggedData')));
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__["a" /* QuoteviewPage */]);
-    };
-    QuotehistoryPage.prototype.ServiceCancel = function (cancel_id) {
-        var _this = this;
-        this.AuthServiceProvider.postData(cancel_id, 'serviceCancel').then(function (result) {
-            _this.responsedata = result;
-            if (_this.responsedata.status == true) {
-                _this.refresh();
-                alert("Service cancel successfully");
-            }
-            else {
-            }
-        });
-    };
-    QuotehistoryPage.prototype.editBooking = function (book_id, gadget) {
-        var data = { booking_id: book_id, gadget: gadget };
-        console.log(data);
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__editservicebooking_editservicebooking__["a" /* EditservicebookingPage */], { item: data });
-    };
-    QuotehistoryPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-quotehistory',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quotehistory\quotehistory.html"*/'<!--\n\n  Generated template for the QuotehistoryPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n\n\n  <ion-toolbar no-padding>\n\n      <button ion-button menuToggle>\n\n          <ion-icon name="menu"></ion-icon>\n\n      </button>\n\n    <ion-title>Quote & Response</ion-title>\n\n  </ion-toolbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding class="content">\n\n  <!-- <ion-card *ngFor="let item of quoteHistory"> -->\n\n    <!-- <ion-card-header>\n\n            \n\n      <h2 *ngIf="item.softService">{{item.softService}}<br></h2>\n\n      <h2 *ngIf="item.hardService">{{item.hardService}}<br></h2>\n\n      <h2 *ngIf="item.othermodel">{{item.othermodel}}<br></h2>\n\n    </ion-card-header> -->\n\n    <!-- <ion-card-content>\n\n        <ion-row>\n\n            <ion-col col-4 text-left>\n\n             <b>Make</b>\n\n            </ion-col>\n\n            <ion-col col-1><b>:</b></ion-col>\n\n            <ion-col col-7 text-left>\n\n                {{item.make_name}}<p *ngIf="item.make_name==null">{{item.make}}</p>\n\n            </ion-col>\n\n          </ion-row>\n\n          <ion-row>\n\n              <ion-col col-4 text-left>\n\n               <b>Model</b>\n\n              </ion-col>\n\n              <ion-col col-1><b>:</b></ion-col>\n\n              <ion-col col-7 text-left>\n\n                  {{item.model}}\n\n              </ion-col>\n\n            </ion-row>\n\n            <ion-row>\n\n                <ion-col col-4 text-left>\n\n                 <b> Booking Date</b>\n\n                </ion-col>\n\n                <ion-col col-1><b>:</b></ion-col>\n\n                <ion-col col-7 text-left>\n\n                    {{item.posted_on}}\n\n                </ion-col>\n\n              </ion-row> -->\n\n              <!-- <ion-card-content> -->\n\n              <!-- <ion-row>\n\n                  <ion-col col-4 text-left>\n\n                   <b>Status</b>\n\n                  </ion-col>\n\n                  <ion-col col-1><b>:</b></ion-col>\n\n                  <ion-col col-7 text-left>\n\n                     \n\n              <div *ngIf="!item.cancel_status">\n\n                <p *ngIf="!item.id||!item.accept_status">In-progress</p>\n\n                <p *ngIf="item.accept_status==1">In-progress</p>\n\n                <p *ngIf="item.accept_status==4">Decline</p>\n\n                <p *ngIf="item.accept_status==3&&item.customer_completed==0">Accepted</p>\n\n              </div>\n\n              <div *ngIf="item.cancel_status==1||item.cancel_status==2">Booking Cancelled</div>\n\n              <div *ngIf="item.customer_completed==1">Service completed</div>\n\n                  </ion-col>\n\n                </ion-row>\n\n    </ion-card-content> -->\n\n    \n\n  <!-- </ion-card> -->\n\n  <!-- ///////////////////////////////////////////////////////////////// -->\n\n\n\n\n\n  <ion-list>\n\n    <ion-item *ngFor="let item of quoteHistory">\n\n            <ion-row >\n\n                    <ion-col col-5 text-left>\n\n                     <b>Make</b>\n\n                    </ion-col>\n\n                    <ion-col col-1><b>:</b></ion-col>\n\n                    <ion-col col-6 text-left>\n\n                        <p>  {{item.make_name}}</p><p *ngIf="item.make_name==null">{{item.make}}</p>\n\n                    </ion-col>\n\n                  </ion-row>\n\n                  <ion-row>\n\n                        <ion-col col-5 text-left>\n\n                         <b>Model</b>\n\n                        </ion-col>\n\n                        <ion-col col-1><b>:</b></ion-col>\n\n                        <ion-col col-6 text-left>\n\n                            <p>   {{item.model}}</p>\n\n                        </ion-col>\n\n                      </ion-row>\n\n                      <ion-row>\n\n                          <ion-col col-5 text-left>\n\n                           <b> Booking Date</b>\n\n                          </ion-col>\n\n                          <ion-col col-1><b>:</b></ion-col>\n\n                          <ion-col col-6 text-left>\n\n                             <p> {{item.posted_on}}</p>\n\n                          </ion-col>\n\n                        </ion-row>\n\n\n\n                        <ion-row>\n\n                          <ion-col col-5 text-left>\n\n                           <b>Status</b>\n\n                          </ion-col>\n\n                          <ion-col col-1><b>:</b></ion-col>\n\n                          <ion-col col-6 text-left>\n\n                             \n\n                            <div *ngIf="!item.cancel_status">\n\n                              <p *ngIf="!item.id||!item.accept_status">In-progress</p>\n\n                              <p *ngIf="item.accept_status==1">In-progress</p>\n\n                              <p *ngIf="item.accept_status==4">Decline</p>\n\n                              <p *ngIf="item.accept_status==3&&item.customer_completed==0">Accepted</p>\n\n                            </div>\n\n                            <div *ngIf="item.cancel_status==1||item.cancel_status==2">Booking Cancelled</div>\n\n                            <div *ngIf="item.customer_completed==1">Service completed</div>\n\n                          </ion-col>\n\n                        </ion-row>\n\n                        <div class="btn-group">\n\n                          <ion-row>\n\n                            <ion-col col-4 text-center>\n\n                                <button ion-button color="primary" [disabled]="!item.id" class="button" small (click)="quoteShow(item.book_id)" icon-only>Quotes</button>\n\n                            </ion-col>\n\n                            <ion-col col-2 text-center>\n\n                              <button ion-button color="primary" [disabled]="item.id" class="button" small (click)="editBooking(item.book_id,item.gadget)" icon-only>Edit</button>\n\n                            </ion-col>\n\n                              <ion-col col-6 text-center>\n\n                                  <button ion-button color="danger" [hidden]="item.cancel_status" class="button" small (click)="ServiceCancel(item.book_id)" icon-only>Cancel Booking</button>\n\n                              </ion-col>\n\n                            </ion-row>\n\n                              </div>\n\n                        </ion-item></ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quotehistory\quotehistory.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]])
-    ], QuotehistoryPage);
-    return QuotehistoryPage;
-}());
-
-//# sourceMappingURL=quotehistory.js.map
-
-/***/ }),
-
-/***/ 50:
+/***/ 51:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3579,8 +3614,10 @@ var QuotehistoryPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(179);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tabs_tabs__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tabs_tabs__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicestate_servicestate__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__quotehistory_quotehistory__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3598,8 +3635,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var QuoteviewPage = (function () {
-    function QuoteviewPage(navCtrl, AuthServiceProvider, navParams, callNumber, geolocation, alertCtrl, toastCtrl, serviceState) {
+    function QuoteviewPage(navCtrl, AuthServiceProvider, navParams, callNumber, geolocation, alertCtrl, toastCtrl, serviceState, http) {
         this.navCtrl = navCtrl;
         this.AuthServiceProvider = AuthServiceProvider;
         this.navParams = navParams;
@@ -3608,6 +3647,8 @@ var QuoteviewPage = (function () {
         this.alertCtrl = alertCtrl;
         this.toastCtrl = toastCtrl;
         this.serviceState = serviceState;
+        this.http = http;
+        this.pushData = { "deviceId": "", "message": "" };
         this.regionals = [];
         this.mapload();
         this.mapview = true;
@@ -3627,6 +3668,15 @@ var QuoteviewPage = (function () {
         this.mapload();
         this.mapview = true;
         this.listview = false;
+    };
+    QuoteviewPage.prototype.push = function (data) {
+        console.log("pushData", data);
+        this.http.post('http://sunrisetechs.com/sunapi/push.php', data).subscribe(function (result) {
+            // this.responseData = result;
+            console.log(result);
+        }, function (err) {
+            console.log(err);
+        });
     };
     QuoteviewPage.prototype.quoteget = function () {
         var _this = this;
@@ -3687,6 +3737,9 @@ var QuoteviewPage = (function () {
     };
     QuoteviewPage.prototype.quoteAccept = function (id, data) {
         var _this = this;
+        console.log("quote data", data.device_id);
+        this.pushData.deviceId = data.device_id;
+        this.pushData.message = "Customer has accepted your service. Contact customer to complete the service.";
         // checking for customer if already accepted the quote
         if (this.Check == "accepted") {
             // if accepted throws prompt message to ignore accepted quote
@@ -3732,6 +3785,7 @@ var QuoteviewPage = (function () {
                                 if (_this.responsedata.status == true) {
                                     //this.refresh();
                                     _this.quoteAccept1(data);
+                                    _this.push(_this.pushData);
                                     alert("Service accept successfully");
                                 }
                             });
@@ -3903,10 +3957,12 @@ var QuoteviewPage = (function () {
             //this.othersAddress = "This is your current position !";
         });
     };
-    QuoteviewPage.prototype.completeQuote = function (vid, bid) {
+    QuoteviewPage.prototype.completeQuote = function (vid, bid, data) {
         var _this = this;
         // console.log('vid',vid);
-        // console.log('bid',bid);
+        console.log('compelte data', data);
+        this.pushData.deviceId = data.device_id;
+        this.pushData.message = "Customer has completed your service.";
         var prompt = this.alertCtrl.create({
             message: "Service completed in service center and you paid for the service",
             buttons: [
@@ -3918,6 +3974,7 @@ var QuoteviewPage = (function () {
                             console.log(data);
                             console.log(data.status);
                             if (data.status == 'success') {
+                                _this.push(_this.pushData);
                                 var toast = _this.toastCtrl.create({
                                     message: "Congratulations! You can use the credit",
                                     duration: 3000,
@@ -3988,6 +4045,7 @@ var QuoteviewPage = (function () {
                             toast.present();
                             _this.serviceState.reportproblem(vid, bid, data.reason).subscribe(function (data) {
                                 console.log(data);
+                                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__quotehistory_quotehistory__["a" /* QuotehistoryPage */]);
                             }), function (error) {
                                 console.log(error);
                             };
@@ -4005,7 +4063,7 @@ var QuoteviewPage = (function () {
     ], QuoteviewPage.prototype, "mapElement", void 0);
     QuoteviewPage = QuoteviewPage_1 = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-quoteview',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quoteview\quoteview.html"*/'<!--\n\n  Generated template for the QuoteviewPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n\n\n  <ion-toolbar no-padding>\n\n      <!-- <button ion-button menuToggle>\n\n          <ion-icon name="menu"></ion-icon>\n\n      </button> -->\n\n    <ion-title>Quote</ion-title>\n\n    <!-- <ion-segment>\n\n        <ion-segment-button  class="button-l" (click)="listshow()">\n\n          List View\n\n        </ion-segment-button>\n\n        <ion-segment-button  class="button-m" (click)="mapshow()">\n\n          Map View\n\n        </ion-segment-button>\n\n      </ion-segment> -->\n\n  </ion-toolbar>\n\n  <ion-segment>\n\n    <ion-segment-button  class="button-l" (click)="listshow()">\n\n      List View\n\n    </ion-segment-button>\n\n    <ion-segment-button  class="button-m" (click)="mapshow()">\n\n      Map View\n\n    </ion-segment-button>\n\n  </ion-segment>\n\n</ion-header>\n\n\n\n\n\n <ion-content *ngIf="mapview">\n\n     <ion-card id="mapcard">\n\n         <ion-card-header class="map-head">\n\n             <h6 style="color:#fff">Booking Details</h6>\n\n         </ion-card-header>\n\n         <ion-card-content>\n\n                <ion-row>\n\n                        <ion-col col-5 text-left>\n\n                         <b>Make</b>\n\n                        </ion-col>\n\n                        <ion-col col-1><b>:</b></ion-col>\n\n                        <ion-col col-6 text-left>\n\n                            {{make}}\n\n                        </ion-col>\n\n                      </ion-row>\n\n                      <ion-row>\n\n                            <ion-col col-5 text-left>\n\n                             <b>Model</b>\n\n                            </ion-col>\n\n                            <ion-col col-1><b>:</b></ion-col>\n\n                            <ion-col col-6 text-left>\n\n                                {{model}}\n\n                            </ion-col>\n\n                          </ion-row>\n\n                          <ion-row>\n\n                                <ion-col col-5 text-left>\n\n                                 <b>Problem</b>\n\n                                </ion-col>\n\n                                <ion-col col-1><b>:</b></ion-col>\n\n                                <ion-col col-6 text-left>\n\n                                        <p *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</p>\n\n                                </ion-col>\n\n                              </ion-row>\n\n                              <ion-row>\n\n                                    <ion-col col-5 text-left>\n\n                                     <b>Pickup</b>\n\n                                    </ion-col>\n\n                                    <ion-col col-1><b>:</b></ion-col>\n\n                                    <ion-col col-6 text-left>\n\n                                        {{pickup}}\n\n                                    </ion-col>\n\n                                  </ion-row>\n\n                                  <ion-row>\n\n                                        <ion-col col-5 text-left>\n\n                                         <b>Booking Date</b>\n\n                                        </ion-col>\n\n                                        <ion-col col-1><b>:</b></ion-col>\n\n                                        <ion-col col-6 text-left>\n\n                                            {{booking_date}}\n\n                                        </ion-col>\n\n                                      </ion-row>\n\n         </ion-card-content>\n\n     </ion-card>\n\n  \n\n    <ion-content class="map-pin">\n\n        <div #map id="map"></div> \n\n    </ion-content>\n\n  \n\n    <!-- <div class="btn-group switch">\n\n      <button ion-button color="light" class="button" (click)="listshow()" icon-only>List View</button>\n\n      <button ion-button color="light" class="button" (click)="mapshow()" icon-only>Map View</button>\n\n  </div> -->\n\n  \n\n</ion-content>\n\n <ion-content padding *ngIf="listview">\n\n    <div style="margin-top:80px">\n\n        <!-- <div padding>\n\n                <ion-segment>\n\n                  <ion-segment-button color="dark" class="button" (click)="listshow()">\n\n                    Kittens\n\n                  </ion-segment-button>\n\n                  <ion-segment-button color="dark" class="button" (click)="mapshow()">\n\n                    Puppies\n\n                  </ion-segment-button>\n\n                </ion-segment>\n\n              </div> -->\n\n    <ion-card  id="card1" >\n\n        <ion-card-header>\n\n           <h5 class="head"><b>Booking Details</b></h5>\n\n        </ion-card-header>\n\n        <ion-card-content>\n\n           <ion-row>\n\n               <ion-col col-4 text-left>\n\n                <b>Make</b>\n\n               </ion-col>\n\n               <ion-col col-1><b>:</b></ion-col>\n\n               <ion-col col-7 text-left>\n\n                   {{make}}\n\n               </ion-col>\n\n             </ion-row>\n\n             <ion-row>\n\n                 <ion-col col-4 text-left>\n\n                  <b>Model</b>\n\n                 </ion-col>\n\n                 <ion-col col-1><b>:</b></ion-col>\n\n                 <ion-col col-7 text-left>\n\n                     {{model}}\n\n                 </ion-col>\n\n               </ion-row>\n\n               <ion-row>\n\n                   <ion-col col-4 text-left>\n\n                    <b>Problem</b>\n\n                   </ion-col>\n\n                   <ion-col col-1><b>:</b></ion-col>\n\n                   <ion-col col-7 text-left>\n\n                       <p *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</p>\n\n                   </ion-col>\n\n                 </ion-row>\n\n                 <ion-row>\n\n                     <ion-col col-4 text-left>\n\n                      <b>Pickup</b>\n\n                     </ion-col>\n\n                     <ion-col col-1><b>:</b></ion-col>\n\n                     <ion-col col-7 text-left>\n\n                         {{pickup}}\n\n                     </ion-col>\n\n                   </ion-row>\n\n                   <ion-row>\n\n                       <ion-col col-4 text-left>\n\n                        <b> Booking Date</b>\n\n                       </ion-col>\n\n                       <ion-col col-1><b>:</b></ion-col>\n\n                       <ion-col col-7 text-left>\n\n                           {{booking_date}}\n\n                       </ion-col>\n\n                     </ion-row>\n\n                     <div>\n\n                            <audio controls>\n\n                            <source src="http://sunrisetechs.com/images/audio/{{audio}}">\n\n                           \n\n                            </audio>\n\n                            </div>\n\n                     <ion-thumbnail *ngIf="image">\n\n                            <img src="http://sunrisetechs.com/images/imgs/{{image}}"/>\n\n                          </ion-thumbnail>\n\n                   \n\n                          \n\n                    \n\n        </ion-card-content>\n\n      </ion-card>\n\n      <ion-item>\n\n          <h5 class="head1"><b>Quotes Received</b></h5>\n\n           </ion-item>\n\n           <ion-card *ngFor="let item of quoteview" id="card2">\n\n              <ion-card-header class="v-name">\n\n                    <ion-row>\n\n                            <ion-col col-12 text-center >\n\n                                {{item.username}}\n\n                            </ion-col>\n\n                          </ion-row>\n\n              </ion-card-header>\n\n               <ion-card-content>\n\n                   \n\n                     <ion-row>\n\n                         <ion-col col-5 text-left>\n\n                          <b>  Original Spare Price</b>\n\n                         </ion-col>\n\n                         <ion-col col-1><b>:</b></ion-col>\n\n                         <ion-col col-6 text-left>\n\n                             {{item.exactprice}}\n\n                         </ion-col>\n\n                       </ion-row>\n\n                       <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Second Quality Price</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.second_quality_price}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                             <ion-row>\n\n                                   <ion-col col-5 text-left>\n\n                                    <b> Time Required</b>\n\n                                   </ion-col>\n\n                                   <ion-col col-1><b>:</b></ion-col>\n\n                                   <ion-col col-6 text-left>\n\n                                       {{item.time_period}}\n\n                                   </ion-col>\n\n                                 </ion-row>\n\n                       <ion-row>\n\n                           <ion-col col-5 text-left>\n\n                            <b> Warranty</b>\n\n                           </ion-col>\n\n                           <ion-col col-1><b>:</b></ion-col>\n\n                           <ion-col col-6 text-left>\n\n                               {{item.warranty}}\n\n                           </ion-col>\n\n                         </ion-row>\n\n                         <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Home Pick Up</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.pickup_type}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                         <ion-row>\n\n                             <ion-col col-5 text-left>\n\n                              <b> Description</b>\n\n                             </ion-col>\n\n                             <ion-col col-1><b>:</b></ion-col>\n\n                             <ion-col col-6 text-left>\n\n                                 {{item.description}}\n\n                             </ion-col>\n\n                           </ion-row>\n\n                           <ion-row *ngIf="item.accept_status==4">\n\n                               <ion-col col-5 text-left>\n\n                                <b> Reason</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                 {{item.reason}}\n\n                               </ion-col>\n\n                             </ion-row>     \n\n               </ion-card-content>\n\n               \n\n              <div *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">\n\n               <div class="btn-group">\n\n                  <ion-row>\n\n                    <ion-col col-3>\n\n                        <button ion-button color="dark" [hidden]="item.cancel_status" small class="button" (click)="quoteChat(item.id)" icon-only>Chat</button>          \n\n                    </ion-col>\n\n                       <ion-col col-3>\n\n                               <button ion-button color="secondary" [hidden]="item.cancel_status"  small class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>\n\n                              </ion-col>\n\n                           <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n                               <!-- <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept1(item)" icon-only>Accept</button> -->\n\n                               <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept(item.id,item)" icon-only>Accept</button>\n\n                              </ion-col>\n\n                               <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n                                       <button ion-button color="light" [hidden]="item.cancel_status" small class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>\n\n                                   </ion-col>\n\n                                               \n\n                  </ion-row>\n\n                  <div *ngIf="item.accept_status==3">\n\n                  <button ion-button color="secondary" (click)="completeQuote(item.vendor,item.booking_id)" block>Complete the service</button>\n\n                  <!-- </ion-col> -->\n\n                  <!-- <ion-col col-2></ion-col> -->\n\n                  <!-- <ion-col col-6> -->\n\n                      <button ion-button color="dark" (click)="declineQuote(item.vendor,item.booking_id)" block>Report the problem</button>\n\n                    </div>\n\n                </div>\n\n                </div>\n\n        <!-- <div class="btn-group">\n\n                <button ion-button color="red" [hidden]="item.cancel_status"  class="button" (click)="quoteChat(item.id)" icon-only>Chat</button>\n\n                <button ion-button color="light" [hidden]="item.cancel_status"  class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>\n\n                <button ion-button color="red" [hidden]="item.cancel_status"  class="button" (click)="quoteAccept(item.id)" icon-only>Accept</button>\n\n                <button ion-button color="light" [hidden]="item.cancel_status" class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>\n\n            </div>\n\n    -->\n\n   \n\n  </ion-card>\n\n  <!-- <div class="btn-group switch">\n\n      <ion-row>\n\n          <ion-col col-6>\n\n                <button ion-button color="light" class="button" (click)="listshow()" icon-only>List View</button> \n\n          </ion-col>\n\n          <ion-col col-6>\n\n                <button ion-button color="light" class="button" (click)="mapshow()" icon-only>Map View</button>\n\n          </ion-col>\n\n      </ion-row>  \n\n</div> -->\n\n</div>\n\n    \n\n   \n\n\n\n  <!-- <div class="btn-group switch">\n\n    <button ion-button color="light" class="button" (click)="listshow()" icon-only>List View</button>\n\n    <button ion-button color="light" class="button" (click)="mapshow()" icon-only>Map View</button>\n\n</div> -->\n\n\n\n</ion-content> \n\n\n\n\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quoteview\quoteview.html"*/,
+            selector: 'page-quoteview',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quoteview\quoteview.html"*/'<!--\n\n  Generated template for the QuoteviewPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n\n\n  <ion-toolbar no-padding>\n\n      <!-- <button ion-button menuToggle>\n\n          <ion-icon name="menu"></ion-icon>\n\n      </button> -->\n\n    <ion-title>Quote</ion-title>\n\n    <!-- <ion-segment>\n\n        <ion-segment-button  class="button-l" (click)="listshow()">\n\n          List View\n\n        </ion-segment-button>\n\n        <ion-segment-button  class="button-m" (click)="mapshow()">\n\n          Map View\n\n        </ion-segment-button>\n\n      </ion-segment> -->\n\n  </ion-toolbar>\n\n  <ion-segment>\n\n    <ion-segment-button  class="button-l" (click)="listshow()">\n\n      List View\n\n    </ion-segment-button>\n\n    <ion-segment-button  class="button-m" (click)="mapshow()">\n\n      Map View\n\n    </ion-segment-button>\n\n  </ion-segment>\n\n</ion-header>\n\n\n\n\n\n <ion-content *ngIf="mapview">\n\n        <ion-list>\n\n                <h5 style="color:#000" text-center>Booking Details</h5>\n\n           \n\n                   <ion-row>\n\n                           <ion-col col-5 text-left>\n\n                            <b>Make</b>\n\n                           </ion-col>\n\n                           <ion-col col-1><b>:</b></ion-col>\n\n                           <ion-col col-6 text-left>\n\n                               {{make}}\n\n                           </ion-col>\n\n                         </ion-row>\n\n                         <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b>Model</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{model}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                             <ion-row>\n\n                                   <ion-col col-5 text-left>\n\n                                    <b>Problem</b>\n\n                                   </ion-col>\n\n                                   <ion-col col-1><b>:</b></ion-col>\n\n                                   <ion-col col-6 text-left>\n\n                                           <p *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</p>\n\n                                   </ion-col>\n\n                                 </ion-row>\n\n                                 <ion-row>\n\n                                       <ion-col col-5 text-left>\n\n                                        <b>Pickup</b>\n\n                                       </ion-col>\n\n                                       <ion-col col-1><b>:</b></ion-col>\n\n                                       <ion-col col-6 text-left>\n\n                                           {{pickup}}\n\n                                       </ion-col>\n\n                                     </ion-row>\n\n                                     <ion-row>\n\n                                           <ion-col col-5 text-left>\n\n                                            <b>Booking Date</b>\n\n                                           </ion-col>\n\n                                           <ion-col col-1><b>:</b></ion-col>\n\n                                           <ion-col col-6 text-left>\n\n                                               {{booking_date}}\n\n                                           </ion-col>\n\n                                         </ion-row>\n\n                                       </ion-list>\n\n  \n\n    <ion-content class="map-pin">\n\n        <div #map id="map"></div> \n\n    </ion-content>\n\n  \n\n    <!-- <div class="btn-group switch">\n\n      <button ion-button color="light" class="button" (click)="listshow()" icon-only>List View</button>\n\n      <button ion-button color="light" class="button" (click)="mapshow()" icon-only>Map View</button>\n\n  </div> -->\n\n  \n\n</ion-content>\n\n\n\n\n\n\n\n <!-- <ion-content padding *ngIf="listview">\n\n    <div style="margin-top:80px">\n\n    <ion-card  id="card1" >\n\n        <ion-card-header>\n\n           <h5 class="head"><b>Booking Details</b></h5>\n\n        </ion-card-header>\n\n        <ion-card-content>\n\n           <ion-row>\n\n               <ion-col col-4 text-left>\n\n                <b>Make</b>\n\n               </ion-col>\n\n               <ion-col col-1><b>:</b></ion-col>\n\n               <ion-col col-7 text-left>\n\n                   {{make}}\n\n               </ion-col>\n\n             </ion-row>\n\n             <ion-row>\n\n                 <ion-col col-4 text-left>\n\n                  <b>Model</b>\n\n                 </ion-col>\n\n                 <ion-col col-1><b>:</b></ion-col>\n\n                 <ion-col col-7 text-left>\n\n                     {{model}}\n\n                 </ion-col>\n\n               </ion-row>\n\n               <ion-row>\n\n                   <ion-col col-4 text-left>\n\n                    <b>Problem</b>\n\n                   </ion-col>\n\n                   <ion-col col-1><b>:</b></ion-col>\n\n                   <ion-col col-7 text-left>\n\n                       <p *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</p>\n\n                   </ion-col>\n\n                 </ion-row>\n\n                 <ion-row>\n\n                     <ion-col col-4 text-left>\n\n                      <b>Pickup</b>\n\n                     </ion-col>\n\n                     <ion-col col-1><b>:</b></ion-col>\n\n                     <ion-col col-7 text-left>\n\n                         {{pickup}}\n\n                     </ion-col>\n\n                   </ion-row>\n\n                   <ion-row>\n\n                       <ion-col col-4 text-left>\n\n                        <b> Booking Date</b>\n\n                       </ion-col>\n\n                       <ion-col col-1><b>:</b></ion-col>\n\n                       <ion-col col-7 text-left>\n\n                           {{booking_date}}\n\n                       </ion-col>\n\n                     </ion-row>\n\n                     <div>\n\n                            <audio controls>\n\n                            <source src="http://sunrisetechs.com/images/audio/{{audio}}">\n\n                           \n\n                            </audio>\n\n                            </div>\n\n                     <ion-thumbnail *ngIf="image">\n\n                            <img src="http://sunrisetechs.com/images/imgs/{{image}}"/>\n\n                          </ion-thumbnail>\n\n                   \n\n                          \n\n                    \n\n        </ion-card-content>\n\n      </ion-card>\n\n      <ion-item>\n\n          <h5 class="head1"><b>Quotes Received</b></h5>\n\n           </ion-item>\n\n           <ion-card *ngFor="let item of quoteview" id="card2">\n\n              <ion-card-header class="v-name">\n\n                    <ion-row>\n\n                            <ion-col col-12 text-center >\n\n                                {{item.username}}\n\n                            </ion-col>\n\n                          </ion-row>\n\n              </ion-card-header>\n\n               <ion-card-content>\n\n                   \n\n                     <ion-row>\n\n                         <ion-col col-5 text-left>\n\n                          <b>  Original Spare Price</b>\n\n                         </ion-col>\n\n                         <ion-col col-1><b>:</b></ion-col>\n\n                         <ion-col col-6 text-left>\n\n                             {{item.exactprice}}\n\n                         </ion-col>\n\n                       </ion-row>\n\n                       <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Second Quality Price</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.second_quality_price}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                             <ion-row>\n\n                                   <ion-col col-5 text-left>\n\n                                    <b> Time Required</b>\n\n                                   </ion-col>\n\n                                   <ion-col col-1><b>:</b></ion-col>\n\n                                   <ion-col col-6 text-left>\n\n                                       {{item.time_period}}\n\n                                   </ion-col>\n\n                                 </ion-row>\n\n                       <ion-row>\n\n                           <ion-col col-5 text-left>\n\n                            <b> Warranty</b>\n\n                           </ion-col>\n\n                           <ion-col col-1><b>:</b></ion-col>\n\n                           <ion-col col-6 text-left>\n\n                               {{item.warranty}}\n\n                           </ion-col>\n\n                         </ion-row>\n\n                         <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Home Pick Up</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.pickup_type}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                         <ion-row>\n\n                             <ion-col col-5 text-left>\n\n                              <b> Description</b>\n\n                             </ion-col>\n\n                             <ion-col col-1><b>:</b></ion-col>\n\n                             <ion-col col-6 text-left>\n\n                                 {{item.description}}\n\n                             </ion-col>\n\n                           </ion-row>\n\n                           <ion-row *ngIf="item.accept_status==4">\n\n                               <ion-col col-5 text-left>\n\n                                <b> Reason</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                 {{item.reason}}\n\n                               </ion-col>\n\n                             </ion-row>     \n\n               </ion-card-content>\n\n               \n\n              <div *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">\n\n               <div class="btn-group">\n\n                  <ion-row>\n\n                    <ion-col col-3>\n\n                        <button ion-button color="dark" [hidden]="item.cancel_status" small class="button" (click)="quoteChat(item.id)" icon-only>Chat</button>          \n\n                    </ion-col>\n\n                       <ion-col col-3>\n\n                               <button ion-button color="secondary" [hidden]="item.cancel_status"  small class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>\n\n                              </ion-col>\n\n                           <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n               \n\n                               <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept(item.id,item)" icon-only>Accept</button>\n\n                              </ion-col>\n\n                               <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n                                       <button ion-button color="light" [hidden]="item.cancel_status" small class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>\n\n                                   </ion-col>\n\n                                               \n\n                  </ion-row>\n\n                  <div *ngIf="item.accept_status==3">\n\n                  <button ion-button color="secondary" (click)="completeQuote(item.vendor,item.booking_id)" block>Complete the service</button>\n\n\n\n                      <button ion-button color="dark" (click)="declineQuote(item.vendor,item.booking_id)" block>Report the problem</button>\n\n                    </div>\n\n                </div>\n\n                </div>\n\n  </ion-card>\n\n</div>\n\n</ion-content>  -->\n\n\n\n<ion-content style="padding:10px; margin-top:100px;" *ngIf="listview" >\n\n        <ion-thumbnail  class="item-profile">\n\n                <img src="http://sunrisetechs.com/images/imgs/{{image}}"/>\n\n              </ion-thumbnail>\n\n        \n\n   <ion-list style="margin-top:5px; background-color:#ddd">\n\n          \n\n      <ion-row>\n\n          <ion-col col-12 class="head">\n\n              <h4><b>Booking Details</b></h4>\n\n          </ion-col>\n\n      </ion-row>\n\n           <ion-row>\n\n               <ion-col col-4 text-left>\n\n                <b>Make</b>\n\n               </ion-col>\n\n               <ion-col col-1><b>:</b></ion-col>\n\n               <ion-col col-7 text-left>\n\n                   {{make}}\n\n               </ion-col>\n\n             </ion-row>\n\n             <ion-row>\n\n                 <ion-col col-4 text-left>\n\n                  <b>Model</b>\n\n                 </ion-col>\n\n                 <ion-col col-1><b>:</b></ion-col>\n\n                 <ion-col col-7 text-left>\n\n                     {{model}}\n\n                 </ion-col>\n\n               </ion-row>\n\n               <ion-row>\n\n                   <ion-col col-4 text-left>\n\n                    <b>Problem</b>\n\n                   </ion-col>\n\n                   <ion-col col-1><b>:</b></ion-col>\n\n                   <ion-col col-7 text-left>\n\n                       <div *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</div>\n\n                   </ion-col>\n\n                 </ion-row>\n\n                 <ion-row>\n\n                     <ion-col col-4 text-left>\n\n                      <b>Pickup</b>\n\n                     </ion-col>\n\n                     <ion-col col-1><b>:</b></ion-col>\n\n                     <ion-col col-7 text-left>\n\n                         {{pickup}}\n\n                     </ion-col>\n\n                   </ion-row>\n\n                   <ion-row>\n\n                       <ion-col col-4 text-left>\n\n                        <b> Booking Date</b>\n\n                       </ion-col>\n\n                       <ion-col col-1><b>:</b></ion-col>\n\n                       <ion-col col-7 text-left>\n\n                           {{booking_date}}\n\n                       </ion-col>\n\n                     </ion-row>\n\n                     <div>\n\n                            <audio controls>\n\n                            <source src="http://sunrisetechs.com/images/audio/{{audio}}">\n\n                           \n\n                            </audio>\n\n                            </div>\n\n                        </ion-list>\n\n                   \n\n                          \n\n                        <hr class="style1">   \n\n      <ion-list>\n\n      <ion-item>\n\n          <h2 class="head1"><b>Quotes Received</b></h2>\n\n           </ion-item>\n\n           <ion-list *ngFor="let item of quoteview">\n\n           \n\n                    <ion-row>\n\n                            <ion-col col-12 text-center class="box">\n\n                                {{item.username}}\n\n                            </ion-col>\n\n                          </ion-row>\n\n                      \n\n              \n\n                   \n\n                     <ion-row>\n\n                         <ion-col col-5 text-left>\n\n                          <b>  Original Price</b>\n\n                         </ion-col>\n\n                         <ion-col col-1><b>:</b></ion-col>\n\n                         <ion-col col-6 text-left>\n\n                             {{item.exactprice}}\n\n                         </ion-col>\n\n                       </ion-row>\n\n                       <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> 2nd Quality Price</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.second_quality_price}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                             <ion-row>\n\n                                   <ion-col col-5 text-left>\n\n                                    <b> Time Required</b>\n\n                                   </ion-col>\n\n                                   <ion-col col-1><b>:</b></ion-col>\n\n                                   <ion-col col-6 text-left>\n\n                                       {{item.time_period}}\n\n                                   </ion-col>\n\n                                 </ion-row>\n\n                       <ion-row>\n\n                           <ion-col col-5 text-left>\n\n                            <b> Warranty</b>\n\n                           </ion-col>\n\n                           <ion-col col-1><b>:</b></ion-col>\n\n                           <ion-col col-6 text-left>\n\n                               {{item.warranty}}\n\n                           </ion-col>\n\n                         </ion-row>\n\n                         <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Home Pick Up</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.pickup_type}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                         <ion-row>\n\n                             <ion-col col-5 text-left>\n\n                              <b> Description</b>\n\n                             </ion-col>\n\n                             <ion-col col-1><b>:</b></ion-col>\n\n                             <ion-col col-6 text-left>\n\n                                 {{item.description}}\n\n                             </ion-col>\n\n                           </ion-row>\n\n                           <ion-row *ngIf="item.accept_status==4">\n\n                                <ion-col col-5 text-left>\n\n                                 <b> Reason</b>\n\n                                </ion-col>\n\n                                <ion-col col-1><b>:</b></ion-col>\n\n                                <ion-col col-6 text-left>\n\n                                  {{item.reason}}\n\n                                </ion-col>\n\n                              </ion-row> \n\n                           <ion-row *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">   \n\n                                <ion-col col-5 text-left>\n\n                                    <b>Contact By</b>\n\n                                </ion-col>\n\n                                <ion-col col-1><b>:</b></ion-col>      \n\n                          <ion-col col-3 >\n\n                                <button ion-button color="primary" small round icon-only (click)="quoteCall(item.mobile)">\n\n                                        <ion-icon ios="ios-call" md="md-call"></ion-icon></button>\n\n                                 </ion-col>\n\n                                 <ion-col col-3>\n\n                                       <button ion-button  color="dark" small round icon-only (click)="quoteChat(item.id)" >\n\n                                   <ion-icon ios="ios-chatbubbles" md="md-chatbubbles"></ion-icon></button>\n\n                                 </ion-col>\n\n                                 </ion-row>\n\n                           <!-- <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Expires In</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                 \n\n                               </ion-col>\n\n                             </ion-row>      -->\n\n               \n\n               \n\n              <div *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">\n\n               <div class="btn-group">\n\n                  <ion-row>\n\n                    <!-- <ion-col col-3>\n\n                        <button ion-button color="dark" [hidden]="item.cancel_status" small class="button" (click)="quoteChat(item.id)" icon-only>Chat</button>          \n\n                    </ion-col> -->\n\n                       <!-- <ion-col col-3>\n\n                               <button ion-button color="secondary" [hidden]="item.cancel_status"  small class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>\n\n                              </ion-col>-->\n\n                           <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-6 text-center> \n\n                               <!-- <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept1(item)" icon-only>Accept</button> -->\n\n                               <button ion-button color="secondary" [hidden]="item.cancel_status"  class="button" (click)="quoteAccept(item.id,item)" >Accept</button>\n\n                              </ion-col>\n\n                               <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-6 text-center>\n\n                                       <button ion-button color="light" [hidden]="item.cancel_status"  class="button" (click)="quoteIgnore(item.id)" >Ignore</button>\n\n                                   </ion-col>\n\n                                   \n\n                                   <div *ngIf="item.accept_status==3">\n\n                                        <button ion-button block color="secondary" class="button" (click)="completeQuote(item.vendor,item.booking_id,item)" block>Complete the service</button>\n\n                                    \n\n                                            <button ion-button block color="dark" class="button" (click)="declineQuote(item.vendor,item.booking_id)" block>Report the problem</button>\n\n                                          </div>\n\n\n\n<!-- ////////////////////////////////////////////////////////////////////////////                                    -->\n\n<!-- <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n               \n\n        <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept(item.id,item)" icon-only>Accept</button>\n\n       </ion-col>\n\n        <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n                <button ion-button color="light" [hidden]="item.cancel_status" small class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>\n\n            </ion-col> -->\n\n                                               \n\n                  </ion-row>\n\n                </div>\n\n                </div>\n\n                <hr class="style1">\n\n            </ion-list>\n\n<hr class="style1">\n\n</ion-list>\n\n\n\n</ion-content> \n\n\n\n\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quoteview\quoteview.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"],
             __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */],
@@ -4014,7 +4072,8 @@ var QuoteviewPage = (function () {
             __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"],
-            __WEBPACK_IMPORTED_MODULE_6__providers_servicestate_servicestate__["a" /* ServicestateProvider */]])
+            __WEBPACK_IMPORTED_MODULE_6__providers_servicestate_servicestate__["a" /* ServicestateProvider */],
+            __WEBPACK_IMPORTED_MODULE_8__angular_http__["b" /* Http */]])
     ], QuoteviewPage);
     return QuoteviewPage;
     var QuoteviewPage_1;
@@ -4030,7 +4089,7 @@ var QuoteviewPage = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ServicestateProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -4105,7 +4164,7 @@ var ServicestateProvider = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChangepassPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_service_auth_service__ = __webpack_require__(20);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -4230,10 +4289,11 @@ var ChangepassPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__login_login__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__login_login__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4251,6 +4311,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
  * Generated class for the RegisterPage page.
  *
@@ -4258,7 +4319,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var RegisterPage = (function () {
-    function RegisterPage(alertCtrl, transfer, file, navCtrl, loadingCtrl, toastCtrl, AuthServiceProvider, navParams) {
+    function RegisterPage(alertCtrl, transfer, file, navCtrl, loadingCtrl, toastCtrl, AuthServiceProvider, navParams, http) {
         this.alertCtrl = alertCtrl;
         this.transfer = transfer;
         this.file = file;
@@ -4267,6 +4328,8 @@ var RegisterPage = (function () {
         this.toastCtrl = toastCtrl;
         this.AuthServiceProvider = AuthServiceProvider;
         this.navParams = navParams;
+        this.http = http;
+        this.pushData = { "deviceId": "", "message": "Thanks Your booking is received will be processed within 24 hours" };
         this.form = new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormGroup"]({
             username: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required),
             password: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormControl"]('', __WEBPACK_IMPORTED_MODULE_2__angular_forms__["Validators"].required),
@@ -4287,6 +4350,7 @@ var RegisterPage = (function () {
         this.otpverify = false;
         this.registerpage = true;
         this.userData.deviceId = localStorage.getItem('deviceID');
+        this.pushData.deviceId = this.userData.deviceId;
         console.log('device ID = ', this.userData.deviceId);
     }
     Object.defineProperty(RegisterPage.prototype, "username", {
@@ -4352,6 +4416,14 @@ var RegisterPage = (function () {
         enumerable: true,
         configurable: true
     });
+    RegisterPage.prototype.push = function (data) {
+        console.log("pushData", data);
+        this.http.post('http://sunrisetechs.com/sunapi/push.php', data).subscribe(function (result) {
+            console.log(result);
+        }, function (err) {
+            console.log(err);
+        });
+    };
     RegisterPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad RegisterPage');
         if (localStorage.getItem('imageList')) {
@@ -4440,6 +4512,7 @@ var RegisterPage = (function () {
                     _this.responsedata = result;
                     if (_this.responsedata.status == true) {
                         loader.dismiss();
+                        _this.push(_this.pushData);
                         localStorage.setItem('loggedData', JSON.stringify(_this.responsedata.data));
                         //toast.present();
                         if (service_1.image) {
@@ -4471,6 +4544,7 @@ var RegisterPage = (function () {
                     _this.responsedata = result;
                     if (_this.responsedata.status == true) {
                         loader.dismiss();
+                        _this.push(_this.pushData);
                         localStorage.setItem('loggedData', JSON.stringify(_this.responsedata.data));
                         //toast.present();
                         if (service_2.image) {
@@ -4578,10 +4652,11 @@ var RegisterPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-register',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\register\register.html"*/'<!--\n\n  Generated template for the RegisterPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n  <ion-toolbar no-padding>\n\n  <ion-title>New User Register</ion-title>\n\n</ion-toolbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding *ngIf="registerpage" class="content">\n\n<form [formGroup]="form" (ngSubmit)="register()" >\n\n  <ion-item>\n\n  <ion-label>   <ion-icon name="contact"></ion-icon> </ion-label>\n\n    <ion-input formControlName="username" focuser id="usersignup" type="text" placeholder="Username" [(ngModel)]="userData.username"></ion-input>\n\n   \n\n </ion-item>\n\n <div *ngIf="username.touched && username.invalid" class="alertstyle">\n\n   <div *ngIf="username.errors.required">Please provide a username</div>\n\n </div>\n\n\n\n  <ion-item>\n\n  <ion-label>  <ion-icon name="ios-call"></ion-icon> </ion-label>\n\n  <ion-input formControlName="mobile" type="number" placeholder="Mobile" [(ngModel)]="userData.mobile"></ion-input>\n\n</ion-item>\n\n<div *ngIf="mobile.touched && mobile.invalid" class="alertstyle">\n\n  <div *ngIf="mobile.errors.required">Please provide a mobile no</div>\n\n</div>\n\n\n\n <ion-item>\n\n<ion-label>   <ion-icon name="mail"></ion-icon> </ion-label>\n\n   <ion-input formControlName="mail" type="text" placeholder="Email" [(ngModel)]="userData.mail"></ion-input>\n\n </ion-item>\n\n <div *ngIf="mail.touched && mail.invalid" class="alertstyle">\n\n   <div *ngIf="mail.errors.required">Email is required</div>\n\n   <div *ngIf="mail.errors.email">Invaild email format</div>\n\n </div>\n\n\n\n <ion-item>\n\n<ion-label>   <ion-icon name="lock"></ion-icon> </ion-label>\n\n   <ion-input formControlName="password" type="password" placeholder="Password" (focusout)="pass($event.target.value)" [(ngModel)]="userData.password"></ion-input>\n\n </ion-item>\n\n <div *ngIf="password.touched && password.invalid" class="alertstyle">\n\n   <div *ngIf="password.errors.required">Please provide a password</div>\n\n  \n\n </div>\n\n <ion-item>\n\n<ion-label>  <ion-icon name="lock"></ion-icon> </ion-label>\n\n  <ion-input formControlName="cpassword" type="password" placeholder="Confirm Password" (focusout)="cpass($event.target.value)" [(ngModel)]="userData.cpassword"></ion-input>\n\n</ion-item>\n\n<div *ngIf="cpassword.touched && cpassword.invalid" class="alertstyle">\n\n  <div *ngIf="cpassword.errors.required">Please provide a password</div>\n\n</div>  \n\n<div *ngIf="userCpass">Password not match</div>\n\n<ion-item>\n\n<ion-label> <ion-icon name="ios-pin"></ion-icon> </ion-label>\n\n  <ion-input formControlName="area" type="text" placeholder="Area" [(ngModel)]="userData.area"></ion-input>\n\n</ion-item>\n\n<div *ngIf="area.touched && area.invalid" class="alertstyle">\n\n  <div *ngIf="area.errors.required">Please provide a area</div>\n\n</div> \n\n<ion-item>\n\n<ion-label> <ion-icon name="ios-pin"></ion-icon></ion-label>\n\n  <ion-input formControlName="city" type="text" placeholder="City" [(ngModel)]="userData.city"></ion-input>\n\n</ion-item>\n\n<div *ngIf="city.touched && city.invalid" class="alertstyle">\n\n  <div *ngIf="city.errors.required">Please provide a city</div>\n\n</div> \n\n<ion-item>\n\n<ion-label> <ion-icon name="ios-pin"></ion-icon></ion-label>\n\n  <ion-input formControlName="pincode" type="number" placeholder="Pincode" [(ngModel)]="userData.pincode"></ion-input>\n\n</ion-item>\n\n<div *ngIf="pincode.touched && pincode.invalid" class="alertstyle">\n\n  <div *ngIf="pincode.errors.required">Please provide a pincode</div>\n\n</div>   \n\n\n\n <button ion-button type="submit" [disabled]="disable" class="sign_btn"   round full>Register</button>\n\n </form> \n\n <ion-row>\n\n    <ion-col col-12 text-center>\n\n       <b>Existing User ? </b><a href="#" (click)="loginPage()">Login</a>\n\n    </ion-col>\n\n  </ion-row>\n\n</ion-content>\n\n\n\n<ion-content padding class="content" *ngIf="otpverify">\n\n<form [formGroup]="form1" (ngSubmit)="otpVerify()" >\n\n\n\n<ion-item>\n\n  <ion-label ><ion-icon name="lock"></ion-icon>OTP</ion-label>\n\n  <ion-input formControlName="otp" type="password" placeholder="OTP" [(ngModel)]="otpData.otp"></ion-input>\n\n</ion-item>\n\n\n\n <button ion-button type="submit"  class="sign_btn"   round full>Verify</button>\n\n </form> \n\n</ion-content> '/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\register\register.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__["a" /* FileTransfer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__["a" /* FileTransfer */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_file__["a" /* File */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_file__["a" /* File */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"]) === "function" && _h || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"], __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_file__["a" /* File */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"],
+            __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_8__angular_http__["b" /* Http */]])
     ], RegisterPage);
     return RegisterPage;
-    var _a, _b, _c, _d, _e, _f, _g, _h;
 }());
 
 //# sourceMappingURL=register.js.map

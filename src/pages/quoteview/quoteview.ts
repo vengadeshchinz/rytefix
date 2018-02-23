@@ -7,6 +7,8 @@ import { ViewacceptQuotePage } from '../viewaccept-quote/viewaccept-quote';
 import { AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import {ServicestateProvider} from '../../providers/servicestate/servicestate';
+import { QuotehistoryPage } from '../quotehistory/quotehistory';
+import { Http,Headers, RequestOptions} from '@angular/http';
 /**
  * Generated class for the QuoteviewPage page.
  *
@@ -20,6 +22,7 @@ declare var google;
   templateUrl: 'quoteview.html',
 })
 export class QuoteviewPage {
+  pushData ={"deviceId":"","message":""};
   options: GeolocationOptions;
   currentPos: Geoposition;
   regionals: any = [];
@@ -50,7 +53,8 @@ export class QuoteviewPage {
     private geolocation: Geolocation,
     private alertCtrl: AlertController,
     public toastCtrl: ToastController,
-    public serviceState:ServicestateProvider) {
+    public serviceState:ServicestateProvider,
+    public http: Http) {
     this.mapload();
     this.mapview = true;
     this.listview = false;
@@ -70,6 +74,16 @@ export class QuoteviewPage {
     this.mapload();
     this.mapview = true;
     this.listview = false;
+  }
+
+  push(data){
+    console.log("pushData",data);
+  this.http.post('http://sunrisetechs.com/sunapi/push.php',data).subscribe((result) => {
+    // this.responseData = result;
+    console.log(result);
+    }, (err) => {
+    console.log(err);
+    });
   }
   quoteget() {
     console.log(localStorage.getItem("loggedData"));
@@ -132,6 +146,9 @@ export class QuoteviewPage {
     });
   }
   quoteAccept(id, data) {
+    console.log("quote data",data.device_id);
+    this.pushData.deviceId = data.device_id;
+    this.pushData.message = "Customer has accepted your service. Contact customer to complete the service.";
       // checking for customer if already accepted the quote
       if(this.Check == "accepted"){
       // if accepted throws prompt message to ignore accepted quote
@@ -180,6 +197,7 @@ export class QuoteviewPage {
               if (this.responsedata.status == true) {
                 //this.refresh();
                 this.quoteAccept1(data);
+                this.push(this.pushData);
                 alert("Service accept successfully");
               }
             });
@@ -366,9 +384,12 @@ export class QuoteviewPage {
 
   }
 
-  completeQuote(vid,bid){
+  completeQuote(vid,bid,data){
     // console.log('vid',vid);
-    // console.log('bid',bid);
+     console.log('compelte data',data);
+     this.pushData.deviceId = data.device_id;
+     this.pushData.message = "Customer has completed your service.";
+
     let prompt = this.alertCtrl.create({
       message: "Service completed in service center and you paid for the service",
       buttons: [
@@ -381,6 +402,7 @@ export class QuoteviewPage {
               console.log(data);
               console.log(data.status);
               if(data.status == 'success'){
+                this.push(this.pushData);
                 let toast = this.toastCtrl.create({
                   message: "Congratulations! You can use the credit",
                   duration: 3000,
@@ -455,6 +477,7 @@ export class QuoteviewPage {
                               this.serviceState.reportproblem(vid,bid,data.reason).subscribe(data =>{
 
                                  console.log(data);
+                                 this.navCtrl.push(QuotehistoryPage);
 
                               }),error =>{
                                 console.log(error);

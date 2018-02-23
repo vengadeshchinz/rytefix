@@ -7,6 +7,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { ChangepassPage } from '../changepass/changepass';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { Http,Headers, RequestOptions} from '@angular/http';
 /**
  * Generated class for the LoginPage page.
  *
@@ -20,6 +21,8 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
   templateUrl: 'login.html',
 })
 export class LoginPage {
+
+  pushData ={"deviceId":"","message":"Thanks Your booking is received will be processed within 24 hours"};
   imageFileName:any;
   filePath:any;
   fileName:any;
@@ -57,13 +60,14 @@ export class LoginPage {
     otpData={"otp":""};
     loginData={"mobile":"","pass":"","deviceId":""};
   constructor(public navCtrl: NavController,public transfer: FileTransfer,public file: File,
-    private alertCtrl: AlertController,private loadingCtrl: LoadingController, public navParams: NavParams,private toastCtrl: ToastController,public AuthServiceProvider:AuthServiceProvider) {
+    private alertCtrl: AlertController,private loadingCtrl: LoadingController, public navParams: NavParams,private toastCtrl: ToastController,public AuthServiceProvider:AuthServiceProvider,public http: Http) {
   this.forgotMobile=false;
   this.loginscreen=true;
   this.otpverify=false;
 
   this.loginData.deviceId = localStorage.getItem('deviceID');
   console.log('device ID = ',this.loginData.deviceId);
+      this.pushData.deviceId = this.loginData.deviceId;
 
   }
 
@@ -104,7 +108,7 @@ export class LoginPage {
            toast.present();
            if(loggedid[0].image){this.uploadFile();}
            if(loggedid[0].audio){this.uploadAudio(); }
-          
+            this.push(this.pushData);
           }else{
            toast1.present();
           }
@@ -124,6 +128,7 @@ export class LoginPage {
           this.responseData=result;
           if(this.responseData.status==true){
            toast.present();
+           this.push(this.pushData);
            if(loggedid[0].image){this.uploadFile();}
            if(loggedid[0].audio){this.uploadAudio(); }
           }else{
@@ -135,6 +140,16 @@ export class LoginPage {
       
            
     }
+  }
+
+  push(data){
+    console.log("pushData",data);
+  this.http.post('http://sunrisetechs.com/sunapi/push.php',data).subscribe((result) => {
+    // this.responseData = result;
+    console.log(result);
+    }, (err) => {
+    console.log(err);
+    });
   }
   forgotPass(){
    

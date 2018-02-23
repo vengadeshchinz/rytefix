@@ -179,13 +179,13 @@ export class MyApp {
         console.log('Received a notification', notification);
         let alert = this.alertCtrl.create({
           title: notification['title'],
-          message: notification.additionalData['subtitle'],
+          message: notification['message'],
           buttons: [
             {
               text: 'ok',
               handler: () => {
                 console.log('called');
-                this.nav.setRoot(HomePage);
+                this.nav.setRoot(TabsPage);
               }
             }
           ]

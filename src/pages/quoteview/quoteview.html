@@ -32,58 +32,55 @@
 
 
  <ion-content *ngIf="mapview">
-     <ion-card id="mapcard">
-         <ion-card-header class="map-head">
-             <h6 style="color:#fff">Booking Details</h6>
-         </ion-card-header>
-         <ion-card-content>
-                <ion-row>
-                        <ion-col col-5 text-left>
-                         <b>Make</b>
-                        </ion-col>
-                        <ion-col col-1><b>:</b></ion-col>
-                        <ion-col col-6 text-left>
-                            {{make}}
-                        </ion-col>
-                      </ion-row>
-                      <ion-row>
-                            <ion-col col-5 text-left>
-                             <b>Model</b>
-                            </ion-col>
-                            <ion-col col-1><b>:</b></ion-col>
-                            <ion-col col-6 text-left>
-                                {{model}}
-                            </ion-col>
-                          </ion-row>
-                          <ion-row>
-                                <ion-col col-5 text-left>
-                                 <b>Problem</b>
-                                </ion-col>
-                                <ion-col col-1><b>:</b></ion-col>
-                                <ion-col col-6 text-left>
-                                        <p *ngIf="soft!=''||hard !=''||othermodel !=''">{{soft}}{{hard}}{{othermodel}}</p>
-                                </ion-col>
-                              </ion-row>
-                              <ion-row>
-                                    <ion-col col-5 text-left>
-                                     <b>Pickup</b>
-                                    </ion-col>
-                                    <ion-col col-1><b>:</b></ion-col>
-                                    <ion-col col-6 text-left>
-                                        {{pickup}}
-                                    </ion-col>
-                                  </ion-row>
-                                  <ion-row>
-                                        <ion-col col-5 text-left>
-                                         <b>Booking Date</b>
-                                        </ion-col>
-                                        <ion-col col-1><b>:</b></ion-col>
-                                        <ion-col col-6 text-left>
-                                            {{booking_date}}
-                                        </ion-col>
-                                      </ion-row>
-         </ion-card-content>
-     </ion-card>
+        <ion-list>
+                <h5 style="color:#000" text-center>Booking Details</h5>
+           
+                   <ion-row>
+                           <ion-col col-5 text-left>
+                            <b>Make</b>
+                           </ion-col>
+                           <ion-col col-1><b>:</b></ion-col>
+                           <ion-col col-6 text-left>
+                               {{make}}
+                           </ion-col>
+                         </ion-row>
+                         <ion-row>
+                               <ion-col col-5 text-left>
+                                <b>Model</b>
+                               </ion-col>
+                               <ion-col col-1><b>:</b></ion-col>
+                               <ion-col col-6 text-left>
+                                   {{model}}
+                               </ion-col>
+                             </ion-row>
+                             <ion-row>
+                                   <ion-col col-5 text-left>
+                                    <b>Problem</b>
+                                   </ion-col>
+                                   <ion-col col-1><b>:</b></ion-col>
+                                   <ion-col col-6 text-left>
+                                           <p *ngIf="soft!=''||hard !=''||othermodel !=''">{{soft}}{{hard}}{{othermodel}}</p>
+                                   </ion-col>
+                                 </ion-row>
+                                 <ion-row>
+                                       <ion-col col-5 text-left>
+                                        <b>Pickup</b>
+                                       </ion-col>
+                                       <ion-col col-1><b>:</b></ion-col>
+                                       <ion-col col-6 text-left>
+                                           {{pickup}}
+                                       </ion-col>
+                                     </ion-row>
+                                     <ion-row>
+                                           <ion-col col-5 text-left>
+                                            <b>Booking Date</b>
+                                           </ion-col>
+                                           <ion-col col-1><b>:</b></ion-col>
+                                           <ion-col col-6 text-left>
+                                               {{booking_date}}
+                                           </ion-col>
+                                         </ion-row>
+                                       </ion-list>
   
     <ion-content class="map-pin">
         <div #map id="map"></div> 
@@ -95,18 +92,11 @@
   </div> -->
   
 </ion-content>
- <ion-content padding *ngIf="listview">
+
+
+
+ <!-- <ion-content padding *ngIf="listview">
     <div style="margin-top:80px">
-        <!-- <div padding>
-                <ion-segment>
-                  <ion-segment-button color="dark" class="button" (click)="listshow()">
-                    Kittens
-                  </ion-segment-button>
-                  <ion-segment-button color="dark" class="button" (click)="mapshow()">
-                    Puppies
-                  </ion-segment-button>
-                </ion-segment>
-              </div> -->
     <ion-card  id="card1" >
         <ion-card-header>
            <h5 class="head"><b>Booking Details</b></h5>
@@ -259,7 +249,7 @@
                                <button ion-button color="secondary" [hidden]="item.cancel_status"  small class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>
                               </ion-col>
                            <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>
-                               <!-- <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept1(item)" icon-only>Accept</button> -->
+               
                                <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept(item.id,item)" icon-only>Accept</button>
                               </ion-col>
                                <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>
@@ -269,40 +259,223 @@
                   </ion-row>
                   <div *ngIf="item.accept_status==3">
                   <button ion-button color="secondary" (click)="completeQuote(item.vendor,item.booking_id)" block>Complete the service</button>
-                  <!-- </ion-col> -->
-                  <!-- <ion-col col-2></ion-col> -->
-                  <!-- <ion-col col-6> -->
+
                       <button ion-button color="dark" (click)="declineQuote(item.vendor,item.booking_id)" block>Report the problem</button>
                     </div>
                 </div>
                 </div>
-        <!-- <div class="btn-group">
-                <button ion-button color="red" [hidden]="item.cancel_status"  class="button" (click)="quoteChat(item.id)" icon-only>Chat</button>
-                <button ion-button color="light" [hidden]="item.cancel_status"  class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>
-                <button ion-button color="red" [hidden]="item.cancel_status"  class="button" (click)="quoteAccept(item.id)" icon-only>Accept</button>
-                <button ion-button color="light" [hidden]="item.cancel_status" class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>
-            </div>
-    -->
-   
   </ion-card>
-  <!-- <div class="btn-group switch">
-      <ion-row>
-          <ion-col col-6>
-                <button ion-button color="light" class="button" (click)="listshow()" icon-only>List View</button> 
-          </ion-col>
-          <ion-col col-6>
-                <button ion-button color="light" class="button" (click)="mapshow()" icon-only>Map View</button>
-          </ion-col>
-      </ion-row>  
-</div> -->
 </div>
-    
-   
+</ion-content>  -->
 
-  <!-- <div class="btn-group switch">
-    <button ion-button color="light" class="button" (click)="listshow()" icon-only>List View</button>
-    <button ion-button color="light" class="button" (click)="mapshow()" icon-only>Map View</button>
-</div> -->
+<ion-content style="padding:10px; margin-top:100px;" *ngIf="listview" >
+        <ion-thumbnail  class="item-profile">
+                <img src="http://sunrisetechs.com/images/imgs/{{image}}"/>
+              </ion-thumbnail>
+        
+   <ion-list style="margin-top:5px; background-color:#ddd">
+          
+      <ion-row>
+          <ion-col col-12 class="head">
+              <h4><b>Booking Details</b></h4>
+          </ion-col>
+      </ion-row>
+           <ion-row>
+               <ion-col col-4 text-left>
+                <b>Make</b>
+               </ion-col>
+               <ion-col col-1><b>:</b></ion-col>
+               <ion-col col-7 text-left>
+                   {{make}}
+               </ion-col>
+             </ion-row>
+             <ion-row>
+                 <ion-col col-4 text-left>
+                  <b>Model</b>
+                 </ion-col>
+                 <ion-col col-1><b>:</b></ion-col>
+                 <ion-col col-7 text-left>
+                     {{model}}
+                 </ion-col>
+               </ion-row>
+               <ion-row>
+                   <ion-col col-4 text-left>
+                    <b>Problem</b>
+                   </ion-col>
+                   <ion-col col-1><b>:</b></ion-col>
+                   <ion-col col-7 text-left>
+                       <div *ngIf="soft!=''||hard !=''||othermodel !=''">{{soft}}{{hard}}{{othermodel}}</div>
+                   </ion-col>
+                 </ion-row>
+                 <ion-row>
+                     <ion-col col-4 text-left>
+                      <b>Pickup</b>
+                     </ion-col>
+                     <ion-col col-1><b>:</b></ion-col>
+                     <ion-col col-7 text-left>
+                         {{pickup}}
+                     </ion-col>
+                   </ion-row>
+                   <ion-row>
+                       <ion-col col-4 text-left>
+                        <b> Booking Date</b>
+                       </ion-col>
+                       <ion-col col-1><b>:</b></ion-col>
+                       <ion-col col-7 text-left>
+                           {{booking_date}}
+                       </ion-col>
+                     </ion-row>
+                     <div>
+                            <audio controls>
+                            <source src="http://sunrisetechs.com/images/audio/{{audio}}">
+                           
+                            </audio>
+                            </div>
+                        </ion-list>
+                   
+                          
+                        <hr class="style1">   
+      <ion-list>
+      <ion-item>
+          <h2 class="head1"><b>Quotes Received</b></h2>
+           </ion-item>
+           <ion-list *ngFor="let item of quoteview">
+           
+                    <ion-row>
+                            <ion-col col-12 text-center class="box">
+                                {{item.username}}
+                            </ion-col>
+                          </ion-row>
+                      
+              
+                   
+                     <ion-row>
+                         <ion-col col-5 text-left>
+                          <b>  Original Price</b>
+                         </ion-col>
+                         <ion-col col-1><b>:</b></ion-col>
+                         <ion-col col-6 text-left>
+                             {{item.exactprice}}
+                         </ion-col>
+                       </ion-row>
+                       <ion-row>
+                               <ion-col col-5 text-left>
+                                <b> 2nd Quality Price</b>
+                               </ion-col>
+                               <ion-col col-1><b>:</b></ion-col>
+                               <ion-col col-6 text-left>
+                                   {{item.second_quality_price}}
+                               </ion-col>
+                             </ion-row>
+                             <ion-row>
+                                   <ion-col col-5 text-left>
+                                    <b> Time Required</b>
+                                   </ion-col>
+                                   <ion-col col-1><b>:</b></ion-col>
+                                   <ion-col col-6 text-left>
+                                       {{item.time_period}}
+                                   </ion-col>
+                                 </ion-row>
+                       <ion-row>
+                           <ion-col col-5 text-left>
+                            <b> Warranty</b>
+                           </ion-col>
+                           <ion-col col-1><b>:</b></ion-col>
+                           <ion-col col-6 text-left>
+                               {{item.warranty}}
+                           </ion-col>
+                         </ion-row>
+                         <ion-row>
+                               <ion-col col-5 text-left>
+                                <b> Home Pick Up</b>
+                               </ion-col>
+                               <ion-col col-1><b>:</b></ion-col>
+                               <ion-col col-6 text-left>
+                                   {{item.pickup_type}}
+                               </ion-col>
+                             </ion-row>
+                         <ion-row>
+                             <ion-col col-5 text-left>
+                              <b> Description</b>
+                             </ion-col>
+                             <ion-col col-1><b>:</b></ion-col>
+                             <ion-col col-6 text-left>
+                                 {{item.description}}
+                             </ion-col>
+                           </ion-row>
+                           <ion-row *ngIf="item.accept_status==4">
+                                <ion-col col-5 text-left>
+                                 <b> Reason</b>
+                                </ion-col>
+                                <ion-col col-1><b>:</b></ion-col>
+                                <ion-col col-6 text-left>
+                                  {{item.reason}}
+                                </ion-col>
+                              </ion-row> 
+                           <ion-row *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">   
+                                <ion-col col-5 text-left>
+                                    <b>Contact By</b>
+                                </ion-col>
+                                <ion-col col-1><b>:</b></ion-col>      
+                          <ion-col col-3 >
+                                <button ion-button color="primary" small round icon-only (click)="quoteCall(item.mobile)">
+                                        <ion-icon ios="ios-call" md="md-call"></ion-icon></button>
+                                 </ion-col>
+                                 <ion-col col-3>
+                                       <button ion-button  color="dark" small round icon-only (click)="quoteChat(item.id)" >
+                                   <ion-icon ios="ios-chatbubbles" md="md-chatbubbles"></ion-icon></button>
+                                 </ion-col>
+                                 </ion-row>
+                           <!-- <ion-row>
+                               <ion-col col-5 text-left>
+                                <b> Expires In</b>
+                               </ion-col>
+                               <ion-col col-1><b>:</b></ion-col>
+                               <ion-col col-6 text-left>
+                                 
+                               </ion-col>
+                             </ion-row>      -->
+               
+               
+              <div *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">
+               <div class="btn-group">
+                  <ion-row>
+                    <!-- <ion-col col-3>
+                        <button ion-button color="dark" [hidden]="item.cancel_status" small class="button" (click)="quoteChat(item.id)" icon-only>Chat</button>          
+                    </ion-col> -->
+                       <!-- <ion-col col-3>
+                               <button ion-button color="secondary" [hidden]="item.cancel_status"  small class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>
+                              </ion-col>-->
+                           <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-6 text-center> 
+                               <!-- <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept1(item)" icon-only>Accept</button> -->
+                               <button ion-button color="secondary" [hidden]="item.cancel_status"  class="button" (click)="quoteAccept(item.id,item)" >Accept</button>
+                              </ion-col>
+                               <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-6 text-center>
+                                       <button ion-button color="light" [hidden]="item.cancel_status"  class="button" (click)="quoteIgnore(item.id)" >Ignore</button>
+                                   </ion-col>
+                                   
+                                   <div *ngIf="item.accept_status==3">
+                                        <button ion-button block color="secondary" class="button" (click)="completeQuote(item.vendor,item.booking_id,item)" block>Complete the service</button>
+                                    
+                                            <button ion-button block color="dark" class="button" (click)="declineQuote(item.vendor,item.booking_id)" block>Report the problem</button>
+                                          </div>
+
+<!-- ////////////////////////////////////////////////////////////////////////////                                    -->
+<!-- <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>
+               
+        <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept(item.id,item)" icon-only>Accept</button>
+       </ion-col>
+        <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>
+                <button ion-button color="light" [hidden]="item.cancel_status" small class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>
+            </ion-col> -->
+                                               
+                  </ion-row>
+                </div>
+                </div>
+                <hr class="style1">
+            </ion-list>
+<hr class="style1">
+</ion-list>
 
 </ion-content> 
 

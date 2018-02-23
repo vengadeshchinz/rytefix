@@ -26091,7 +26091,7 @@ page-editservicebooking .audiostop ion-icon.icon.icon-md.ion-ios-mic {
 }
 
 page-home ion-content {
-  background-image: url("../assets/imgs/bg.png");
+  background-image: url("../assets/imgs/bg-pic.jpg");
 }
 
 page-home .selectbg {
@@ -26102,6 +26102,18 @@ page-home .selectbg {
 page-home .QHSbg {
   background-image: url("../assets/imgs/QSH.png");
   min-height: 97px;
+}
+
+page-home .img-1 {
+  border-radius: 50%;
+  max-width: 60%;
+  border: 0;
+  background-color: #fff;
+}
+
+page-home p {
+  color: #fff;
+  font-weight: bold;
 }
 
 page-home .home-container .row-center img {
@@ -26123,7 +26135,7 @@ page-home .toolbar-background {
 }
 
 page-home .color-wh {
-  color: #fff;
+  color: #fff !important;
 }
 
 page-home .toolbar-title {
@@ -26134,7 +26146,16 @@ page-home .toolbar-title {
 }
 
 page-home .slides {
-  height: 40%;
+  height: 33%;
+}
+
+page-home .balance {
+  color: #fff;
+  font-weight: bold;
+  position: relative;
+  top: -100px;
+  font-size: 2.0rem;
+  right: 0%;
 }
 
 page-introslider #slide1 {
@@ -26352,13 +26373,26 @@ page-quoteview .scroll {
   height: 100%;
 }
 
-page-quoteview ion-content.map-pin.content.content-md {
-  overflow-x: hidden !important;
+page-quoteview .buttonCenter {
+  position: relative;
+}
+
+page-quoteview .item-profile {
+  width: auto;
+  background-position: center center;
+  background-size: cover;
+  height: auto;
+  max-width: 80%;
+  margin-left: 10%;
 }
 
 page-quoteview .map-pin .scroll-content {
   padding: 0px !important;
-  overflow-y: hidden;
+  overflow-y: scroll;
+}
+
+page-quoteview ion-content.map-pin.content.content-md {
+  overflow-x: hidden !important;
 }
 
 page-quoteview ion-content.map-pin.content.content-md {
@@ -26378,8 +26412,7 @@ page-quoteview .segment .segment-button {
   line-height: 4rem;
   text-transform: uppercase;
   color: #000;
-  background-color: #ddd;
-  opacity: 0.7;
+  background-color: #ddd !important;
 }
 
 page-quoteview .toolbar-background {
@@ -26389,11 +26422,6 @@ page-quoteview .toolbar-background {
   background-repeat: no-repeat;
 }
 
-page-quoteview .content {
-  background-image: url("../assets/imgs/bg-pic.jpg");
-  margin-top: 0px;
-}
-
 page-quoteview .toolbar-title {
   font-size: 2rem;
   font-weight: 500;
@@ -26401,11 +26429,22 @@ page-quoteview .toolbar-title {
   text-align: center;
 }
 
+page-quoteview hr.style1 {
+  border-top: 2px  #757474;
+}
+
 page-quoteview .head {
-  color: #fff;
+  color: #000;
   font-weight: bold !important;
-  font-size: 1.9rem !important;
   text-align: center;
+}
+
+page-quoteview .box {
+  border: 1px solid #0cb3dd;
+  background-color: #0cb3dd;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 page-quoteview .map-head {
