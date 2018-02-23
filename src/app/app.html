@@ -1,20 +1,65 @@
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
+<ion-menu [content]="content" >
+  <ion-header no-border >
+    <ion-toolbar no-padding>
+      <ion-title style="color:#fff">Menu</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+  <ion-content class="custom">
+    <!-- <ion-list >
+        
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" >
         {{p.title}}
       </button>
+     
       <button ion-item menuClose (click)="logout()">
           <ion-icon item-start [name]="log-out" ></ion-icon>
           Logout
       </button>
-    </ion-list>
+      
+    </ion-list> -->
+   
+    <ion-card text-center class="hide-card">
+        <img class="pimg" src="{{image}}" class="custom-avatar"/>
+        <h2>{{username}}</h2>
+       
+        <hr>
+    </ion-card>
+       <ion-list no-lines>
+         <!-- <ion-item text-center>
+            <ion-avatar>
+                <img class="pimg" src="{{image}}"/>
+             </ion-avatar>
+         </ion-item>
+         -->
+          <!-- <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)" detail-push>
+              {{p.title}}
+          </ion-item>  -->
+          <ion-item menuClose (click)="gotoTabspage()" detail-push>
+              <img src="http://sunrisetechs.com/images/imgs/customerAppImages/home.png" />
+              Home
+          </ion-item>
+          <ion-item menuClose (click)="gotoProfilepage()" detail-push>
+              <img src="http://sunrisetechs.com/images/imgs/customerAppImages/user.png" />
+              Profile
+          </ion-item>
+          <ion-item menuClose (click)="gotoChangepasspage()" detail-push>
+              <img src="http://sunrisetechs.com/images/imgs/customerAppImages/lock.png" />
+            Change Password
+          </ion-item>
+          <ion-item menuClose (click)="inviteFriends()" detail-push>
+              <img src="http://sunrisetechs.com/images/imgs/customerAppImages/flag.png" />
+             Invite Friends
+          </ion-item>
+          <hr>
+          <ion-item text-center menuClose (click)="logout()" detail-push>
+             
+                <img src="http://sunrisetechs.com/images/imgs/customerAppImages/logout.png" />
+              <!-- <ion-icon item-start name="log-out" ></ion-icon> -->
+              Logout
+              </ion-item>
+
+          </ion-list>
   </ion-content>
 
 </ion-menu>

@@ -163,7 +163,7 @@
                            
                             </audio>
                             </div>
-                     <ion-thumbnail >
+                     <ion-thumbnail *ngIf="image">
                             <img src="http://sunrisetechs.com/images/imgs/{{image}}"/>
                           </ion-thumbnail>
                    
@@ -238,13 +238,13 @@
                                  {{item.description}}
                              </ion-col>
                            </ion-row>
-                           <ion-row>
+                           <ion-row *ngIf="item.accept_status==4">
                                <ion-col col-5 text-left>
-                                <b> Expires In</b>
+                                <b> Reason</b>
                                </ion-col>
                                <ion-col col-1><b>:</b></ion-col>
                                <ion-col col-6 text-left>
-                                 
+                                 {{item.reason}}
                                </ion-col>
                              </ion-row>     
                </ion-card-content>
@@ -258,15 +258,22 @@
                        <ion-col col-3>
                                <button ion-button color="secondary" [hidden]="item.cancel_status"  small class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>
                               </ion-col>
-                           <ion-col col-3>
+                           <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>
                                <!-- <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept1(item)" icon-only>Accept</button> -->
                                <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept(item.id,item)" icon-only>Accept</button>
                               </ion-col>
-                               <ion-col col-3>
+                               <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>
                                        <button ion-button color="light" [hidden]="item.cancel_status" small class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>
                                    </ion-col>
                                                
                   </ion-row>
+                  <div *ngIf="item.accept_status==3">
+                  <button ion-button color="secondary" (click)="completeQuote(item.vendor,item.booking_id)" block>Complete the service</button>
+                  <!-- </ion-col> -->
+                  <!-- <ion-col col-2></ion-col> -->
+                  <!-- <ion-col col-6> -->
+                      <button ion-button color="dark" (click)="declineQuote(item.vendor,item.booking_id)" block>Report the problem</button>
+                    </div>
                 </div>
                 </div>
         <!-- <div class="btn-group">

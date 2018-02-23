@@ -25777,6 +25777,75 @@ ion-navbar.toolbar {
   padding-left: 8px;
 }
 
+.toolbar-background {
+  background-color: #0caedc;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.toolbar-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+}
+
+/*Set the background to transparent for ion-item*/
+.custom .item {
+  background-color: #fff;
+  border: none;
+  /*Removes all borders*/
+  border-color: #fff;
+  /*Sets colors for top and bottom border*/
+  color: #000;
+  /*Text color for each item*/
+}
+
+@font-face {
+  font-family: ABeeZee;
+  src: url("../assets/fonts/font.woff2");
+}
+
+* {
+  font-family: ABeeZee;
+}
+
+.hide-card {
+  -webkit-box-shadow: none !important;
+}
+
+.custom-avatar {
+  height: 30vw;
+  width: 30vw;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+page-changepass .toolbar-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+}
+
+page-changepass .toolbar-background {
+  background-color: #0caedc;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+page-contactus .toolbar-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff !important;
+  text-align: center;
+}
+
 page-contactus .background {
   background: url("../assets/imgs/bg1.jpg");
   background-repeat: no-repeat;
@@ -25812,7 +25881,6 @@ page-contactus .div {
 
 page-contactus .header {
   text-transform: uppercase;
-  -webkit-text-fill-color: #0679c9;
 }
 
 page-contactus .animate-right {
@@ -25882,8 +25950,148 @@ page-contactus .text {
   font-size: 2.5rem !important;
 }
 
+page-editservicebooking .alertstyle {
+  color: red;
+}
+
+page-editservicebooking ion-searchbar.searchbar.searchbar-md.searchbar-left-aligned {
+  margin-top: 53px;
+}
+
+page-editservicebooking .upload-audio ion-icon.icon.icon-md.ion-ios-close-circle {
+  font-size: 25px;
+}
+
+page-editservicebooking .upload-img ion-icon.icon.icon-md.ion-ios-close-circle {
+  font-size: 25px;
+}
+
+page-editservicebooking .toolbar-background {
+  background-color: transparent;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+page-editservicebooking .toolbar-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+}
+
+page-editservicebooking .content {
+  background-image: url("../assets/imgs/bg-pic.jpg");
+  margin-top: 0px !important;
+}
+
+page-editservicebooking .item {
+  background-color: transparent !important;
+}
+
+page-editservicebooking .color_wh {
+  color: #fff !important;
+}
+
+page-editservicebooking .sign_btn {
+  background-color: #fff;
+  color: #0679c9;
+  margin-top: 20px;
+}
+
+page-editservicebooking .align {
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+page-editservicebooking .label, page-editservicebooking .item, page-editservicebooking .option, page-editservicebooking .input, page-editservicebooking .a {
+  color: #fff !important;
+}
+
+page-editservicebooking .select {
+  background: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  border-bottom: 0px solid #cccccc !important;
+  margin-left: 0;
+  padding: 5px 6px 5px 15px;
+  color: #000 !important;
+  height: 30px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 0px;
+}
+
+page-editservicebooking .input {
+  background: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  border-bottom: 0px solid #cccccc !important;
+  margin-left: 0;
+  padding: 0px 6px 5px 15px;
+  color: #000 !important;
+  height: 30px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 0px;
+}
+
+page-editservicebooking .my-select {
+  min-width: 100%;
+  color: #000;
+  font-weight: 500;
+}
+
+page-editservicebooking .upload-img ion-icon.icon.icon-md.ion-md-camera {
+  background-color: #3a3234;
+  padding: 6px;
+  color: #fff;
+  border-radius: 50%;
+}
+
+page-editservicebooking .audiostart ion-icon.icon.icon-md.ion-ios-mic-outline {
+  background-color: #3a3234;
+  padding: 6px 10px;
+  color: #fff;
+  border-radius: 50%;
+}
+
+page-editservicebooking .audiostop ion-icon.icon.icon-md.ion-ios-mic {
+  background: linear-gradient(182deg, #ffffff, #fdbbbb, #ec5d5d, #fd4242, #d91b1b, #d91b1b, #e66d6d, #ffffff);
+  background-size: 1600% 1600%;
+  color: #000;
+  -webkit-animation: AnimationName 3s ease infinite;
+  animation: AnimationName 3s ease infinite;
+  padding: 6px 10px;
+  color: #fff;
+  border-radius: 50%;
+}
+
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 53% 0%;
+  }
+  50% {
+    background-position: 48% 100%;
+  }
+  100% {
+    background-position: 53% 0%;
+  }
+}
+
+@keyframes AnimationName {
+  0% {
+    background-position: 53% 0%;
+  }
+  50% {
+    background-position: 48% 100%;
+  }
+  100% {
+    background-position: 53% 0%;
+  }
+}
+
 page-home ion-content {
-  background-image: url("../assets/imgs/bg.jpg");
+  background-image: url("../assets/imgs/bg.png");
 }
 
 page-home .selectbg {
@@ -25907,13 +26115,48 @@ page-home .home-container .row-center img {
   filter: invert(140%);
 }
 
-page-introslider ion-content {
-  background: #e6e6e6;
+page-home .toolbar-background {
+  background-color: transparent;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
-page-introslider .toolbar-background {
-  background: #e6e6e6;
-  border-color: transparent;
+page-home .color-wh {
+  color: #fff;
+}
+
+page-home .toolbar-title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+}
+
+page-home .slides {
+  height: 40%;
+}
+
+page-introslider #slide1 {
+  background-color: #9dddf9;
+}
+
+page-introslider #slide2 {
+  background-color: #fab266;
+}
+
+page-introslider #slide3 {
+  background-color: #bec9e9;
+}
+
+page-introslider .color-wh {
+  color: #fff;
+}
+
+page-introslider .title {
+  color: #fff;
+  font-weight: bold;
+  font-size: 2.0rem;
 }
 
 page-introslider b {
@@ -25921,18 +26164,13 @@ page-introslider b {
 }
 
 page-introslider p {
-  padding: 0 40px;
+  padding: 0 20px;
   font-size: 14px;
   line-height: 1.5;
-  color: #60646B;
 }
 
 page-introslider p b {
   color: #000000;
-}
-
-page-introslider .bonusButton {
-  margin-top: 60px;
 }
 
 page-login .toolbar-background {
@@ -25943,7 +26181,7 @@ page-login .toolbar-background {
 }
 
 page-login .content {
-  background-image: url("../assets/imgs/bg.jpg");
+  background-image: url("../assets/imgs/bg.png");
   margin-top: 0px !important;
 }
 
@@ -25961,6 +26199,19 @@ page-login .logo {
   margin-left: 55px;
   margin-top: -70px;
   width: 60% !important;
+}
+
+page-login .text-input::-moz-placeholder {
+  color: white;
+}
+
+page-login .text-input:-ms-input-placeholder {
+  color: white;
+}
+
+page-login .text-input::-webkit-input-placeholder {
+  text-indent: 0;
+  color: white;
 }
 
 page-login .item, page-login .label, page-login .icon, page-login .color-wh {
@@ -25990,18 +26241,18 @@ page-login .text {
 
 page-profile .upload-img {
   position: absolute;
-  left: 52%;
-  top: 14%;
-  width: 50px;
-  height: 50px;
+  left: 26%;
+  top: 17%;
+  width: 30px;
+  height: 30px;
   bottom: 90%;
   z-index: 99;
-  background-color: #960000;
+  background-color: #03A9F4;
   color: white;
   font-weight: 500;
-  font-size: 10px;
-  padding: 10px;
-  border-radius: 50%;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 100%;
   text-align: center;
   vertical-align: middle;
 }
@@ -26024,10 +26275,6 @@ page-profile ion-item ion-icon {
   height: 10px;
 }
 
-page-profile ion-item ion-input {
-  padding-left: 33px !important;
-}
-
 page-profile ion-item.add-head {
   color: #999;
 }
@@ -26043,15 +26290,10 @@ page-profile ion-fab.close {
 }
 
 page-quotehistory .toolbar-background {
-  background-color: transparent;
+  background-color: #0caedc;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-}
-
-page-quotehistory .content {
-  background-image: url("../assets/imgs/bg-pic.jpg");
-  margin-top: 0px !important;
 }
 
 page-quotehistory .toolbar-title {
@@ -26061,17 +26303,44 @@ page-quotehistory .toolbar-title {
   text-align: center;
 }
 
+page-quotehistory .card-md h2 {
+  margin: 0px 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #000;
+}
+
+page-quotehistory .card-content-md {
+  padding: 0px 8px;
+  font-size: 1.3rem;
+  line-height: 0.8 !important;
+}
+
+page-quotehistory .scroll-content {
+  padding: 0px !important;
+}
+
 page-quotehistory .card {
   border-radius: 20px !important;
   margin-top: 10px;
   margin-bottom: 20px;
+  background-color: rgba(221, 221, 221, 0.49);
 }
 
 page-quotehistory .card-header, page-quotehistory h5 {
   background-color: #4cd1e6 !important;
+  padding: 6px;
   color: #fff !important;
   text-align: center;
   font-weight: bold !important;
+}
+
+page-quotehistory .color-wh {
+  color: #fff !important;
+}
+
+page-quotehistory .item, page-quotehistory .p {
+  color: #000;
 }
 
 page-quoteview #map {
@@ -26202,6 +26471,10 @@ page-quoteview .buttonig {
   background-color: #ddd;
 }
 
+page-redeem .label {
+  font-size: 13px;
+}
+
 page-register .toolbar-background {
   background-color: transparent;
   background-size: cover;
@@ -26210,7 +26483,7 @@ page-register .toolbar-background {
 }
 
 page-register .content {
-  background-image: url("../assets/imgs/bg.jpg");
+  background-image: url("../assets/imgs/bg.png");
   margin-top: 0px !important;
 }
 
@@ -26239,12 +26512,33 @@ page-register a, page-register b {
   color: #fff;
 }
 
+page-register .text-input::-moz-placeholder {
+  color: white;
+}
+
+page-register .text-input:-ms-input-placeholder {
+  color: white;
+}
+
+page-register .text-input::-webkit-input-placeholder {
+  text-indent: 0;
+  color: white;
+}
+
 page-servicebooking .alertstyle {
   color: red;
 }
 
 page-servicebooking ion-searchbar.searchbar.searchbar-md.searchbar-left-aligned {
   margin-top: 53px;
+}
+
+page-servicebooking .upload-audio ion-icon.icon.icon-md.ion-ios-close-circle {
+  font-size: 25px;
+}
+
+page-servicebooking .upload-img ion-icon.icon.icon-md.ion-ios-close-circle {
+  font-size: 25px;
 }
 
 page-servicebooking .toolbar-background {

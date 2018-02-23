@@ -1,14 +1,14 @@
 webpackJsonp([1],{
 
-/***/ 314:
+/***/ 319:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ViewacceptQuotePageModule", function() { return ViewacceptQuotePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WalletPageModule", function() { return WalletPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__viewaccept_quote__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__wallet__ = __webpack_require__(121);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var ViewacceptQuotePageModule = (function () {
-    function ViewacceptQuotePageModule() {
+var WalletPageModule = (function () {
+    function WalletPageModule() {
     }
-    ViewacceptQuotePageModule = __decorate([
+    WalletPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__viewaccept_quote__["a" /* ViewacceptQuotePage */],
+                __WEBPACK_IMPORTED_MODULE_2__wallet__["a" /* WalletPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["IonicPageModule"].forChild(__WEBPACK_IMPORTED_MODULE_2__viewaccept_quote__["a" /* ViewacceptQuotePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["IonicPageModule"].forChild(__WEBPACK_IMPORTED_MODULE_2__wallet__["a" /* WalletPage */]),
             ],
         })
-    ], ViewacceptQuotePageModule);
-    return ViewacceptQuotePageModule;
+    ], WalletPageModule);
+    return WalletPageModule;
 }());
 
-//# sourceMappingURL=viewaccept-quote.module.js.map
+//# sourceMappingURL=wallet.module.js.map
 
 /***/ })
 

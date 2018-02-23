@@ -35,6 +35,9 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { AddDataProvider } from '../providers/add-data/add-data'; 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
+import { ServicestateProvider } from '../providers/servicestate/servicestate';
+import { EditservicebookingPage } from '../pages/editservicebooking/editservicebooking';
+import { SocialSharing } from '@ionic-native/social-sharing';
 @NgModule({
   declarations: [
     MyApp,
@@ -53,7 +56,8 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
     QuoteviewPage,
     RegisterPage,
     IntrosliderPage,
-    WalletPage
+    WalletPage,
+    EditservicebookingPage,
   ],
   imports: [
     BrowserModule,HttpModule,SelectSearchableModule,
@@ -78,6 +82,7 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
     QuoteviewPage,
     IntrosliderPage,
     WalletPage,
+    EditservicebookingPage,
   ],
   providers: [
     UniqueDeviceID,
@@ -91,8 +96,10 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
     File,FileTransfer,FilePath,
     Camera,
     EmailComposer,
+    SocialSharing,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthServiceProvider,AddDataProvider
+    AuthServiceProvider,AddDataProvider,
+    ServicestateProvider
   ]
 })
 export class AppModule {}

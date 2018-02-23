@@ -1,6 +1,6 @@
 page-home {
     ion-content{
-        background-image: url('../assets/imgs/bg.jpg');
+        background-image: url('../assets/imgs/bg.png');
     }
     .selectbg{
         background-image: url('../assets/imgs/Booknewserice.png');
@@ -19,5 +19,22 @@ page-home {
         top: 50%;
         filter: invert(140%);
     }
-  
+    .toolbar-background {
+        background-color: transparent;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+    .color-wh{
+        color:#fff;
+    }
+    .toolbar-title{
+        font-size: 2rem;
+          font-weight: 500;
+          color: #fff;
+          text-align: center;
+      }
+      .slides{
+        height: 40%;
+    }
 }

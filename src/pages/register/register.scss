@@ -7,7 +7,7 @@ page-register {
         background-repeat: no-repeat;
     }
    .content{
-         background-image: url('../assets/imgs/bg.jpg');
+         background-image: url('../assets/imgs/bg.png');
          margin-top: 0px !important;
     }
     .toolbar-title{
@@ -32,4 +32,17 @@ page-register {
         color: #fff;
       //  text-align :center !important;
     }
+
+    .text-input::-moz-placeholder {
+        color: white;
+      }
+      
+      .text-input:-ms-input-placeholder {
+        color: white;
+      }
+      
+      .text-input::-webkit-input-placeholder {
+        text-indent: 0;
+        color: white;
+      }
 }

@@ -14,21 +14,23 @@ import { AddDataProvider } from '../../providers/add-data/add-data';
   templateUrl: 'faq.html',
 })
 export class FaqPage {
-  fdata:any={};
-  item:any={};
+ // fdata:any={};
+  item:any=[];
   constructor(public navCtrl: NavController,public faqapi:AddDataProvider, public navParams: NavParams) {
-  }
+    this. gotoFaq();
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FaqPage');
   }
   gotoFaq(){
-   
+   console.log("data");
     this.faqapi.getFaq()
       .subscribe(data =>{
-        this.item=data;
-        this.fdata=this.item.fdata;
-        console.log(this.fdata.content);
+        this.item=data[0].content;
+        //this.fdata=this.item.fdata;
+        console.log(this.item);
+       // console.log(this.fdata.content);
        
       })
 }

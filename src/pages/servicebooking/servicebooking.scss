@@ -5,7 +5,9 @@ page-servicebooking {
     ion-searchbar.searchbar.searchbar-md.searchbar-left-aligned {
         margin-top: 53px;
     }
-
+    .upload-audio ion-icon.icon.icon-md.ion-ios-close-circle {font-size: 25px;}
+    .upload-img ion-icon.icon.icon-md.ion-ios-close-circle {font-size: 25px;}
+    
     .toolbar-background {
         background-color: transparent;
         background-size: cover;

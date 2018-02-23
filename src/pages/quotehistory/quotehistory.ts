@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { QuoteviewPage } from '../quoteview/quoteview';
+import { EditservicebookingPage } from '../editservicebooking/editservicebooking';
 /**
  * Generated class for the QuotehistoryPage page.
  *
@@ -38,7 +39,7 @@ export class QuotehistoryPage {
   }
   }
   refresh() {
-    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    this.navCtrl.push(this.navCtrl.getActive().component);
    console.log("refresh");
   }
   quoteShow(book_id){
@@ -49,7 +50,7 @@ export class QuotehistoryPage {
     console.log(service);
     localStorage.setItem('loggedData',JSON.stringify(service)); 
     console.log(JSON.parse(localStorage.getItem('loggedData')));
-    this.navCtrl.setRoot(QuoteviewPage);
+    this.navCtrl.push(QuoteviewPage);
   }
   ServiceCancel(cancel_id){
 
@@ -64,5 +65,10 @@ export class QuotehistoryPage {
 
   });
 
+}
+editBooking(book_id,gadget){
+  let data ={booking_id:book_id,gadget:gadget};
+  console.log(data);
+  this.navCtrl.push(EditservicebookingPage, {item: data});
 }
 }

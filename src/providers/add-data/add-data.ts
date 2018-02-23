@@ -16,7 +16,7 @@ export class AddDataProvider {
   }
 
   getFaq(){
-    return this.http.get('http://sunrisetechs.com/api/vendorapi.php?action=getfaqData')
+    return this.http.get('http://sunrisetechs.com/api/cusapi.php?action=customerFAQ')
     .map(res =>{ 
       console.log(res.json());
       return res.json()

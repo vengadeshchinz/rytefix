@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,MenuController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
+import { TabsPage } from '../tabs/tabs';
 export interface Slide {
   title: string;
   description: string;
@@ -52,7 +53,7 @@ export class IntrosliderPage {
   }
 
   home() {
-    this.navCtrl.setRoot(HomePage, {}, {
+    this.navCtrl.setRoot(TabsPage, {}, {
       animate: true,
       direction: 'forward'
     });

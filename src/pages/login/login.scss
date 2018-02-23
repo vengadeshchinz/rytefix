@@ -7,7 +7,7 @@ page-login {
         background-repeat: no-repeat;
     }
    .content{
-         background-image: url('../assets/imgs/bg.jpg');
+         background-image: url('../assets/imgs/bg.png');
          margin-top: 0px !important;
     }
 .sign_btn{
@@ -24,7 +24,19 @@ page-login {
    margin-top: -70px;
     width: 60% !important;
 }
-.item , .label, .icon , .color-wh{
+.text-input::-moz-placeholder {
+    color: white;
+  }
+  
+  .text-input:-ms-input-placeholder {
+    color: white;
+  }
+  
+  .text-input::-webkit-input-placeholder {
+    text-indent: 0;
+    color: white;
+  }
+.item , .label, .icon , .color-wh {
     color:#fff !important;
 }
 .color-wh{

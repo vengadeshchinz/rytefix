@@ -55,12 +55,16 @@ export class LoginPage {
     loginscreen:any;
     forgotData={"mobile1":""};
     otpData={"otp":""};
-    loginData={"mobile":"","pass":""};
+    loginData={"mobile":"","pass":"","deviceId":""};
   constructor(public navCtrl: NavController,public transfer: FileTransfer,public file: File,
     private alertCtrl: AlertController,private loadingCtrl: LoadingController, public navParams: NavParams,private toastCtrl: ToastController,public AuthServiceProvider:AuthServiceProvider) {
   this.forgotMobile=false;
   this.loginscreen=true;
   this.otpverify=false;
+
+  this.loginData.deviceId = localStorage.getItem('deviceID');
+  console.log('device ID = ',this.loginData.deviceId);
+
   }
 
   ionViewDidLoad() {

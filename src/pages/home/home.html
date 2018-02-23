@@ -1,13 +1,25 @@
-<ion-header>
-    <ion-navbar>
+<ion-header no-border>
+    <ion-toolbar no-padding>
         <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
+            <ion-icon name="menu" class="color-wh"></ion-icon>
         </button>
         <ion-title>Home</ion-title>
-    </ion-navbar>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding *ngIf="home">
+
+    <ion-slides class="slides" pager="true" (ionSlideDidChange)="slideChanged()">
+        <ion-slide>
+          <img src = 'http://sunrisetechs.com/images/imgs/customerAppImages/banner2.jpg'>
+        </ion-slide>
+        <ion-slide>
+                <img src = 'http://sunrisetechs.com/images/imgs/customerAppImages/banner1.jpg'>
+        </ion-slide>
+        <ion-slide>
+                <img src = 'http://sunrisetechs.com/images/imgs/customerAppImages/banners.jpg'>
+        </ion-slide>
+      </ion-slides>
     <ion-list>
         <ion-grid>
             <ion-row>

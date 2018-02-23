@@ -1,18 +1,18 @@
-<ion-header no-shadow class="navColor">
+<!-- <ion-header no-shadow class="navColor">
   <ion-navbar >
     <ion-buttons end *ngIf="showSkip">
       <button ion-button (click)="home()" color="primary">SKIP</button>
     </ion-buttons>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content no-bounce>
+<!-- <ion-content no-bounce>
   <ion-slides pager="true" dir="{{dir}}" (ionSlideWillChange)="onSlideChangeStart($event)">
     <ion-slide *ngFor="let slide of slides">
       <img [src]="slide.image" class="slide-image" />
       <!-- <h2 class="slide-title" [innerHTML]="slide.title"></h2> -->
       <!-- <p [innerHTML]="slide.description"></p> -->
-    </ion-slide>
+    <!-- </ion-slide>
     <ion-slide>
       <img src="assets/imgs/appicon2.png" class="slide-image" />
       <h2 class="slide-title"></h2>
@@ -20,6 +20,46 @@
         REGISTER TO GET 250 CREDITS
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>  -->
+<ion-content>
+  <ion-slides pager="true">
+    <ion-slide id="slide1">
+      <div style="margin-top:-50px">
+        <ion-buttons end *ngIf="showSkip">
+            <button ion-button (click)="home()" class="color-wh" clear>SKIP</button>
+          </ion-buttons>
+      <img src="assets/imgs/1.png" />
+    </div>
+    
+      <h5 class="title"><b>Gadgets Needs Service ?</b></h5>
+      <p><b>Rytefix is a free app available to book mobile, laptop and all other electronic gadgets services in Chennai. Enjoy hassle free experience.</b></p>
+  
+    </ion-slide>
+    <ion-slide id="slide2">
+        <div style="margin-top:-50px">
+            <ion-buttons end *ngIf="showSkip">
+                <button ion-button (click)="home()" class="color-wh" clear>SKIP</button>
+              </ion-buttons>
+          <img src="assets/imgs/2.png" />
+        </div>
+        <h5 class="title"><b>WHAT WE DO ?</b></h5>
+        <p><b>Connect customers and gadgets service providers in whole new way, intend to bring more transparency and enjoyable experience in market place.</b></p>
+    </ion-slide>
+    <ion-slide id="slide3">
+        <div style="margin-top:-50px">
+            <ion-buttons end *ngIf="showSkip">
+                <button ion-button (click)="home()" class="color-wh" clear>SKIP</button>
+              </ion-buttons>
+          <img src="assets/imgs/3.png" />
+        </div>
+        <h5 class="title"><b>HASSLE FREE EXPERIENCE</b></h5>
+        <p><b>We cover almost every gadgets and brands with great offers and discounts.</b></p>
+        <button ion-button block class="bonusButton"  icon-end (click)="startApp()">
+            REGISTER TO GET 250 CREDITS
+            <ion-icon name="arrow-forward"></ion-icon>
+          </button>
     </ion-slide>
   </ion-slides>
 </ion-content>

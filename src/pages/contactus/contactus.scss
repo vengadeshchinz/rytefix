@@ -1,6 +1,11 @@
 page-contactus {
-
-    .background{
+  .toolbar-title{
+    font-size: 2rem;
+      font-weight: 500;
+      color: #fff !important;
+      text-align: center;
+  }
+  .background{
         background: url('../assets/imgs/bg1.jpg');
         background-repeat: no-repeat;
         background-size:cover;
@@ -35,7 +40,7 @@ page-contactus {
        .header{
            text-transform: uppercase;
        
-         -webkit-text-fill-color: #0679c9;;
+        //  -webkit-text-fill-color: #0679c9;;
        
        }
        

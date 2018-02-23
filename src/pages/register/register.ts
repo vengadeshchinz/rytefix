@@ -69,7 +69,7 @@ export class RegisterPage {
   imgData:any;
   audioData:any;
   otpData={"otp":""};
-  userData = { "username": "", "mobile":"","mail": "","password": "","cpassword":"","area":"","city":"","pincode":""};
+  userData = { "username": "", "mobile":"","mail": "","password": "","cpassword":"","area":"","city":"","pincode":"","deviceId":""};
   constructor(private alertCtrl: AlertController,public transfer: FileTransfer,public file: File,
     public navCtrl: NavController,private loadingCtrl: LoadingController,private toastCtrl: ToastController,
     public AuthServiceProvider:AuthServiceProvider, public navParams: NavParams) {
@@ -77,6 +77,9 @@ export class RegisterPage {
     this.disable=true;
     this.otpverify=false;
     this.registerpage=true;
+    
+    this.userData.deviceId = localStorage.getItem('deviceID');
+    console.log('device ID = ',this.userData.deviceId);
   }
 
   ionViewDidLoad() {

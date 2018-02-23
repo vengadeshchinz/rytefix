@@ -1,14 +1,14 @@
 webpackJsonp([6],{
 
-/***/ 309:
+/***/ 314:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuotehistoryPageModule", function() { return QuotehistoryPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "QuoteviewPageModule", function() { return QuoteviewPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__quotehistory__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__quoteview__ = __webpack_require__(50);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,23 +18,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var QuotehistoryPageModule = (function () {
-    function QuotehistoryPageModule() {
+var QuoteviewPageModule = (function () {
+    function QuoteviewPageModule() {
     }
-    QuotehistoryPageModule = __decorate([
+    QuoteviewPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__quotehistory__["a" /* QuotehistoryPage */],
+                __WEBPACK_IMPORTED_MODULE_2__quoteview__["a" /* QuoteviewPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["IonicPageModule"].forChild(__WEBPACK_IMPORTED_MODULE_2__quotehistory__["a" /* QuotehistoryPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["IonicPageModule"].forChild(__WEBPACK_IMPORTED_MODULE_2__quoteview__["a" /* QuoteviewPage */]),
             ],
         })
-    ], QuotehistoryPageModule);
-    return QuotehistoryPageModule;
+    ], QuoteviewPageModule);
+    return QuoteviewPageModule;
 }());
 
-//# sourceMappingURL=quotehistory.module.js.map
+//# sourceMappingURL=quoteview.module.js.map
 
 /***/ })
 

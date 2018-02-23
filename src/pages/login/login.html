@@ -24,36 +24,46 @@
   
 
     <ion-item>
-    <ion-label floating><ion-icon name="ios-call"></ion-icon> Mobile</ion-label>
-    <ion-input formControlName="mobile" type="number" [(ngModel)]="loginData.mobile"></ion-input>
+  <ion-label> <ion-icon name="ios-call"></ion-icon> </ion-label>
+    <ion-input formControlName="mobile" type="number" [(ngModel)]="loginData.mobile" placeholder="Mobile"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label floating><ion-icon name="lock"></ion-icon> Password</ion-label>
-    <ion-input formControlName="pass" type="password" [(ngModel)]="loginData.pass"></ion-input>
+    <ion-label> <ion-icon name="lock"></ion-icon> </ion-label>
+    <ion-input formControlName="pass" type="password" [(ngModel)]="loginData.pass" placeholder="Password"></ion-input>
   </ion-item>
   
    <button ion-button type="submit"  class="sign_btn"   round full>Login</button>
    </form> 
-   <a href="#" (click)="reg()">Register</a>
-   <a href="#" (click)="forgot()">Forgot password</a>
+   <ion-row style="margin-top: 20px">
+    <ion-col col-12 text-center>
+       <a href="#" (click)="forgot()" class="frpw">Forgot Password</a>
+    </ion-col>
+  </ion-row>
+  <ion-row style="margin-top: 30px">
+      <ion-col col-12 text-center>
+          <b class="color-wh">New to Rytefix ?</b><a href="#" (click)="reg()" class="register"> SIGN UP</a>
+      </ion-col>
+    </ion-row>
+   <!-- <a href="#" (click)="reg()">Register</a>
+   <a href="#" (click)="forgot()">Forgot password</a> -->
 </ion-content>
-<ion-content padding  *ngIf="forgotMobile">
+<ion-content padding  *ngIf="forgotMobile" class="content">
   <form [formGroup]="form1" (ngSubmit)="forgotPass()" >
 
   <ion-item>
-    <ion-label floating><ion-icon name="lock"></ion-icon>Mobile</ion-label>
-    <ion-input formControlName="mobile1" type="number" [(ngModel)]="forgotData.mobile1"></ion-input>
+    <ion-label>   <ion-icon name="lock"></ion-icon> </ion-label>
+    <ion-input formControlName="mobile1" type="number" [(ngModel)]="forgotData.mobile1" placeholder="Mobile"></ion-input>
   </ion-item>
   
    <button ion-button type="submit"  class="sign_btn"   round full>Verify</button>
    </form> 
 </ion-content> 
-<ion-content padding  *ngIf="otpverify">
+<ion-content padding  *ngIf="otpverify" class="content">
   <form [formGroup]="form2" (ngSubmit)="otpVerify()" >
 
   <ion-item>
-    <ion-label floating><ion-icon name="lock"></ion-icon>OTP</ion-label>
-    <ion-input formControlName="otp" type="text" [(ngModel)]="otpData.otp"></ion-input>
+    <ion-label><ion-icon name="lock"></ion-icon></ion-label>
+    <ion-input formControlName="otp" type="text" [(ngModel)]="otpData.otp" placeholder="OTP"></ion-input>
   </ion-item>
   
    <button ion-button type="submit"  class="sign_btn"   round full>Verify</button>

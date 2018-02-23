@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EmailComposer } from '@ionic-native/email-composer';
+import {ServicestateProvider} from '../../providers/servicestate/servicestate';
 @IonicPage()
 @Component({
   selector: 'page-wallet',
@@ -8,31 +9,18 @@ import { EmailComposer } from '@ionic-native/email-composer';
 })
 export class WalletPage {
   userdata:any;
+  userId:any;
   walletamount:any;
   earns:any;
   spends:any;
-  items = [
-    'Pokémon Yellow',
-    'Super Metroid',
-    'Mega Man X',
-    'The Legend of Zelda',
-    'Pac-Man',
-    'Super Mario World',
-    'Street Fighter II',
-    'Half Life',
-    'Final Fantasy VII',
-    'Star Fox',
-    'Tetris',
-    'Donkey Kong III',
-    'GoldenEye 007',
-    'Doom',
-    'Fallout',
-    'GTA',
-    'Halo'
-  ];
-  constructor(public navCtrl: NavController, public navParams: NavParams,public emailComposer: EmailComposer) {
+  items : any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public emailComposer: EmailComposer, public modal: ModalController, public serviceState:ServicestateProvider) {
     this.userdata = JSON.parse(localStorage.getItem('loggedData'));
+    console.log(this.userdata);
+    this.userId = this.userdata[0].id;
+    console.log(this.userId);
     this.walletamount = this.userdata[0].rf_wallet_bal;
+    this.earnings();
     // console.log(data[0].rf_wallet_bal);
   }
 
@@ -56,6 +44,25 @@ export class WalletPage {
     // Send a text message using default options
     this.emailComposer.open(email);
 
+  }
+
+  openModal(){
+    const data = {
+      username: this.userdata[0].username,
+      walletbalance: this.userdata[0].rf_wallet_bal
+    };
+    const myModal =  this.modal.create('RedeemPage',{data : data});
+    myModal.present();
+  }
+
+  earnings(){
+    this.serviceState.creditearns(this.userId).subscribe(data =>{
+      this.items = data;
+      console.log(this.items);
+
+   }),error =>{
+     console.log(error);
+   }
   }
 
 }

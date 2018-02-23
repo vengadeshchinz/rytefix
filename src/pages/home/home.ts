@@ -6,7 +6,8 @@ import{ ServicebookingPage } from '../servicebooking/servicebooking';
 import { QuotehistoryPage } from '../quotehistory/quotehistory';
 import { LoginPage } from '../login/login';
 import { WalletPage } from '../wallet/wallet';
-
+import { Slides } from 'ionic-angular';
+import { ViewChild } from '@angular/core';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -14,12 +15,17 @@ import { WalletPage } from '../wallet/wallet';
 export class HomePage {
   print:any;
   home:any;
+  @ViewChild(Slides) slides: Slides;
  // user: FormGroup;
  
   constructor(public navCtrl: NavController,private alertCtrl: AlertController) {
    this.home=true;
    this.print=false;
   
+  }
+  slideChanged() {
+    let currentIndex = this.slides.getActiveIndex();
+    console.log('Current index is', currentIndex);
   }
   Gadgets(){
  let prompt = this.alertCtrl.create({
@@ -67,7 +73,7 @@ export class HomePage {
           if(data){
             localStorage.setItem('gadget', data); 
             console.log("search clicked");
-            this.navCtrl.setRoot(ServicebookingPage);
+            this.navCtrl.push(ServicebookingPage);
           }
        
         }
@@ -118,7 +124,7 @@ export class HomePage {
   
    // alert("test");
     if(localStorage.getItem("loggedData")){
-    this.navCtrl.setRoot(QuotehistoryPage);
+    this.navCtrl.push(QuotehistoryPage);
     }else{
       let alert = this.alertCtrl.create({
         title: 'Warning',

@@ -40,8 +40,9 @@
       <!-- <ion-fab  right edge>
           <button ion-fab  class="sign_btn" (click)="profileactive()" ><ion-icon name="create"></ion-icon></button>
       </ion-fab> -->
-      <ion-fab  right edge *ngIf="editProfile">
-          <button ion-fab  class="sign_btn" (click)="profileactive()" ><ion-icon name="create"></ion-icon></button>
+       
+      <ion-fab  right edge *ngIf="editProfile" style="margin-top:-100px">
+          <button ion-fab mini  class="sign_btn" (click)="profileactive()" ><ion-icon name="create"></ion-icon></button>
       </ion-fab>
       <ion-fab  right edge *ngIf="cancelProfile">
           <button ion-fab  class="signbtn" (click)="profilecancel()" mini><ion-icon name="close"></ion-icon></button>
@@ -49,9 +50,10 @@
       <ion-fab  right edge class="close" *ngIf="submitProfile">
           <button ion-fab type="submit" class="sign_btn"  mini><ion-icon name="checkmark"></ion-icon></button>
       </ion-fab>
+      <!-- <div style="margin-top:30px"> -->
       <ion-item>
-        <ion-label  floating><ion-icon name="contact"></ion-icon> Username</ion-label>
-        <ion-input  disabled="{{isDisable}}" formControlName="username" focuser id="usersignup" type="text" [(ngModel)]="userData.username"></ion-input>
+        <ion-label ><ion-icon name="contact"></ion-icon> </ion-label>
+        <ion-input  disabled="{{isDisable}}" formControlName="username" placeholder="Username" focuser id="usersignup" type="text" [(ngModel)]="userData.username"></ion-input>
        
      </ion-item>
      <div *ngIf="username.touched && username.invalid" class="alertstyle">
@@ -59,16 +61,16 @@
      </div>
   
       <ion-item>
-      <ion-label floating><ion-icon name="ios-call"></ion-icon> Mobile</ion-label>
-      <ion-input  disabled="{{isDisable}}" formControlName="mobile" type="number" [(ngModel)]="userData.mobile"></ion-input>
+      <ion-label ><ion-icon name="ios-call"></ion-icon> </ion-label>
+      <ion-input  disabled="{{isDisable}}" formControlName="mobile" placeholder="Mobile" type="number" [(ngModel)]="userData.mobile"></ion-input>
     </ion-item>
     <div *ngIf="mobile.touched && mobile.invalid" class="alertstyle">
       <div *ngIf="mobile.errors.required">Please provide a mobile no</div>
     </div>
   
      <ion-item>
-       <ion-label floating><ion-icon name="mail"></ion-icon> Email</ion-label>
-       <ion-input  disabled="{{isDisable}}" formControlName="mail" type="text" [(ngModel)]="userData.mail"></ion-input>
+       <ion-label ><ion-icon name="mail"></ion-icon> </ion-label>
+       <ion-input  disabled="{{isDisable}}" formControlName="mail" placeholder="Email" type="text" [(ngModel)]="userData.mail"></ion-input>
      </ion-item>
      <div *ngIf="mail.touched && mail.invalid" class="alertstyle">
        <div *ngIf="mail.errors.required">Email is required</div>
@@ -76,27 +78,27 @@
      </div>
   
     <ion-item>
-      <ion-label floating><ion-icon name="ios-pin"></ion-icon>Area</ion-label>
-      <ion-input  disabled="{{isDisable}}" formControlName="area" type="text"[(ngModel)]="userData.area"></ion-input>
+      <ion-label ><ion-icon name="ios-pin"></ion-icon></ion-label>
+      <ion-input  disabled="{{isDisable}}" formControlName="area" placeholder="Area" type="text"[(ngModel)]="userData.area"></ion-input>
     </ion-item>
     <div *ngIf="area.touched && area.invalid" class="alertstyle">
       <div *ngIf="area.errors.required">Please provide a area</div>
     </div> 
     <ion-item>
-      <ion-label floating><ion-icon name="ios-pin"></ion-icon>City</ion-label>
-      <ion-input  disabled="{{isDisable}}" formControlName="city" type="text"  [(ngModel)]="userData.city"></ion-input>
+      <ion-label ><ion-icon name="ios-pin"></ion-icon></ion-label>
+      <ion-input  disabled="{{isDisable}}" formControlName="city" placeholder="City" type="text"  [(ngModel)]="userData.city"></ion-input>
     </ion-item>
     <div *ngIf="city.touched && city.invalid" class="alertstyle">
       <div *ngIf="city.errors.required">Please provide a city</div>
     </div> 
     <ion-item>
-      <ion-label floating><ion-icon name="ios-pin"></ion-icon>Pincode</ion-label>
-      <ion-input  disabled="{{isDisable}}" formControlName="pincode" type="number"  [(ngModel)]="userData.pincode"></ion-input>
+      <ion-label ><ion-icon name="ios-pin"></ion-icon></ion-label>
+      <ion-input  disabled="{{isDisable}}" formControlName="pincode" placeholder="Pincode" type="number"  [(ngModel)]="userData.pincode"></ion-input>
     </ion-item>
     <div *ngIf="pincode.touched && pincode.invalid" class="alertstyle">
       <div *ngIf="pincode.errors.required">Please provide a pincode</div>
     </div>   
-    
+  <!-- </div> -->
      <!-- <button ion-button type="submit" [disabled]="disable" class="sign_btn"   round full>Register</button> -->
      </form> 
 </ion-content>

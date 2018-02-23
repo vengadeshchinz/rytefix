@@ -91,7 +91,7 @@
       <div >*Select Minimum 2 areas and Maximum 3</div>
     </div>
   <ion-item>
-      <ion-input   formControlName="promocode" name="promocode" type="text" [(ngModel)]="userData.promocode" placeholder="Enter promo code"
+      <ion-input   formControlName="promocode" name="promocode" type="text" [(ngModel)]="userData.promocode" (ionChange)="promochange(userData.promocode)" placeholder="Enter promo code"
         clearInput></ion-input>
     </ion-item>
      <!-- <ion-item >
@@ -116,7 +116,7 @@
     </ion-row>
     <ion-row class="voice">
       <ion-col col-5> <h6 style="color:#fff" >Voice Note:</h6></ion-col>
-      <ion-col col-6 ><div *ngFor="let audio of audioList; index as i;"> {{audio.filename}}
+      <ion-col col-6 ><div *ngIf="userData.audio"> {{userData.audio}}
           <div class="upload-audio" (click)="audioDelete()" >
               <ion-icon name="ios-close-circle"></ion-icon>
           </div></div>
@@ -124,9 +124,13 @@
               <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">
                   <ion-icon name="ios-mic"></ion-icon>
               </div>
-              <div class="upload-audio audiostart"  (click)="startRecord()"  *ngIf="!recording" >
+              <div *ngIf="userData.audio==''">
+                <div class="upload-audio audiostart" (click)="startRecord()"  *ngIf="!recording" >
                   <ion-icon name="ios-mic-outline"></ion-icon>
               </div>
+                
+              </div>
+             
               <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>
               <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->
       </ion-col>

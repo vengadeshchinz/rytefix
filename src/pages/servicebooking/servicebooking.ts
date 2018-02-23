@@ -4,12 +4,12 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { RegisterPage } from '../register/register';
 import{ LoginPage } from '../login/login';
-
 import { SelectSearchable } from 'ionic-select-searchable';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import {ServicestateProvider} from '../../providers/servicestate/servicestate';
 /**
  * Generated class for the ServicebookingPage page.
  *
@@ -108,7 +108,8 @@ export class ServicebookingPage {
      public transfer: FileTransfer,
      private camera: Camera,
      public AuthServiceProvider:AuthServiceProvider,
-     public toastCtrl: ToastController,) {
+     public toastCtrl: ToastController,
+     public serviceState:ServicestateProvider) {
     
       localStorage.setItem('serviceBooking', "");
       localStorage.setItem('serviceBooking1', "");
@@ -284,6 +285,7 @@ export class ServicebookingPage {
     }
   }
 audioDelete(){
+  alert("test");
   localStorage.setItem("audiolist", "");
   this.userData['audio']="";
     this.userdata1['audio']="";
@@ -431,5 +433,18 @@ audioDelete(){
   //   });
   // }
 
+  promocode(){
+    let cid;
+    let bid;
+    let promocode;
+    this.serviceState.promocode(cid,bid,promocode).subscribe(data =>{
+
+   }),error =>{
+     console.log(error);
+   }
+  }
+  promochange(data){
+    console.log(data);
+  }
  
 }
