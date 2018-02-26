@@ -25,6 +25,8 @@ export class RedeemPage {
   image:any = 'image';
   check1: boolean;
   check2: boolean;
+  check3:boolean;
+  check4:boolean;
 
   constructor(public view: ViewController, public navParams: NavParams,public emailComposer: EmailComposer,public media: Media,public file: File,public loadingCtrl: LoadingController,public transfer: FileTransfer,private camera: Camera,public toastCtrl: ToastController) {
    this.data = this.navParams.get('data');
@@ -39,7 +41,7 @@ export class RedeemPage {
   }
 
   redeem(){
-    if( this.check1 == true && this.check2 == true){
+    if( this.check1 == true && this.check2 == true && this.check3 == true && this.check4 == true){
       if (this.image == 'image'){
         let msg = 'please attach your photo to redeem your balance'
          this.presentToast(msg);

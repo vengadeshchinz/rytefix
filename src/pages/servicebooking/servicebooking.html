@@ -87,9 +87,7 @@
           (onChange)="portChange($event)">
       </select-searchable>
   </ion-item>
-  <div  class="alertstyle">
-      <div >*Select Minimum 2 areas and Maximum 3</div>
-    </div>
+ 
   <ion-item>
       <ion-input   formControlName="promocode" name="promocode" type="text" [(ngModel)]="userData.promocode" (ionChange)="promochange(userData.promocode)" placeholder="Enter promo code"
         clearInput></ion-input>
@@ -107,7 +105,7 @@
       <ion-col col-5> <h6 style="color:#fff" >Image :</h6></ion-col>
       <ion-col col-6>
         <div class="upload-img" (click)="getImage()">
-          {{userData.image}} <ion-icon name="camera"></ion-icon> 
+          {{userData.image}} <ion-icon name="camera"> Browse</ion-icon> 
           <div *ngIf="!userData.image==''" class="upload-img" (click)="imageDelete()" >
             <ion-icon name="ios-close-circle"></ion-icon>
         </div>  
@@ -122,11 +120,11 @@
           </div></div>
              
               <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">
-                  <ion-icon name="ios-mic"></ion-icon>
+                  <ion-icon name="ios-mic"> Stop</ion-icon>
               </div>
               <div *ngIf="userData.audio==''">
                 <div class="upload-audio audiostart" (click)="startRecord()"  *ngIf="!recording" >
-                  <ion-icon name="ios-mic-outline"></ion-icon>
+                  <ion-icon name="ios-mic-outline"> Record</ion-icon>
               </div>
                 
               </div>
@@ -190,18 +188,16 @@
       </ion-select>
       </ion-item>
     <ion-item>
-      <select-searchable
+      <select-searchable class="my-select"
       formControlName="loc1" name="loc1" type="text" [(ngModel)]="userdata1.loc1"
-          placeholder="Preferred Location"
+          title="Preferred Location"
           [items]="ports"
           [canSearch]="true"
           [multiple]="true"
           (onChange)="portChange($event)">
       </select-searchable>
   </ion-item>
-  <div  class="alertstyle">
-      <div >*Select Minimum 2 areas and Maximum 3</div>
-    </div>
+ 
   <ion-item>
       <ion-input formControlName="promocode1" name="promocode1" type="text" [(ngModel)]="userdata1.promocode1" placeholder="Enter promo code"
         clearInput></ion-input>
@@ -219,7 +215,7 @@
       <ion-col col-5> <h6 style="color:#fff" >Image :</h6></ion-col>
       <ion-col col-6>
         <div class="upload-img" (click)="getImage()">
-          {{userData.image}} <ion-icon name="camera"></ion-icon> 
+          {{userData.image}} <ion-icon name="camera"> Browse</ion-icon> 
           <div *ngIf="!userData.image==''" class="upload-img" (click)="imageDelete()" >
             <ion-icon name="ios-close-circle"></ion-icon>
         </div>   
@@ -235,10 +231,10 @@
           </div></div>
              
               <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">
-                  <ion-icon name="ios-mic"></ion-icon>
+                  <ion-icon name="ios-mic"> Stop</ion-icon>
               </div>
               <div class="upload-audio audiostart"  (click)="startRecord()"  *ngIf="!recording" >
-                  <ion-icon name="ios-mic-outline"></ion-icon>
+                  <ion-icon name="ios-mic-outline"> Record</ion-icon>
               </div>
               <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>
               <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->

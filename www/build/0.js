@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 315:
+/***/ 322:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RedeemPageModule", function() { return RedeemPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__redeem__ = __webpack_require__(321);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__redeem__ = __webpack_require__(323);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +38,7 @@ var RedeemPageModule = (function () {
 
 /***/ }),
 
-/***/ 321:
+/***/ 323:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -49,7 +49,7 @@ var RedeemPageModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_media__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_transfer__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_camera__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_camera__ = __webpack_require__(53);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -94,7 +94,7 @@ var RedeemPage = (function () {
         this.view.dismiss();
     };
     RedeemPage.prototype.redeem = function () {
-        if (this.check1 == true && this.check2 == true) {
+        if (this.check1 == true && this.check2 == true && this.check3 == true && this.check4 == true) {
             if (this.image == 'image') {
                 var msg = 'please attach your photo to redeem your balance';
                 this.presentToast(msg);
@@ -183,7 +183,7 @@ var RedeemPage = (function () {
     };
     RedeemPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-redeem',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\redeem\redeem.html"*/'<!--\n  Generated template for the RedeemPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Redeem balance</ion-title>\n    <ion-buttons end>\n      <button ion-button (click)="close()">Close</button>\n    </ion-buttons>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <ion-item>\n        <ion-label class="label">Have you completed & paid for your service ?</ion-label>\n        <ion-checkbox [(ngModel)]="check1"></ion-checkbox>\n      </ion-item>\n      \n      <ion-item class="label">\n      <ion-label>Have you rated your vendor ?</ion-label>\n        <ion-checkbox [(ngModel)]="check2"></ion-checkbox>\n      </ion-item>\n      <ion-row class="img">\n          <ion-col col-5> <h6>Attach your image:</h6></ion-col>\n          <ion-col col-6>\n            <div class="upload-img" (click)="getImage()">\n              {{image}} <ion-icon name="camera"></ion-icon> \n              <div *ngIf="!image==\'image\'" class="upload-img" (click)="imageDelete()" >\n                <ion-icon name="ios-close-circle"></ion-icon>\n            </div>  \n            </div>\n         </ion-col>\n        </ion-row>\n        <button ion-button large full  (click)="redeem()">Submit</button>\n</ion-content>\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\redeem\redeem.html"*/,
+            selector: 'page-redeem',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\redeem\redeem.html"*/'<!--\n\n  Generated template for the RedeemPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Redeem balance</ion-title>\n\n    <ion-buttons end>\n\n      <button ion-button (click)="close()">Close</button>\n\n    </ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n    <ion-item>\n\n        <ion-label class="label">Completed service ?</ion-label>\n\n        <ion-checkbox [(ngModel)]="check1"></ion-checkbox>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label class="label">Paid for service ?</ion-label>\n\n        <ion-checkbox [(ngModel)]="check3"></ion-checkbox>\n\n      </ion-item>\n\n      <ion-item>\n\n        <ion-label class="label">Referral Invites sent ?</ion-label>\n\n        <ion-checkbox [(ngModel)]="check4"></ion-checkbox>\n\n      </ion-item>\n\n      <ion-item class="label">\n\n      <ion-label>Have you rated your vendor ?</ion-label>\n\n        <ion-checkbox [(ngModel)]="check2"></ion-checkbox>\n\n      </ion-item>\n\n      <ion-row class="img">\n\n          <ion-col col-5> <h6>Attach your image:</h6></ion-col>\n\n          <ion-col col-6>\n\n            <div class="upload-img" (click)="getImage()">\n\n              {{image}} <ion-icon name="camera"></ion-icon> \n\n              <div *ngIf="!image==\'image\'" class="upload-img" (click)="imageDelete()" >\n\n                <ion-icon name="ios-close-circle"></ion-icon>\n\n            </div>  \n\n            </div>\n\n         </ion-col>\n\n        </ion-row>\n\n        <button ion-button large full  (click)="redeem()">Submit</button>\n\n</ion-content>\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\redeem\redeem.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ViewController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__ionic_native_email_composer__["a" /* EmailComposer */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_media__["a" /* Media */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"], __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_camera__["a" /* Camera */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"]])
     ], RedeemPage);

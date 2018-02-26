@@ -84,14 +84,14 @@ page-servicebooking {
         background-color: #3a3234;
         padding: 6px;
         color: #fff;
-        border-radius: 50%;
+        border-radius: 5%;
     }
     
     .audiostart ion-icon.icon.icon-md.ion-ios-mic-outline {
         background-color: #3a3234;
         padding: 6px 10px;
         color: #fff;
-        border-radius: 50%;
+        border-radius: 5%;
         }
         .audiostop ion-icon.icon.icon-md.ion-ios-mic {
             background: linear-gradient(182deg, #ffffff, #fdbbbb, #ec5d5d, #fd4242, #d91b1b, #d91b1b, #e66d6d, #ffffff);
@@ -103,7 +103,7 @@ page-servicebooking {
             // background-color: #ff0202;
              padding: 6px 10px;
              color: #fff;
-             border-radius: 50%;
+             border-radius: 5%;
             }
             @-webkit-keyframes AnimationName {
                 0%{background-position:53% 0%}
@@ -119,5 +119,20 @@ page-servicebooking {
                 0%{background-position:53% 0%}
                 50%{background-position:48% 100%}
                 100%{background-position:53% 0%}
+            }
+            select-searchable.my-select.select-searchable.select-searchable-md.ng-untouched.ng-pristine.ng-invalid {
+                color: #000 !important;
+                background-color: #b7e7f5;
+                padding: 7px;
+                font-size: 13px;
+                border-radius: 5px;
+            }
+           
+            .select-searchable-label {
+                color: #000 !important;
+            }
+            
+            .select-searchable-value {
+                color: #000 !important;
             }
 }

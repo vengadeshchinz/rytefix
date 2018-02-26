@@ -18,10 +18,17 @@
 
 <ion-content padding>
     <ion-item>
-        <ion-label class="label">Have you completed & paid for your service ?</ion-label>
+        <ion-label class="label">Completed service ?</ion-label>
         <ion-checkbox [(ngModel)]="check1"></ion-checkbox>
       </ion-item>
-      
+      <ion-item>
+        <ion-label class="label">Paid for service ?</ion-label>
+        <ion-checkbox [(ngModel)]="check3"></ion-checkbox>
+      </ion-item>
+      <ion-item>
+        <ion-label class="label">Referral Invites sent ?</ion-label>
+        <ion-checkbox [(ngModel)]="check4"></ion-checkbox>
+      </ion-item>
       <ion-item class="label">
       <ion-label>Have you rated your vendor ?</ion-label>
         <ion-checkbox [(ngModel)]="check2"></ion-checkbox>

@@ -68,10 +68,9 @@ export class LoginPage {
   this.loginData.deviceId = localStorage.getItem('deviceID');
   console.log('device ID = ',this.loginData.deviceId);
       this.pushData.deviceId = this.loginData.deviceId;
-
+      this.loggedService();
   }
-
-  ionViewDidLoad() {
+  loggedService(){
     if(localStorage.getItem('imageList')){
       this.imgData =JSON.parse(localStorage.getItem('imageList'));
     }
@@ -89,7 +88,7 @@ export class LoginPage {
       duration: 3000,
       position: 'bottom'
     });
-    console.log('ionViewDidLoad LoginPage');
+   
     if(localStorage.getItem("loggedData")){
         let loggedid=JSON.parse(localStorage.getItem("loggedData"));
        if(localStorage.getItem('serviceBooking')){
@@ -105,10 +104,12 @@ export class LoginPage {
           console.log(result);
           this.responseData=result;
           if(this.responseData.status==true){
-           toast.present();
+          // toast.present();
            if(loggedid[0].image){this.uploadFile();}
            if(loggedid[0].audio){this.uploadAudio(); }
+
             this.push(this.pushData);
+            this.bookingComplete();
           }else{
            toast1.present();
           }
@@ -127,10 +128,11 @@ export class LoginPage {
           console.log(result);
           this.responseData=result;
           if(this.responseData.status==true){
-           toast.present();
+          // toast.present();
            this.push(this.pushData);
            if(loggedid[0].image){this.uploadFile();}
            if(loggedid[0].audio){this.uploadAudio(); }
+           this.bookingComplete();
           }else{
            toast1.present();
           }
@@ -140,6 +142,10 @@ export class LoginPage {
       
            
     }
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad LoginPage');
   }
 
   push(data){
@@ -214,10 +220,10 @@ this.AuthServiceProvider.postData(this.forgotData,'forgotPass').then((result) =>
          
           localStorage.setItem('loggedData',JSON.stringify(this.responsedata.data)); 
           console.log(result);
-          toast.present();
+          //toast.present();
           if(service['image']){this.uploadAudio();}
           if(service['audio']){ this.uploadFile();}
-          this.navCtrl.setRoot(HomePage);
+          this.bookingComplete();
         }else{
           loader.dismiss();
           toast1.present();
@@ -235,10 +241,10 @@ this.AuthServiceProvider.postData(this.forgotData,'forgotPass').then((result) =>
           loader.dismiss();
           localStorage.setItem('loggedData',JSON.stringify(this.responsedata.data)); 
           console.log(result);
-          toast.present();
+          //toast.present();
           if(service['image']){this.uploadAudio();}
           if(service['audio']){ this.uploadFile();}
-          this.navCtrl.setRoot(HomePage);
+          this.bookingComplete();
         }else{
           loader.dismiss();
           toast1.present();
@@ -276,6 +282,22 @@ this.AuthServiceProvider.postData(this.forgotData,'forgotPass').then((result) =>
           } );
     }
   }
+  bookingComplete(){
+    let alert = this.alertCtrl.create({
+      title: 'Service Booking',
+      message: 'Service booking successfully submitted with 24 hours you will response from rytefix partner.',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            console.log('Buy clicked');
+            this.navCtrl.push(HomePage);
+          }
+        }
+      ]
+    });
+    alert.present();
+} 
   reg(){
     this.navCtrl.setRoot(RegisterPage);
   }

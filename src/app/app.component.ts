@@ -33,6 +33,8 @@ export class MyApp {
   imgData: any;
   image: any;
   username: any;
+  Branch = window['Branch'];
+  branchUniversalObj = null
   // tab1Root = HomePage;
   // tab2Root = FaqPage;
   // tab3Root = ContactusPage;
@@ -44,6 +46,8 @@ export class MyApp {
     public platform: Platform, public statusBar: StatusBar, private loadingCtrl: LoadingController,
     public splashScreen: SplashScreen, private alertCtrl: AlertController, private fb: Facebook, private push: Push, public socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController) {
     this.initializeApp();
+    // this.createDeepLink();
+    
 
     // this.imgData = JSON.parse(localStorage.getItem('loggedData'));
     // this.image = "http://sunrisetechs.com/images/imgs/" + this.imgData[0]['profile_pic'];
@@ -77,6 +81,88 @@ export class MyApp {
 
 
 
+  }
+
+  handleBranch(){
+    if (!this.platform.is('cordova')) { return }
+    const Branch = window['Branch'];
+    Branch.initSession(data => {
+      if (data['+clicked_branch_link']) {
+        // read deep link data on click
+        alert('Deep Link Data: ' + JSON.stringify(data));
+        // this.contentReference();
+      }
+    });
+  }
+
+  contentReference(){
+    var properties = {
+      canonicalIdentifier: 'content/123',
+      canonicalUrl: 'https://example.com/content/123',
+      title: 'Content 123 Title',
+      contentDescription: 'Content 123 Description ' + Date.now(),
+      contentImageUrl: 'http://lorempixel.com/400/400/',
+      price: 12.12,
+      currency: 'GBD',
+      contentIndexingMode: 'private',
+      contentMetadata: {
+        custom: 'data',
+        testing: 123,
+        this_is: true
+      }
+    }
+    var analytics = {
+      channel: 'facebook',
+      feature: 'onboarding',
+      campaign: 'content 123 launch',
+      stage: 'new user',
+      tags: ['one', 'two', 'three']
+    }
+    
+    // optional fields
+    var properties1 = {
+      $desktop_url: 'http://www.example.com/desktop',
+      $android_url: 'http://www.example.com/android',
+      $ios_url: 'http://www.example.com/ios',
+      $ipad_url: 'http://www.example.com/ipad',
+      $match_duration: 2000,
+      custom_string: 'data',
+      custom_integer: Date.now(),
+      custom_boolean: true
+    }
+    this.Branch.createBranchUniversalObject(properties).then(function (res) {
+      res.generateShortUrl(analytics, properties1).then(function (res) {
+        console.log('Response: ' + JSON.stringify(res.url));
+      })
+    })
+  }
+
+  createDeepLink(){
+    var analytics = {
+      channel: 'facebook',
+      feature: 'onboarding',
+      campaign: 'content 123 launch',
+      stage: 'new user',
+      tags: ['one', 'two', 'three']
+    }
+    
+    // optional fields
+    var properties = {
+      $desktop_url: 'http://www.example.com/desktop',
+      $android_url: 'http://www.example.com/android',
+      $ios_url: 'http://www.example.com/ios',
+      $ipad_url: 'http://www.example.com/ipad',
+      $match_duration: 2000,
+      custom_string: 'data',
+      custom_integer: Date.now(),
+      custom_boolean: true
+    }
+    
+    this.branchUniversalObj.generateShortUrl(analytics, properties).then(function (res) {
+      alert('Response: ' + JSON.stringify(res.url))
+    }).catch(function (err) {
+      alert('Error: ' + JSON.stringify(err))
+    })
   }
 
   logout() {
@@ -144,8 +230,11 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
+
+      this.handleBranch();
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.contentReference();
       this.push.hasPermission()
         .then((res: any) => {
 
@@ -207,6 +296,8 @@ export class MyApp {
 
     });
   }
+
+ 
 
   openPage(page) {
     // Reset the content nav to have just this page

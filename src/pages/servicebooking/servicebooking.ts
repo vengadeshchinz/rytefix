@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Platform ,ToastController, LoadingController  } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Platform, AlertController,ToastController, LoadingController  } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { RegisterPage } from '../register/register';
@@ -110,6 +110,7 @@ export class ServicebookingPage {
      public loadingCtrl: LoadingController,
      public transfer: FileTransfer,
      private camera: Camera,
+     private alertCtrl: AlertController,
      public AuthServiceProvider:AuthServiceProvider,
      public toastCtrl: ToastController,
      public serviceState:ServicestateProvider,
@@ -151,11 +152,17 @@ export class ServicebookingPage {
     console.log(event.value.length);
     if(event.value.length < 2){ 
       this.disable=true;
-      alert("Minimum 2 service provider select");
+      this.userData.loc="";
+      this.userdata1.loc1="";
+      alert("Select Minimum 2 areas and Maximum 3");
+
     }else if(event.value.length >3){
-      alert("Maximum 3 service provider select");
+      this.userData.loc="";
+      this.userdata1.loc1="";
+      alert("Select Minimum 2 areas and Maximum 3");
       this.disable=true;
     }else{
+      
       this.disable=false;
     }
 }
@@ -251,7 +258,7 @@ this.http.post('http://sunrisetechs.com/sunapi/push.php',data).subscribe((result
    console.log(this.userData);
    if (this.userData.make && this.userData.modelno && this.userData.soft || this.userData.hard ||this.userData.others && this.userData.pickup && this.userData.loc) {
        localStorage.setItem('serviceBooking',JSON.stringify(this.userData)); 
-    this.navCtrl.setRoot(LoginPage);
+       this.bookingConform();
      }else{
        alert("All fileds required");
      }
@@ -265,11 +272,40 @@ this.http.post('http://sunrisetechs.com/sunapi/push.php',data).subscribe((result
     console.log(this.userdata1);
     if (this.userdata1.make1 && this.userdata1.modelno1 && this.userdata1.describe  || this.userdata1.pickup1 && this.userdata1.loc1) {
         localStorage.setItem('serviceBooking1',JSON.stringify(this.userdata1)); 
-     this.navCtrl.setRoot(LoginPage);
+        this.bookingConform();
       }else{
         alert("All fileds required");
       }
    }
+   bookingConform(){
+   
+    // alert("test");
+     if(localStorage.getItem("loggedData")){
+     this.navCtrl.push(LoginPage);
+     }else{
+       let alert = this.alertCtrl.create({
+         title: 'Service Booking',
+         message: 'Login to submit user service booking',
+         buttons: [
+           // {
+           //   text: 'Cancel',
+           //   role: 'cancel',
+           //   handler: () => {
+           //     console.log('Cancel clicked');
+           //   }
+           // },
+           {
+             text: 'OK',
+             handler: () => {
+               console.log('Buy clicked');
+               this.navCtrl.push(LoginPage);
+             }
+           }
+         ]
+       });
+       alert.present();
+     }
+   } 
   servicemake(data){
    
     if(data=="others"||data==""){

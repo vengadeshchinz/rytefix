@@ -10,6 +10,7 @@ import { RegisterPage } from '../pages/register/register';
 import { LoginPage } from '../pages/login/login';
 import { QuotehistoryPage } from '../pages/quotehistory/quotehistory';
 import { QuoteviewPage } from '../pages/quoteview/quoteview';
+import { QuotemapPage } from '../pages/quotemap/quotemap';
 import { FaqPage } from '../pages/faq/faq';
 import { ContactusPage } from '../pages/contactus/contactus';
 import { ChangepassPage } from '../pages/changepass/changepass';
@@ -47,6 +48,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     ServicebookingPage,
     LoginPage,
     QuotehistoryPage,
+    QuotemapPage,
     FaqPage,
     ViewacceptQuotePage,
     ContactusPage,
@@ -80,6 +82,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
     ProfilePage,
     QuotehistoryPage,
     QuoteviewPage,
+    QuotemapPage,
     IntrosliderPage,
     WalletPage,
     EditservicebookingPage,

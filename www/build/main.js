@@ -1,4 +1,4 @@
-webpackJsonp([16],{
+webpackJsonp([17],{
 
 /***/ 117:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -8,14 +8,14 @@ webpackJsonp([16],{
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_media__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_servicestate_servicestate__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__providers_servicestate_servicestate__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__angular_http__ = __webpack_require__(23);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -48,7 +48,7 @@ var Port = (function () {
     return Port;
 }());
 var ServicebookingPage = (function () {
-    function ServicebookingPage(navCtrl, platform, navParams, media, file, loadingCtrl, transfer, camera, AuthServiceProvider, toastCtrl, serviceState, http) {
+    function ServicebookingPage(navCtrl, platform, navParams, media, file, loadingCtrl, transfer, camera, alertCtrl, AuthServiceProvider, toastCtrl, serviceState, http) {
         this.navCtrl = navCtrl;
         this.platform = platform;
         this.navParams = navParams;
@@ -57,6 +57,7 @@ var ServicebookingPage = (function () {
         this.loadingCtrl = loadingCtrl;
         this.transfer = transfer;
         this.camera = camera;
+        this.alertCtrl = alertCtrl;
         this.AuthServiceProvider = AuthServiceProvider;
         this.toastCtrl = toastCtrl;
         this.serviceState = serviceState;
@@ -178,10 +179,14 @@ var ServicebookingPage = (function () {
         console.log(event.value.length);
         if (event.value.length < 2) {
             this.disable = true;
-            alert("Minimum 2 service provider select");
+            this.userData.loc = "";
+            this.userdata1.loc1 = "";
+            alert("Select Minimum 2 areas and Maximum 3");
         }
         else if (event.value.length > 3) {
-            alert("Maximum 3 service provider select");
+            this.userData.loc = "";
+            this.userdata1.loc1 = "";
+            alert("Select Minimum 2 areas and Maximum 3");
             this.disable = true;
         }
         else {
@@ -274,7 +279,7 @@ var ServicebookingPage = (function () {
         console.log(this.userData);
         if (this.userData.make && this.userData.modelno && this.userData.soft || this.userData.hard || this.userData.others && this.userData.pickup && this.userData.loc) {
             localStorage.setItem('serviceBooking', JSON.stringify(this.userData));
-            this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__login_login__["a" /* LoginPage */]);
+            this.bookingConform();
         }
         else {
             alert("All fileds required");
@@ -287,10 +292,40 @@ var ServicebookingPage = (function () {
         console.log(this.userdata1);
         if (this.userdata1.make1 && this.userdata1.modelno1 && this.userdata1.describe || this.userdata1.pickup1 && this.userdata1.loc1) {
             localStorage.setItem('serviceBooking1', JSON.stringify(this.userdata1));
-            this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__login_login__["a" /* LoginPage */]);
+            this.bookingConform();
         }
         else {
             alert("All fileds required");
+        }
+    };
+    ServicebookingPage.prototype.bookingConform = function () {
+        var _this = this;
+        // alert("test");
+        if (localStorage.getItem("loggedData")) {
+            this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__login_login__["a" /* LoginPage */]);
+        }
+        else {
+            var alert_1 = this.alertCtrl.create({
+                title: 'Service Booking',
+                message: 'Login to submit user service booking',
+                buttons: [
+                    // {
+                    //   text: 'Cancel',
+                    //   role: 'cancel',
+                    //   handler: () => {
+                    //     console.log('Cancel clicked');
+                    //   }
+                    // },
+                    {
+                        text: 'OK',
+                        handler: function () {
+                            console.log('Buy clicked');
+                            _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__login_login__["a" /* LoginPage */]);
+                        }
+                    }
+                ]
+            });
+            alert_1.present();
         }
     };
     ServicebookingPage.prototype.servicemake = function (data) {
@@ -469,7 +504,7 @@ var ServicebookingPage = (function () {
     };
     ServicebookingPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-servicebooking',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\servicebooking\servicebooking.html"*/'<!--\n\n  Generated template for the ServicebookingPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n    <ion-toolbar no-padding>\n\n      <button ion-button menuToggle>\n\n        <ion-icon name="menu" style="color:#fff"></ion-icon>\n\n      </button>\n\n      <ion-title>New Service Booking</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n<ion-content padding *ngIf="mobile">\n\n    <ion-list no-lines>\n\n  <form [formGroup]="form" (ngSubmit)="serviceReq()">\n\n    <ion-item >\n\n      <!-- <ion-label>Select Make</ion-label> -->\n\n      <ion-select class="my-select" formControlName="make" name="make" [(ngModel)]="userData.make" (ionChange)="servicemake($event)">\n\n        <ion-option value="" disabled>Select Make</ion-option>\n\n        <ion-option *ngFor="let key  of makedropdown" value="{{key.id}}">{{key.make_name}}</ion-option>\n\n        <ion-option value="others">others</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item *ngIf="other">\n\n      <ion-input formControlName="make" name="make" type="text" [(ngModel)]="userData.make" placeholder="Enter Service Make" clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="make.touched && make.invalid" class="alertstyle">\n\n      <div *ngIf="make.errors.required">Select Make</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      <ion-input formControlName="modelno" name="modelno" type="text" [(ngModel)]="userData.modelno" placeholder="Enter Model Number"\n\n        clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="modelno.touched && modelno.invalid" class="alertstyle">\n\n      <div *ngIf="modelno.errors.required">Select Model</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      <ion-label class="align">Select Service Required</ion-label>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <!-- <ion-label>Software</ion-label> -->\n\n      <ion-select  class="my-select" formControlName="soft" name="soft" [(ngModel)]="userData.soft">\n\n        <ion-option value="" disabled>Software</ion-option>\n\n        <ion-option *ngFor="let key  of softdropdown" value="{{key.id}}">{{key.service}}</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n  \n\n    <ion-item>\n\n      <!-- <ion-label>Hardware</ion-label> -->\n\n      <ion-select  class="my-select" formControlName="hard" name="hard" [(ngModel)]="userData.hard">\n\n        <ion-option value="" disabled>Hardware</ion-option>\n\n        <ion-option *ngFor="let key  of harddropdown" value="{{key.id}}">{{key.service}}</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n   \n\n    <ion-item>\n\n      <ion-input formControlName="others" name="others" type="text" [(ngModel)]="userData.others" placeholder="Others" clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="others.touched && others.invalid||hard.touched && hard.invalid||soft.touched && soft.invalid" class="alertstyle">\n\n      <div *ngIf="others.errors.required||hard.errors.required||soft.errors.required">Select Model</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      <!-- <ion-label floating>Home Pick Up</ion-label> -->\n\n        <ion-select class="my-select" style="color:#fff"  [(ngModel)]="userData.pickup" formControlName="pickup" >\n\n            <ion-option value="" disabled>Home Pick Up</ion-option>       \n\n          <ion-option value="required">Required</ion-option>\n\n          <ion-option value="notrequired">Not Required</ion-option>\n\n         \n\n      </ion-select>\n\n      </ion-item>\n\n    <ion-item>\n\n      <select-searchable  class="my-select"\n\n      formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc"\n\n          title="Preferred Location"\n\n        \n\n          [items]="ports"\n\n          [canSearch]="true"\n\n          [multiple]="true"\n\n          (onChange)="portChange($event)">\n\n      </select-searchable>\n\n  </ion-item>\n\n  <div  class="alertstyle">\n\n      <div >*Select Minimum 2 areas and Maximum 3</div>\n\n    </div>\n\n  <ion-item>\n\n      <ion-input   formControlName="promocode" name="promocode" type="text" [(ngModel)]="userData.promocode" (ionChange)="promochange(userData.promocode)" placeholder="Enter promo code"\n\n        clearInput></ion-input>\n\n    </ion-item>\n\n     <!-- <ion-item >\n\n      <ion-label>Select Preferred Locationfor Service</ion-label>\n\n      <ion-select formControlName="loc" name="loc" multiple [(ngModel)]="userData.loc" (ionChange)="serviceLoc($event)">\n\n        <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>\n\n      </ion-select>\n\n    </ion-item> -->\n\n    <!-- <ion-item>\n\n      <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>\n\n    </ion-item> -->\n\n    <ion-row class="img">\n\n      <ion-col col-5> <h6 style="color:#fff" >Image :</h6></ion-col>\n\n      <ion-col col-6>\n\n        <div class="upload-img" (click)="getImage()">\n\n          {{userData.image}} <ion-icon name="camera"></ion-icon> \n\n          <div *ngIf="!userData.image==\'\'" class="upload-img" (click)="imageDelete()" >\n\n            <ion-icon name="ios-close-circle"></ion-icon>\n\n        </div>  \n\n        </div>\n\n     </ion-col>\n\n    </ion-row>\n\n    <ion-row class="voice">\n\n      <ion-col col-5> <h6 style="color:#fff" >Voice Note:</h6></ion-col>\n\n      <ion-col col-6 ><div *ngIf="userData.audio"> {{userData.audio}}\n\n          <div class="upload-audio" (click)="audioDelete()" >\n\n              <ion-icon name="ios-close-circle"></ion-icon>\n\n          </div></div>\n\n             \n\n              <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">\n\n                  <ion-icon name="ios-mic"></ion-icon>\n\n              </div>\n\n              <div *ngIf="userData.audio==\'\'">\n\n                <div class="upload-audio audiostart" (click)="startRecord()"  *ngIf="!recording" >\n\n                  <ion-icon name="ios-mic-outline"></ion-icon>\n\n              </div>\n\n                \n\n              </div>\n\n             \n\n              <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>\n\n              <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->\n\n      </ion-col>\n\n    </ion-row>\n\n    <!-- <ion-list>\n\n      <ion-item *ngFor="let audio of audioList; index as i;">\n\n        <p>{{audio.filename}}</p>\n\n        {{userData.audio}}\n\n         <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button> \n\n        <div class="upload-audio" (click)="playAudio(audio.filename, i)">\n\n            <ion-icon name="play"></ion-icon>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list> -->\n\n    <!-- <ion-item>\n\n      <p>{{imageURI}}</p>\n\n      <button ion-button color="secondary" (click)="getImage()">Get Image</button>\n\n      <button ion-button (click)="uploadFile()">Upload</button>\n\n    </ion-item> -->\n\n    <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Service Request</button>\n\n </form>\n\n </ion-list>\n\n\n\n</ion-content>\n\n\n\n<ion-content padding *ngIf="printer">\n\n    <ion-list no-lines>\n\n  <form [formGroup]="form1" (ngSubmit)="serviceReq1()">\n\n    <ion-item >\n\n      <ion-input formControlName="make1" name="make1" type="text" [(ngModel)]="userdata1.make1" placeholder="Enter Service Make" clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="make1.touched && make1.invalid" class="alertstyle">\n\n      <div *ngIf="make1.errors.required">Select Make</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      <ion-input formControlName="modelno1" name="modelno1" type="text" [(ngModel)]="userdata1.modelno1" placeholder="Enter Model Number"\n\n        clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="modelno1.touched && modelno1.invalid" class="alertstyle">\n\n      <div *ngIf="modelno1.errors.required">Select Model</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      \n\n      <ion-textarea formControlName="describe" name="describe" type="text" [(ngModel)]="userdata1.describe" placeholder="Describe the problem"\n\n        clearInput></ion-textarea>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <!-- <ion-label floating>Home Pick Up</ion-label> -->\n\n        <ion-select class="my-select" style="color:#fff"  [(ngModel)]="userdata1.pickup1" formControlName="pickup1" >\n\n            <ion-option value="" disabled>Home Pick Up</ion-option>       \n\n          <ion-option value="required">Required</ion-option>\n\n          <ion-option value="notrequired">Not Required</ion-option>\n\n         \n\n      </ion-select>\n\n      </ion-item>\n\n    <ion-item>\n\n      <select-searchable\n\n      formControlName="loc1" name="loc1" type="text" [(ngModel)]="userdata1.loc1"\n\n          placeholder="Preferred Location"\n\n          [items]="ports"\n\n          [canSearch]="true"\n\n          [multiple]="true"\n\n          (onChange)="portChange($event)">\n\n      </select-searchable>\n\n  </ion-item>\n\n  <div  class="alertstyle">\n\n      <div >*Select Minimum 2 areas and Maximum 3</div>\n\n    </div>\n\n  <ion-item>\n\n      <ion-input formControlName="promocode1" name="promocode1" type="text" [(ngModel)]="userdata1.promocode1" placeholder="Enter promo code"\n\n        clearInput></ion-input>\n\n    </ion-item>\n\n    <!-- <ion-item>\n\n      <ion-label>Select Preferred Locationfor Service</ion-label>\n\n      <ion-select formControlName="loc1" name="loc1" multiple [(ngModel)]="userdata1.loc1" (ionChange)="serviceLoc($event)">\n\n        <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>\n\n      </ion-select>\n\n    </ion-item> -->\n\n <!-- <ion-item>\n\n      <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>\n\n    </ion-item>  -->\n\n    <ion-row class="img">\n\n      <ion-col col-5> <h6 style="color:#fff" >Image :</h6></ion-col>\n\n      <ion-col col-6>\n\n        <div class="upload-img" (click)="getImage()">\n\n          {{userData.image}} <ion-icon name="camera"></ion-icon> \n\n          <div *ngIf="!userData.image==\'\'" class="upload-img" (click)="imageDelete()" >\n\n            <ion-icon name="ios-close-circle"></ion-icon>\n\n        </div>   \n\n        </div>\n\n     </ion-col>\n\n    </ion-row>\n\n    \n\n    <ion-row class="voice">\n\n      <ion-col col-5> <h6 style="color:#fff" >Voice Note:</h6></ion-col>\n\n      <ion-col col-6 ><div *ngFor="let audio of audioList; index as i;"> {{audio.filename}}\n\n          <div class="upload-audio" (click)="audioDelete()" >\n\n              <ion-icon name="ios-close-circle"></ion-icon>\n\n          </div></div>\n\n             \n\n              <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">\n\n                  <ion-icon name="ios-mic"></ion-icon>\n\n              </div>\n\n              <div class="upload-audio audiostart"  (click)="startRecord()"  *ngIf="!recording" >\n\n                  <ion-icon name="ios-mic-outline"></ion-icon>\n\n              </div>\n\n              <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>\n\n              <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->\n\n      </ion-col>\n\n    </ion-row>\n\n    \n\n    <ion-list>\n\n      <ion-item *ngFor="let audio of audioList; index as i;">\n\n        <p>{{audio.filename}}</p>\n\n        {{userData.audio}}\n\n        <!-- <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button> -->\n\n        <div class="upload-audio" (click)="playAudio(audio.filename, i)">\n\n            <ion-icon name="play"></ion-icon>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list>\n\n    <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Service Request</button>\n\n  </form>\n\n</ion-list>\n\n</ion-content>'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\servicebooking\servicebooking.html"*/,
+            selector: 'page-servicebooking',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\servicebooking\servicebooking.html"*/'<!--\n\n  Generated template for the ServicebookingPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n    <ion-toolbar no-padding>\n\n      <button ion-button menuToggle>\n\n        <ion-icon name="menu" style="color:#fff"></ion-icon>\n\n      </button>\n\n      <ion-title>New Service Booking</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n<ion-content padding *ngIf="mobile">\n\n    <ion-list no-lines>\n\n  <form [formGroup]="form" (ngSubmit)="serviceReq()">\n\n    <ion-item >\n\n      <!-- <ion-label>Select Make</ion-label> -->\n\n      <ion-select class="my-select" formControlName="make" name="make" [(ngModel)]="userData.make" (ionChange)="servicemake($event)">\n\n        <ion-option value="" disabled>Select Make</ion-option>\n\n        <ion-option *ngFor="let key  of makedropdown" value="{{key.id}}">{{key.make_name}}</ion-option>\n\n        <ion-option value="others">others</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item *ngIf="other">\n\n      <ion-input formControlName="make" name="make" type="text" [(ngModel)]="userData.make" placeholder="Enter Service Make" clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="make.touched && make.invalid" class="alertstyle">\n\n      <div *ngIf="make.errors.required">Select Make</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      <ion-input formControlName="modelno" name="modelno" type="text" [(ngModel)]="userData.modelno" placeholder="Enter Model Number"\n\n        clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="modelno.touched && modelno.invalid" class="alertstyle">\n\n      <div *ngIf="modelno.errors.required">Select Model</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      <ion-label class="align">Select Service Required</ion-label>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <!-- <ion-label>Software</ion-label> -->\n\n      <ion-select  class="my-select" formControlName="soft" name="soft" [(ngModel)]="userData.soft">\n\n        <ion-option value="" disabled>Software</ion-option>\n\n        <ion-option *ngFor="let key  of softdropdown" value="{{key.id}}">{{key.service}}</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n  \n\n    <ion-item>\n\n      <!-- <ion-label>Hardware</ion-label> -->\n\n      <ion-select  class="my-select" formControlName="hard" name="hard" [(ngModel)]="userData.hard">\n\n        <ion-option value="" disabled>Hardware</ion-option>\n\n        <ion-option *ngFor="let key  of harddropdown" value="{{key.id}}">{{key.service}}</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n   \n\n    <ion-item>\n\n      <ion-input formControlName="others" name="others" type="text" [(ngModel)]="userData.others" placeholder="Others" clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="others.touched && others.invalid||hard.touched && hard.invalid||soft.touched && soft.invalid" class="alertstyle">\n\n      <div *ngIf="others.errors.required||hard.errors.required||soft.errors.required">Select Model</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      <!-- <ion-label floating>Home Pick Up</ion-label> -->\n\n        <ion-select class="my-select" style="color:#fff"  [(ngModel)]="userData.pickup" formControlName="pickup" >\n\n            <ion-option value="" disabled>Home Pick Up</ion-option>       \n\n          <ion-option value="required">Required</ion-option>\n\n          <ion-option value="notrequired">Not Required</ion-option>\n\n         \n\n      </ion-select>\n\n      </ion-item>\n\n    <ion-item>\n\n      <select-searchable  class="my-select"\n\n      formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc"\n\n          title="Preferred Location"\n\n        \n\n          [items]="ports"\n\n          [canSearch]="true"\n\n          [multiple]="true"\n\n          (onChange)="portChange($event)">\n\n      </select-searchable>\n\n  </ion-item>\n\n \n\n  <ion-item>\n\n      <ion-input   formControlName="promocode" name="promocode" type="text" [(ngModel)]="userData.promocode" (ionChange)="promochange(userData.promocode)" placeholder="Enter promo code"\n\n        clearInput></ion-input>\n\n    </ion-item>\n\n     <!-- <ion-item >\n\n      <ion-label>Select Preferred Locationfor Service</ion-label>\n\n      <ion-select formControlName="loc" name="loc" multiple [(ngModel)]="userData.loc" (ionChange)="serviceLoc($event)">\n\n        <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>\n\n      </ion-select>\n\n    </ion-item> -->\n\n    <!-- <ion-item>\n\n      <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>\n\n    </ion-item> -->\n\n    <ion-row class="img">\n\n      <ion-col col-5> <h6 style="color:#fff" >Image :</h6></ion-col>\n\n      <ion-col col-6>\n\n        <div class="upload-img" (click)="getImage()">\n\n          {{userData.image}} <ion-icon name="camera"> Browse</ion-icon> \n\n          <div *ngIf="!userData.image==\'\'" class="upload-img" (click)="imageDelete()" >\n\n            <ion-icon name="ios-close-circle"></ion-icon>\n\n        </div>  \n\n        </div>\n\n     </ion-col>\n\n    </ion-row>\n\n    <ion-row class="voice">\n\n      <ion-col col-5> <h6 style="color:#fff" >Voice Note:</h6></ion-col>\n\n      <ion-col col-6 ><div *ngIf="userData.audio"> {{userData.audio}}\n\n          <div class="upload-audio" (click)="audioDelete()" >\n\n              <ion-icon name="ios-close-circle"></ion-icon>\n\n          </div></div>\n\n             \n\n              <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">\n\n                  <ion-icon name="ios-mic"> Stop</ion-icon>\n\n              </div>\n\n              <div *ngIf="userData.audio==\'\'">\n\n                <div class="upload-audio audiostart" (click)="startRecord()"  *ngIf="!recording" >\n\n                  <ion-icon name="ios-mic-outline"> Record</ion-icon>\n\n              </div>\n\n                \n\n              </div>\n\n             \n\n              <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>\n\n              <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->\n\n      </ion-col>\n\n    </ion-row>\n\n    <!-- <ion-list>\n\n      <ion-item *ngFor="let audio of audioList; index as i;">\n\n        <p>{{audio.filename}}</p>\n\n        {{userData.audio}}\n\n         <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button> \n\n        <div class="upload-audio" (click)="playAudio(audio.filename, i)">\n\n            <ion-icon name="play"></ion-icon>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list> -->\n\n    <!-- <ion-item>\n\n      <p>{{imageURI}}</p>\n\n      <button ion-button color="secondary" (click)="getImage()">Get Image</button>\n\n      <button ion-button (click)="uploadFile()">Upload</button>\n\n    </ion-item> -->\n\n    <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Service Request</button>\n\n </form>\n\n </ion-list>\n\n\n\n</ion-content>\n\n\n\n<ion-content padding *ngIf="printer">\n\n    <ion-list no-lines>\n\n  <form [formGroup]="form1" (ngSubmit)="serviceReq1()">\n\n    <ion-item >\n\n      <ion-input formControlName="make1" name="make1" type="text" [(ngModel)]="userdata1.make1" placeholder="Enter Service Make" clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="make1.touched && make1.invalid" class="alertstyle">\n\n      <div *ngIf="make1.errors.required">Select Make</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      <ion-input formControlName="modelno1" name="modelno1" type="text" [(ngModel)]="userdata1.modelno1" placeholder="Enter Model Number"\n\n        clearInput></ion-input>\n\n    </ion-item>\n\n    <div *ngIf="modelno1.touched && modelno1.invalid" class="alertstyle">\n\n      <div *ngIf="modelno1.errors.required">Select Model</div>\n\n    </div>\n\n\n\n    <ion-item>\n\n      \n\n      <ion-textarea formControlName="describe" name="describe" type="text" [(ngModel)]="userdata1.describe" placeholder="Describe the problem"\n\n        clearInput></ion-textarea>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <!-- <ion-label floating>Home Pick Up</ion-label> -->\n\n        <ion-select class="my-select" style="color:#fff"  [(ngModel)]="userdata1.pickup1" formControlName="pickup1" >\n\n            <ion-option value="" disabled>Home Pick Up</ion-option>       \n\n          <ion-option value="required">Required</ion-option>\n\n          <ion-option value="notrequired">Not Required</ion-option>\n\n         \n\n      </ion-select>\n\n      </ion-item>\n\n    <ion-item>\n\n      <select-searchable class="my-select"\n\n      formControlName="loc1" name="loc1" type="text" [(ngModel)]="userdata1.loc1"\n\n          title="Preferred Location"\n\n          [items]="ports"\n\n          [canSearch]="true"\n\n          [multiple]="true"\n\n          (onChange)="portChange($event)">\n\n      </select-searchable>\n\n  </ion-item>\n\n \n\n  <ion-item>\n\n      <ion-input formControlName="promocode1" name="promocode1" type="text" [(ngModel)]="userdata1.promocode1" placeholder="Enter promo code"\n\n        clearInput></ion-input>\n\n    </ion-item>\n\n    <!-- <ion-item>\n\n      <ion-label>Select Preferred Locationfor Service</ion-label>\n\n      <ion-select formControlName="loc1" name="loc1" multiple [(ngModel)]="userdata1.loc1" (ionChange)="serviceLoc($event)">\n\n        <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>\n\n      </ion-select>\n\n    </ion-item> -->\n\n <!-- <ion-item>\n\n      <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>\n\n    </ion-item>  -->\n\n    <ion-row class="img">\n\n      <ion-col col-5> <h6 style="color:#fff" >Image :</h6></ion-col>\n\n      <ion-col col-6>\n\n        <div class="upload-img" (click)="getImage()">\n\n          {{userData.image}} <ion-icon name="camera"> Browse</ion-icon> \n\n          <div *ngIf="!userData.image==\'\'" class="upload-img" (click)="imageDelete()" >\n\n            <ion-icon name="ios-close-circle"></ion-icon>\n\n        </div>   \n\n        </div>\n\n     </ion-col>\n\n    </ion-row>\n\n    \n\n    <ion-row class="voice">\n\n      <ion-col col-5> <h6 style="color:#fff" >Voice Note:</h6></ion-col>\n\n      <ion-col col-6 ><div *ngFor="let audio of audioList; index as i;"> {{audio.filename}}\n\n          <div class="upload-audio" (click)="audioDelete()" >\n\n              <ion-icon name="ios-close-circle"></ion-icon>\n\n          </div></div>\n\n             \n\n              <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">\n\n                  <ion-icon name="ios-mic"> Stop</ion-icon>\n\n              </div>\n\n              <div class="upload-audio audiostart"  (click)="startRecord()"  *ngIf="!recording" >\n\n                  <ion-icon name="ios-mic-outline"> Record</ion-icon>\n\n              </div>\n\n              <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>\n\n              <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->\n\n      </ion-col>\n\n    </ion-row>\n\n    \n\n    <ion-list>\n\n      <ion-item *ngFor="let audio of audioList; index as i;">\n\n        <p>{{audio.filename}}</p>\n\n        {{userData.audio}}\n\n        <!-- <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button> -->\n\n        <div class="upload-audio" (click)="playAudio(audio.filename, i)">\n\n            <ion-icon name="play"></ion-icon>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list>\n\n    <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Service Request</button>\n\n  </form>\n\n</ion-list>\n\n</ion-content>'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\servicebooking\servicebooking.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["Platform"],
@@ -479,6 +514,7 @@ var ServicebookingPage = (function () {
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"],
             __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__["a" /* FileTransfer */],
             __WEBPACK_IMPORTED_MODULE_8__ionic_native_camera__["a" /* Camera */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"],
             __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"],
             __WEBPACK_IMPORTED_MODULE_9__providers_servicestate_servicestate__["a" /* ServicestateProvider */],
@@ -561,7 +597,7 @@ var FaqPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_email_composer__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__ = __webpack_require__(52);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -672,16 +708,491 @@ var ContactusPage = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuotemapPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tabs_tabs__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicestate_servicestate__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__quotehistory_quotehistory__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__quoteview_quoteview__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_http__ = __webpack_require__(23);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+
+var QuotemapPage = (function () {
+    function QuotemapPage(navCtrl, AuthServiceProvider, navParams, callNumber, geolocation, alertCtrl, toastCtrl, serviceState, http) {
+        this.navCtrl = navCtrl;
+        this.AuthServiceProvider = AuthServiceProvider;
+        this.navParams = navParams;
+        this.callNumber = callNumber;
+        this.geolocation = geolocation;
+        this.alertCtrl = alertCtrl;
+        this.toastCtrl = toastCtrl;
+        this.serviceState = serviceState;
+        this.http = http;
+        this.pushData = { "deviceId": "", "message": "" };
+        this.regionals = [];
+        this.mapload();
+    }
+    QuotemapPage_1 = QuotemapPage;
+    QuotemapPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad QuotemapPage');
+        this.quoteget();
+    };
+    QuotemapPage.prototype.listshow = function () {
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_8__quoteview_quoteview__["a" /* QuoteviewPage */]);
+    };
+    QuotemapPage.prototype.mapshow = function () {
+        this.navCtrl.push(this.navCtrl.getActive().component);
+    };
+    QuotemapPage.prototype.push = function (data) {
+        console.log("pushData", data);
+        this.http.post('http://sunrisetechs.com/sunapi/push.php', data).subscribe(function (result) {
+            // this.responseData = result;
+            console.log(result);
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    QuotemapPage.prototype.quoteget = function () {
+        var _this = this;
+        console.log(localStorage.getItem("loggedData"));
+        var quotedata = JSON.parse(localStorage.getItem("loggedData"));
+        console.log(quotedata);
+        this.AuthServiceProvider.postData(quotedata[0], 'quoteView').then(function (result) {
+            console.log(result);
+            _this.quoteview = result;
+            _this.acceptCheck(_this.quoteview);
+            console.log(_this.quoteview[0].make_name);
+            if (_this.quoteview[0].make_name == null) {
+                _this.make = _this.quoteview[0].make;
+            }
+            else {
+                _this.make = _this.quoteview[0].make_name;
+            }
+            //this.make= this.quoteview[0].make_name;
+            _this.model = _this.quoteview[0].model;
+            _this.soft = _this.quoteview[0].softService;
+            _this.hard = _this.quoteview[0].hardService;
+            _this.othermodel = _this.quoteview[0].othermodel;
+            _this.pickup = _this.quoteview[0].pickup_type;
+            _this.booking_date = _this.quoteview[0].posted_on;
+            _this.image = _this.quoteview[0].image;
+            _this.audio = _this.quoteview[0].audio;
+            _this.regionals = result;
+            _this.regionals.forEach(function (o) {
+                Object.keys(o).forEach(function (k) {
+                    if (isFinite(o[k])) {
+                        o[k] = +o[k];
+                    }
+                });
+            });
+            console.log(_this.regionals);
+            _this.mapload();
+            // this.navCtrl.setRoot(HomePage);
+        });
+    };
+    QuotemapPage.prototype.quoteChat = function () {
+        alert("test");
+    };
+    QuotemapPage.prototype.quoteCall = function (mobile) {
+        console.log(mobile);
+        this.callNumber.callNumber(mobile, true)
+            .then(function () { return console.log('Launched dialer!'); })
+            .catch(function () { return console.log('Error launching dialer'); });
+    };
+    QuotemapPage.prototype.acceptCheck = function (quoteView) {
+        var _this = this;
+        quoteView.forEach(function (element) {
+            if (element.accept_status == 3) {
+                console.log(element);
+                _this.Check = "accepted";
+                console.log(_this.Check);
+            }
+        });
+    };
+    QuotemapPage.prototype.quoteAccept = function (id, data) {
+        var _this = this;
+        console.log("quote data", data.device_id);
+        this.pushData.deviceId = data.device_id;
+        this.pushData.message = "Customer has accepted your service. Contact customer to complete the service.";
+        // checking for customer if already accepted the quote
+        if (this.Check == "accepted") {
+            // if accepted throws prompt message to ignore accepted quote
+            var promptalert = this.alertCtrl.create({
+                title: 'Warning',
+                message: 'you have already accepted the quote ! please ignore the accepted quote to accept this.',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: function () {
+                            console.log('Cancel clicked');
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: function () {
+                        }
+                    }
+                ]
+            });
+            promptalert.present();
+        }
+        else {
+            console.log('quote is not accepted previously');
+            var promptalert = this.alertCtrl.create({
+                title: 'Accept Quote',
+                message: 'Do you want to Accept this Quote?',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: function () {
+                            console.log('Cancel clicked');
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: function () {
+                            console.log(id);
+                            _this.AuthServiceProvider.postData(id, 'serviceAccept').then(function (result) {
+                                _this.responsedata = result;
+                                if (_this.responsedata.status == true) {
+                                    //this.refresh();
+                                    _this.quoteAccept1(data);
+                                    _this.push(_this.pushData);
+                                    alert("Service accept successfully");
+                                }
+                            });
+                        }
+                    }
+                ]
+            });
+            promptalert.present();
+        }
+    };
+    QuotemapPage.prototype.quoteAccept1 = function (data) {
+        console.log("data", data);
+        this.navCtrl.push(QuotemapPage_1, { "data": data });
+    };
+    QuotemapPage.prototype.quoteIgnore = function (id) {
+        var _this = this;
+        var promptalert = this.alertCtrl.create({
+            title: 'Ignore',
+            message: 'Do you want to Ignore this Quote?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: function () {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: function () {
+                        console.log(id);
+                        _this.AuthServiceProvider.postData(id, 'serviceIgnore').then(function (result) {
+                            _this.responsedata = result;
+                            if (_this.responsedata.status == true) {
+                                _this.refresh();
+                                alert("Service ignore successfully");
+                            }
+                        });
+                    }
+                }
+            ]
+        });
+        promptalert.present();
+    };
+    QuotemapPage.prototype.refresh = function () {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        console.log("refresh");
+    };
+    QuotemapPage.prototype.mapload = function () {
+        var _this = this;
+        //  this.loadMap(13.08648395538330,80.27350616455078 );
+        this.options = {
+            enableHighAccuracy: true
+        };
+        this.geolocation.getCurrentPosition(this.options).then(function (pos) {
+            _this.currentPos = pos;
+            console.log(pos);
+            console.log(pos.coords.latitude + ',' + pos.coords.longitude);
+            _this.addMap(pos.coords.latitude, pos.coords.longitude);
+            //  this.loadMap(pos.coords.latitude,pos.coords.longitude);
+        }, function (err) {
+            console.log("error : " + err.message);
+        });
+    };
+    /*##User location load##*/
+    QuotemapPage.prototype.addMap = function (lat, long) {
+        var _this = this;
+        var latLng = new google.maps.LatLng(lat, long);
+        var mapOptions = {
+            center: latLng,
+            zoom: 5,
+            visible: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+            styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }]
+        };
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        // this.addMarker();
+        var markers = [];
+        console.log("regionals", this.regionals);
+        var _loop_1 = function (regional) {
+            this_1.nabo_img = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+            console.log(regional.latitude + ',' + regional.longitude);
+            var markerData = {
+                position: {
+                    lat: regional.latitude,
+                    lng: regional.longitude
+                },
+                map: this_1.map,
+                icon: this_1.nabo_img,
+                title: regional.username,
+            };
+            regional.marker = new google.maps.Marker(markerData);
+            markers.push(regional.marker);
+            //let content = regional.username; 
+            //infoWindow.open(this.map, regional.marker);
+            regional.marker.addListener('click', function () {
+                var content = "<div><div><b>Vendor name:</b> " + regional.username +
+                    "</div><p><b>Exact price:</b> " + regional.exactprice +
+                    "</p><p><b>Warranty:</b> " + regional.warranty +
+                    "</p><p><b>Description:</b> " + regional.description +
+                    "</p><button   class='buttonchat' (ng-click)='quoteChat()' >Chat</button>" +
+                    "<button ion-button color='secondary'  class='buttoncall' (click)='quoteCall(" + regional.mobile + ")' icon-only>Call</button>" +
+                    "<button ion-button color='primary'  class='buttonacc' (click)='quoteAccept(" + regional.id + regional + ")' icon-only>Accept</button>" +
+                    "<button ion-button color='light'  class='buttonig' (click)='quoteIgnore(" + regional.id + ")' icon-only>Ignore</button></div>'";
+                var infoWindow = new google.maps.InfoWindow({
+                    content: content
+                });
+                infoWindow.open(_this.map, regional.marker);
+                for (var _i = 0, _a = _this.regionals; _i < _a.length; _i++) {
+                    var c = _a[_i];
+                    console.log(c);
+                    c.current = false;
+                    // c.infoWindow.close();
+                }
+                _this.regionals = regional;
+                var markerData = {
+                    position: {
+                        lat: regional.latitude,
+                        lng: regional.longitude
+                    },
+                    map: _this.map,
+                    title: regional.title,
+                };
+                regional.marker = new google.maps.Marker(markerData);
+                markers.push(regional.marker);
+                console.log(regional.marker);
+                console.log(regional);
+                console.log(regional.latitude + ',' + regional.longitude);
+                //this.othersAddress = regional.username+','+regional.street_address+regional.city +regional.country ;
+                // this.othersAddress = ` ${regional.username}, ${regional.street_address}, ${regional.city}, ${regional.country} ` ;
+                _this.map.panTo(regional.marker.getPosition());
+            });
+        };
+        var this_1 = this;
+        for (var _i = 0, _a = this.regionals; _i < _a.length; _i++) {
+            var regional = _a[_i];
+            _loop_1(regional);
+        }
+    };
+    // loadMap(lat,long){
+    //  console.log(lat+","+long);
+    //   console.log("lat and lang")
+    //   let latLng= new google.maps.LatLng(lat, long);
+    //   console.log(latLng);
+    //   let mapOptions={
+    //     center:latLng,
+    //     zoom:15,
+    //     mapTypeId: google.maps.MapTypeId.ROADMAP
+    //   }
+    // this.map=new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+    // this.addMarker();
+    // }
+    /*##user location mark in map##*/
+    QuotemapPage.prototype.addMarker = function () {
+        var _this = this;
+        console.log("marker");
+        // let cur_img='http://rayi.in/naboApi/mapicon/nabo_home.png';
+        var marker = new google.maps.Marker({
+            map: this.map,
+            animation: google.maps.Animation.DROP,
+            position: this.map.getCenter()
+        });
+        var content = "<p>This is your current position !</p>";
+        var infoWindow = new google.maps.InfoWindow({
+            content: content
+        });
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.open(_this.map, marker);
+            //this.othersAddress = "This is your current position !";
+        });
+    };
+    QuotemapPage.prototype.completeQuote = function (vid, bid, data) {
+        var _this = this;
+        // console.log('vid',vid);
+        console.log('compelte data', data);
+        this.pushData.deviceId = data.device_id;
+        this.pushData.message = "Customer has completed your service.";
+        var prompt = this.alertCtrl.create({
+            message: "Service completed in service center and you paid for the service",
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: function (data) {
+                        console.log('yes clicked');
+                        _this.serviceState.completeService(vid, bid).subscribe(function (data) {
+                            console.log(data);
+                            console.log(data.status);
+                            if (data.status == 'success') {
+                                _this.push(_this.pushData);
+                                var toast = _this.toastCtrl.create({
+                                    message: "Congratulations! You can use the credit",
+                                    duration: 3000,
+                                    position: 'bottom'
+                                });
+                                toast.present();
+                                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__tabs_tabs__["a" /* TabsPage */]);
+                            }
+                        }), function (error) {
+                            console.log(error);
+                        };
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: function (data) {
+                        alert(" Please pay for the service and then complete");
+                        return true;
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    };
+    QuotemapPage.prototype.declineQuote = function (vid, bid) {
+        var _this = this;
+        // console.log('data',this.quoteview[0]);
+        // let vid = this.quoteview[0].vendor;
+        // let bid= this.quoteview[0].booking_id;
+        console.log('vendor id', vid);
+        console.log('booking id', bid);
+        var prompt = this.alertCtrl.create({
+            message: "Please describe the problem",
+            inputs: [
+                {
+                    //type :'text',
+                    name: 'reason',
+                    placeholder: 'Reason for decline',
+                    value: ""
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: function (data) {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Ok',
+                    handler: function (data) {
+                        // let validateObj = this.validate(data);
+                        if (data.reason == "") {
+                            var toast = _this.toastCtrl.create({
+                                message: "Please enter the reason ",
+                                duration: 3000,
+                                position: 'bottom'
+                            });
+                            toast.present();
+                            return false;
+                        }
+                        else {
+                            var toast = _this.toastCtrl.create({
+                                message: "Now you can accept other quotes",
+                                duration: 3000,
+                                position: 'bottom'
+                            });
+                            toast.present();
+                            _this.serviceState.reportproblem(vid, bid, data.reason).subscribe(function (data) {
+                                console.log(data);
+                                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__quotehistory_quotehistory__["a" /* QuotehistoryPage */]);
+                            }), function (error) {
+                                console.log(error);
+                            };
+                            // this.navCtrl.push(QuoteviewPage);
+                        }
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('map'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"])
+    ], QuotemapPage.prototype, "mapElement", void 0);
+    QuotemapPage = QuotemapPage_1 = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-quotemap',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quotemap\quotemap.html"*/'<!--\n  Generated template for the QuotemapPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<!--\n  Generated template for the QuoteviewPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header no-border>\n\n  <ion-toolbar no-padding>\n      <!-- <button ion-button menuToggle>\n          <ion-icon name="menu"></ion-icon>\n      </button> -->\n    <ion-title>Quote</ion-title>\n    <!-- <ion-segment>\n        <ion-segment-button  class="button-l" (click)="listshow()">\n          List View\n        </ion-segment-button>\n        <ion-segment-button  class="button-m" (click)="mapshow()">\n          Map View\n        </ion-segment-button>\n      </ion-segment> -->\n  </ion-toolbar>\n  <ion-segment>\n    <ion-segment-button  class="button-l" (click)="listshow()">\n      List View\n    </ion-segment-button>\n    <ion-segment-button  class="button-m" (click)="mapshow()">\n      Map View\n    </ion-segment-button>\n  </ion-segment>\n</ion-header>\n\n\n<ion-content>\n  <ion-list>\n          <h5 style="color:#000" text-center>Booking Details</h5>\n     \n             <ion-row>\n                     <ion-col col-5 text-left>\n                      <b>Make</b>\n                     </ion-col>\n                     <ion-col col-1><b>:</b></ion-col>\n                     <ion-col col-6 text-left>\n                         {{make}}\n                     </ion-col>\n                   </ion-row>\n                   <ion-row>\n                         <ion-col col-5 text-left>\n                          <b>Model</b>\n                         </ion-col>\n                         <ion-col col-1><b>:</b></ion-col>\n                         <ion-col col-6 text-left>\n                             {{model}}\n                         </ion-col>\n                       </ion-row>\n                       <ion-row>\n                             <ion-col col-5 text-left>\n                              <b>Problem</b>\n                             </ion-col>\n                             <ion-col col-1><b>:</b></ion-col>\n                             <ion-col col-6 text-left>\n                                     <p *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</p>\n                             </ion-col>\n                           </ion-row>\n                           <ion-row>\n                                 <ion-col col-5 text-left>\n                                  <b>Pickup</b>\n                                 </ion-col>\n                                 <ion-col col-1><b>:</b></ion-col>\n                                 <ion-col col-6 text-left>\n                                     {{pickup}}\n                                 </ion-col>\n                               </ion-row>\n                               <ion-row>\n                                     <ion-col col-5 text-left>\n                                      <b>Booking Date</b>\n                                     </ion-col>\n                                     <ion-col col-1><b>:</b></ion-col>\n                                     <ion-col col-6 text-left>\n                                         {{booking_date}}\n                                     </ion-col>\n                                   </ion-row>\n                                 </ion-list>\n\n<ion-content class="map-pin">\n  <div #map id="map"></div> \n</ion-content>\n\n<!-- <div class="btn-group switch">\n<button ion-button color="light" class="button" (click)="listshow()" icon-only>List View</button>\n<button ion-button color="light" class="button" (click)="mapshow()" icon-only>Map View</button>\n</div> -->\n\n</ion-content>\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quotemap\quotemap.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"],
+            __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"],
+            __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__["a" /* CallNumber */],
+            __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"],
+            __WEBPACK_IMPORTED_MODULE_6__providers_servicestate_servicestate__["a" /* ServicestateProvider */],
+            __WEBPACK_IMPORTED_MODULE_9__angular_http__["b" /* Http */]])
+    ], QuotemapPage);
+    return QuotemapPage;
+    var QuotemapPage_1;
+}());
+
+//# sourceMappingURL=quotemap.js.map
+
+/***/ }),
+
+/***/ 121:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EditservicebookingPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_media__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_transfer__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__quotehistory_quotehistory__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__quotehistory_quotehistory__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1137,7 +1648,7 @@ var EditservicebookingPage = (function () {
     };
     EditservicebookingPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-editservicebooking',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\editservicebooking\editservicebooking.html"*/'<ion-header no-border>\n  <ion-toolbar no-padding>\n    <button ion-button menuToggle>\n      <ion-icon name="menu" style="color:#fff"></ion-icon>\n    </button>\n    <ion-title>Edit Booking</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n\n<ion-content padding *ngIf="mobile">\n  <ion-list no-lines>\n<form [formGroup]="form" (ngSubmit)="serviceReq()">\n  <ion-item >\n    <!-- <ion-label>Select Make</ion-label> -->\n    <ion-select class="my-select" formControlName="make" name="make" [(ngModel)]="userData.make" (ionChange)="servicemake($event)">\n      <ion-option value="" disabled>Select Make</ion-option>\n      <ion-option *ngFor="let key  of makedropdown" value="{{key.id}}">{{key.make_name}}</ion-option>\n      <ion-option value="others">others</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item *ngIf="other">\n    <ion-input formControlName="make" name="make" type="text" [(ngModel)]="userData.make" placeholder="Enter Service Make" clearInput></ion-input>\n  </ion-item>\n  <div *ngIf="make.touched && make.invalid" class="alertstyle">\n    <div *ngIf="make.errors.required">Select Make</div>\n  </div>\n\n  <ion-item>\n    <ion-input formControlName="modelno" name="modelno" type="text" [(ngModel)]="userData.modelno" placeholder="Enter Model Number"\n      clearInput></ion-input>\n  </ion-item>\n  <div *ngIf="modelno.touched && modelno.invalid" class="alertstyle">\n    <div *ngIf="modelno.errors.required">Select Model</div>\n  </div>\n\n  <ion-item>\n    <ion-label class="align">Select Service Required</ion-label>\n  </ion-item>\n\n  <ion-item>\n    <!-- <ion-label>Software</ion-label> -->\n    <ion-select  class="my-select" formControlName="soft" name="soft" [(ngModel)]="userData.soft">\n    \n      <!-- <ion-option value=""  disabled>Software</ion-option>  -->\n      <ion-option *ngFor="let key  of softdropdown" value="{{key.id}}" >{{key.service}}</ion-option>\n    </ion-select>\n  </ion-item>\n\n  <ion-item>\n    <!-- <ion-label>Hardware</ion-label> -->\n    <ion-select  class="my-select" formControlName="hard" name="hard" [(ngModel)]="userData.hard">\n      <ion-option value="" disabled>Hardware</ion-option>\n      <ion-option *ngFor="let key  of harddropdown" value="{{key.id}}">{{key.service}}</ion-option>\n    </ion-select>\n  </ion-item>\n \n  <ion-item>\n    <ion-input formControlName="others" name="others" type="text" [(ngModel)]="userData.others" placeholder="Others" clearInput></ion-input>\n  </ion-item>\n  <div *ngIf="others.touched && others.invalid||hard.touched && hard.invalid||soft.touched && soft.invalid" class="alertstyle">\n    <div *ngIf="others.errors.required||hard.errors.required||soft.errors.required">Select Model</div>\n  </div>\n\n  <ion-item>\n    <!-- <ion-label floating>Home Pick Up</ion-label> -->\n      <ion-select class="my-select" style="color:#fff"  [(ngModel)]="userData.pickup" formControlName="pickup" >\n          <ion-option value="" disabled>Home Pick Up</ion-option>       \n        <ion-option value="required">Required</ion-option>\n        <ion-option value="notrequired">Not Required</ion-option>\n       \n    </ion-select>\n    </ion-item>\n  <ion-item>\n    <select-searchable  class="my-select"\n    formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc"\n        title="Preferred Location"\n      \n        [items]="ports"\n        [canSearch]="true"\n        [multiple]="true"\n        (onChange)="portChange($event)">\n    </select-searchable>\n</ion-item>\n<div  class="alertstyle">\n    <div >*Select Minimum 2 areas and Maximum 3</div>\n  </div>\n<!-- <ion-item>\n    <ion-input   formControlName="promocode" name="promocode" type="text" [(ngModel)]="userData.promocode" placeholder="Enter promo code"\n      clearInput></ion-input>\n  </ion-item> -->\n   <!-- <ion-item >\n    <ion-label>Select Preferred Locationfor Service</ion-label>\n    <ion-select formControlName="loc" name="loc" multiple [(ngModel)]="userData.loc" (ionChange)="serviceLoc($event)">\n      <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>\n    </ion-select>\n  </ion-item> -->\n  <!-- <ion-item>\n    <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>\n  </ion-item> -->\n  <ion-row class="img">\n    <ion-col col-5> <h6 style="color:#fff" >Image :</h6></ion-col>\n    <ion-col col-6>\n      <div class="upload-img" (click)="getImage()">\n        {{userData.image}} <ion-icon name="camera"></ion-icon> \n        <div class="upload-img" (click)="imageDelete()" *ngIf="!recording">\n          <ion-icon name="ios-close-circle"></ion-icon>\n      </div>  \n      </div>\n   </ion-col>\n  </ion-row>\n  <ion-row class="voice">\n    <ion-col col-5> <h6 style="color:#fff" >Voice Note:</h6></ion-col>\n    <ion-col col-6 ><div  *ngIf="userData.audio"> {{userData.audio}}\n        <div class="upload-audio" (click)="audioDelete()">\n            <ion-icon name="ios-close-circle"></ion-icon>\n        </div></div>\n           \n            <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">\n                <ion-icon name="ios-mic"></ion-icon>\n            </div>\n            <!-- <div class="upload-audio audiostart"  (click)="startRecord()"  *ngIf="!recording" >\n                <ion-icon name="ios-mic-outline"></ion-icon>\n            </div> -->\n            <div *ngIf="userData.audio==\'\'">\n              <div class="upload-audio audiostart" (click)="startRecord()"  *ngIf="!recording" >\n                <ion-icon name="ios-mic-outline"></ion-icon>\n            </div>\n              \n            </div>\n            <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>\n            <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->\n    </ion-col>\n  </ion-row>\n  <!-- <ion-list>\n    <ion-item *ngFor="let audio of audioList; index as i;">\n      <p>{{audio.filename}}</p>\n      {{userData.audio}}\n       <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button> \n      <div class="upload-audio" (click)="playAudio(audio.filename, i)">\n          <ion-icon name="play"></ion-icon>\n      </div>\n    </ion-item>\n  </ion-list> -->\n  <!-- <ion-item>\n    <p>{{imageURI}}</p>\n    <button ion-button color="secondary" (click)="getImage()">Get Image</button>\n    <button ion-button (click)="uploadFile()">Upload</button>\n  </ion-item> -->\n  <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Service Request</button>\n</form>\n</ion-list>\n\n</ion-content>\n<ion-content padding *ngIf="printer">\n  <ion-list no-lines>\n<form [formGroup]="form1" (ngSubmit)="serviceReq1()">\n  <ion-item >\n    <ion-input formControlName="make1" name="make1" type="text" [(ngModel)]="userdata1.make1" placeholder="Enter Service Make" clearInput></ion-input>\n  </ion-item>\n  <div *ngIf="make1.touched && make1.invalid" class="alertstyle">\n    <div *ngIf="make1.errors.required">Select Make</div>\n  </div>\n\n  <ion-item>\n    <ion-input formControlName="modelno1" name="modelno1" type="text" [(ngModel)]="userdata1.modelno1" placeholder="Enter Model Number"\n      clearInput></ion-input>\n  </ion-item>\n  <div *ngIf="modelno1.touched && modelno1.invalid" class="alertstyle">\n    <div *ngIf="modelno1.errors.required">Select Model</div>\n  </div>\n\n  <ion-item>\n    \n    <ion-textarea formControlName="describe" name="describe" type="text" [(ngModel)]="userdata1.describe" placeholder="Describe the problem"\n      clearInput></ion-textarea>\n  </ion-item>\n\n  <ion-item>\n    <!-- <ion-label floating>Home Pick Up</ion-label> -->\n      <ion-select class="my-select" style="color:#fff"  [(ngModel)]="userdata1.pickup1" formControlName="pickup1" >\n          <ion-option value="" disabled>Home Pick Up</ion-option>       \n        <ion-option value="required">Required</ion-option>\n        <ion-option value="notrequired">Not Required</ion-option>\n       \n    </ion-select>\n    </ion-item>\n  <ion-item>\n    <select-searchable\n    formControlName="loc1" name="loc1" type="text" [(ngModel)]="userdata1.loc1"\n        placeholder="Preferred Location"\n        [items]="ports"\n        [canSearch]="true"\n        [multiple]="true"\n        (onChange)="portChange($event)">\n    </select-searchable>\n</ion-item>\n<div  class="alertstyle">\n    <div >*Select Minimum 2 areas and Maximum 3</div>\n  </div>\n<!-- <ion-item>\n    <ion-input formControlName="promocode1" name="promocode1" type="text" [(ngModel)]="userdata1.promocode1" placeholder="Enter promo code"\n      clearInput></ion-input>\n  </ion-item> -->\n  <!-- <ion-item>\n    <ion-label>Select Preferred Locationfor Service</ion-label>\n    <ion-select formControlName="loc1" name="loc1" multiple [(ngModel)]="userdata1.loc1" (ionChange)="serviceLoc($event)">\n      <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>\n    </ion-select>\n  </ion-item> -->\n<!-- <ion-item>\n    <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>\n  </ion-item>  -->\n  <div class="upload-img" (click)="getImage()">\n      <ion-icon name="camera"></ion-icon>\n      <p>{{imageURI}}</p>\n      {{userData.image}}\n  </div>\n  \n  <ion-row class="voice">\n    <ion-col col-5> <h6 style="color:#fff" >Voice Note :</h6></ion-col>\n    <ion-col col-4>\n        <!-- <button class="record" ion-button (click)="audio()"></button>\n            <ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon> record</button> -->\n            <div class="upload-audio" (click)="stopRecord()" *ngIf="recording">\n                <ion-icon name="ios-mic"></ion-icon>\n            </div>\n            <div class="upload-audio" (click)="startRecord()"  *ngIf="!recording" >\n                <ion-icon name="ios-mic"></ion-icon>\n            </div>\n            <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>\n            <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->\n    </ion-col>\n  </ion-row>\n  <ion-list>\n    <ion-item *ngFor="let audio of audioList; index as i;">\n      <p>{{audio.filename}}</p>\n      {{userData.audio}}\n      <!-- <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button> -->\n      <div class="upload-audio" (click)="playAudio(audio.filename, i)">\n          <ion-icon name="play"></ion-icon>\n      </div>\n    </ion-item>\n  </ion-list>\n  <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Save Booking</button>\n</form>\n</ion-list>\n</ion-content>\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\editservicebooking\editservicebooking.html"*/,
+            selector: 'page-editservicebooking',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\editservicebooking\editservicebooking.html"*/'<ion-header no-border>\n\n  <ion-toolbar no-padding>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu" style="color:#fff"></ion-icon>\n\n    </button>\n\n    <ion-title>Edit Booking</ion-title>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content padding *ngIf="mobile">\n\n  <ion-list no-lines>\n\n<form [formGroup]="form" (ngSubmit)="serviceReq()">\n\n  <ion-item >\n\n    <!-- <ion-label>Select Make</ion-label> -->\n\n    <ion-select class="my-select" formControlName="make" name="make" [(ngModel)]="userData.make" (ionChange)="servicemake($event)">\n\n      <ion-option value="" disabled>Select Make</ion-option>\n\n      <ion-option *ngFor="let key  of makedropdown" value="{{key.id}}">{{key.make_name}}</ion-option>\n\n      <ion-option value="others">others</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-item *ngIf="other">\n\n    <ion-input formControlName="make" name="make" type="text" [(ngModel)]="userData.make" placeholder="Enter Service Make" clearInput></ion-input>\n\n  </ion-item>\n\n  <div *ngIf="make.touched && make.invalid" class="alertstyle">\n\n    <div *ngIf="make.errors.required">Select Make</div>\n\n  </div>\n\n\n\n  <ion-item>\n\n    <ion-input formControlName="modelno" name="modelno" type="text" [(ngModel)]="userData.modelno" placeholder="Enter Model Number"\n\n      clearInput></ion-input>\n\n  </ion-item>\n\n  <div *ngIf="modelno.touched && modelno.invalid" class="alertstyle">\n\n    <div *ngIf="modelno.errors.required">Select Model</div>\n\n  </div>\n\n\n\n  <ion-item>\n\n    <ion-label class="align">Select Service Required</ion-label>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <!-- <ion-label>Software</ion-label> -->\n\n    <ion-select  class="my-select" formControlName="soft" name="soft" [(ngModel)]="userData.soft">\n\n    \n\n      <!-- <ion-option value=""  disabled>Software</ion-option>  -->\n\n      <ion-option *ngFor="let key  of softdropdown" value="{{key.id}}" >{{key.service}}</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <!-- <ion-label>Hardware</ion-label> -->\n\n    <ion-select  class="my-select" formControlName="hard" name="hard" [(ngModel)]="userData.hard">\n\n      <ion-option value="" disabled>Hardware</ion-option>\n\n      <ion-option *ngFor="let key  of harddropdown" value="{{key.id}}">{{key.service}}</ion-option>\n\n    </ion-select>\n\n  </ion-item>\n\n \n\n  <ion-item>\n\n    <ion-input formControlName="others" name="others" type="text" [(ngModel)]="userData.others" placeholder="Others" clearInput></ion-input>\n\n  </ion-item>\n\n  <div *ngIf="others.touched && others.invalid||hard.touched && hard.invalid||soft.touched && soft.invalid" class="alertstyle">\n\n    <div *ngIf="others.errors.required||hard.errors.required||soft.errors.required">Select Model</div>\n\n  </div>\n\n\n\n  <ion-item>\n\n    <!-- <ion-label floating>Home Pick Up</ion-label> -->\n\n      <ion-select class="my-select" style="color:#fff"  [(ngModel)]="userData.pickup" formControlName="pickup" >\n\n          <ion-option value="" disabled>Home Pick Up</ion-option>       \n\n        <ion-option value="required">Required</ion-option>\n\n        <ion-option value="notrequired">Not Required</ion-option>\n\n       \n\n    </ion-select>\n\n    </ion-item>\n\n  <ion-item>\n\n    <select-searchable  class="my-select"\n\n    formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc"\n\n        title="Preferred Location"\n\n      \n\n        [items]="ports"\n\n        [canSearch]="true"\n\n        [multiple]="true"\n\n        (onChange)="portChange($event)">\n\n    </select-searchable>\n\n</ion-item>\n\n<div  class="alertstyle">\n\n    <div >*Select Minimum 2 areas and Maximum 3</div>\n\n  </div>\n\n<!-- <ion-item>\n\n    <ion-input   formControlName="promocode" name="promocode" type="text" [(ngModel)]="userData.promocode" placeholder="Enter promo code"\n\n      clearInput></ion-input>\n\n  </ion-item> -->\n\n   <!-- <ion-item >\n\n    <ion-label>Select Preferred Locationfor Service</ion-label>\n\n    <ion-select formControlName="loc" name="loc" multiple [(ngModel)]="userData.loc" (ionChange)="serviceLoc($event)">\n\n      <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>\n\n    </ion-select>\n\n  </ion-item> -->\n\n  <!-- <ion-item>\n\n    <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>\n\n  </ion-item> -->\n\n  <ion-row class="img">\n\n    <ion-col col-5> <h6 style="color:#fff" >Image :</h6></ion-col>\n\n    <ion-col col-6>\n\n      <div class="upload-img" (click)="getImage()">\n\n        {{userData.image}} <ion-icon name="camera"></ion-icon> \n\n        <div class="upload-img" (click)="imageDelete()" *ngIf="!recording">\n\n          <ion-icon name="ios-close-circle"></ion-icon>\n\n      </div>  \n\n      </div>\n\n   </ion-col>\n\n  </ion-row>\n\n  <ion-row class="voice">\n\n    <ion-col col-5> <h6 style="color:#fff" >Voice Note:</h6></ion-col>\n\n    <ion-col col-6 ><div  *ngIf="userData.audio"> {{userData.audio}}\n\n        <div class="upload-audio" (click)="audioDelete()">\n\n            <ion-icon name="ios-close-circle"></ion-icon>\n\n        </div></div>\n\n           \n\n            <div class="upload-audio audiostop"  (click)="stopRecord()" *ngIf="recording">\n\n                <ion-icon name="ios-mic"></ion-icon>\n\n            </div>\n\n            <!-- <div class="upload-audio audiostart"  (click)="startRecord()"  *ngIf="!recording" >\n\n                <ion-icon name="ios-mic-outline"></ion-icon>\n\n            </div> -->\n\n            <div *ngIf="userData.audio==\'\'">\n\n              <div class="upload-audio audiostart" (click)="startRecord()"  *ngIf="!recording" >\n\n                <ion-icon name="ios-mic-outline"></ion-icon>\n\n            </div>\n\n              \n\n            </div>\n\n            <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>\n\n            <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->\n\n    </ion-col>\n\n  </ion-row>\n\n  <!-- <ion-list>\n\n    <ion-item *ngFor="let audio of audioList; index as i;">\n\n      <p>{{audio.filename}}</p>\n\n      {{userData.audio}}\n\n       <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button> \n\n      <div class="upload-audio" (click)="playAudio(audio.filename, i)">\n\n          <ion-icon name="play"></ion-icon>\n\n      </div>\n\n    </ion-item>\n\n  </ion-list> -->\n\n  <!-- <ion-item>\n\n    <p>{{imageURI}}</p>\n\n    <button ion-button color="secondary" (click)="getImage()">Get Image</button>\n\n    <button ion-button (click)="uploadFile()">Upload</button>\n\n  </ion-item> -->\n\n  <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Service Request</button>\n\n</form>\n\n</ion-list>\n\n\n\n</ion-content>\n\n<ion-content padding *ngIf="printer">\n\n  <ion-list no-lines>\n\n<form [formGroup]="form1" (ngSubmit)="serviceReq1()">\n\n  <ion-item >\n\n    <ion-input formControlName="make1" name="make1" type="text" [(ngModel)]="userdata1.make1" placeholder="Enter Service Make" clearInput></ion-input>\n\n  </ion-item>\n\n  <div *ngIf="make1.touched && make1.invalid" class="alertstyle">\n\n    <div *ngIf="make1.errors.required">Select Make</div>\n\n  </div>\n\n\n\n  <ion-item>\n\n    <ion-input formControlName="modelno1" name="modelno1" type="text" [(ngModel)]="userdata1.modelno1" placeholder="Enter Model Number"\n\n      clearInput></ion-input>\n\n  </ion-item>\n\n  <div *ngIf="modelno1.touched && modelno1.invalid" class="alertstyle">\n\n    <div *ngIf="modelno1.errors.required">Select Model</div>\n\n  </div>\n\n\n\n  <ion-item>\n\n    \n\n    <ion-textarea formControlName="describe" name="describe" type="text" [(ngModel)]="userdata1.describe" placeholder="Describe the problem"\n\n      clearInput></ion-textarea>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <!-- <ion-label floating>Home Pick Up</ion-label> -->\n\n      <ion-select class="my-select" style="color:#fff"  [(ngModel)]="userdata1.pickup1" formControlName="pickup1" >\n\n          <ion-option value="" disabled>Home Pick Up</ion-option>       \n\n        <ion-option value="required">Required</ion-option>\n\n        <ion-option value="notrequired">Not Required</ion-option>\n\n       \n\n    </ion-select>\n\n    </ion-item>\n\n  <ion-item>\n\n    <select-searchable\n\n    formControlName="loc1" name="loc1" type="text" [(ngModel)]="userdata1.loc1"\n\n        placeholder="Preferred Location"\n\n        [items]="ports"\n\n        [canSearch]="true"\n\n        [multiple]="true"\n\n        (onChange)="portChange($event)">\n\n    </select-searchable>\n\n</ion-item>\n\n<div  class="alertstyle">\n\n    <div >*Select Minimum 2 areas and Maximum 3</div>\n\n  </div>\n\n<!-- <ion-item>\n\n    <ion-input formControlName="promocode1" name="promocode1" type="text" [(ngModel)]="userdata1.promocode1" placeholder="Enter promo code"\n\n      clearInput></ion-input>\n\n  </ion-item> -->\n\n  <!-- <ion-item>\n\n    <ion-label>Select Preferred Locationfor Service</ion-label>\n\n    <ion-select formControlName="loc1" name="loc1" multiple [(ngModel)]="userdata1.loc1" (ionChange)="serviceLoc($event)">\n\n      <ion-option *ngFor="let key  of preferdropdown" >{{key.area}}</ion-option>\n\n    </ion-select>\n\n  </ion-item> -->\n\n<!-- <ion-item>\n\n    <ion-input formControlName="loc" name="loc" type="text" [(ngModel)]="userData.loc" (focusin)="preferLoc()" placeholder="Select Preferred Locationfor Service" clearInput></ion-input>\n\n  </ion-item>  -->\n\n  <div class="upload-img" (click)="getImage()">\n\n      <ion-icon name="camera"></ion-icon>\n\n      <p>{{imageURI}}</p>\n\n      {{userData.image}}\n\n  </div>\n\n  \n\n  <ion-row class="voice">\n\n    <ion-col col-5> <h6 style="color:#fff" >Voice Note :</h6></ion-col>\n\n    <ion-col col-4>\n\n        <!-- <button class="record" ion-button (click)="audio()"></button>\n\n            <ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon> record</button> -->\n\n            <div class="upload-audio" (click)="stopRecord()" *ngIf="recording">\n\n                <ion-icon name="ios-mic"></ion-icon>\n\n            </div>\n\n            <div class="upload-audio" (click)="startRecord()"  *ngIf="!recording" >\n\n                <ion-icon name="ios-mic"></ion-icon>\n\n            </div>\n\n            <!-- <button ion-button class="record" (click)="stopRecord()" *ngIf="recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Stop</button>\n\n            <button ion-button class="record" (click)="startRecord()" *ngIf="!recording"><ion-icon name="ios-mic" color="dark">&nbsp;</ion-icon>&nbsp;&nbsp;Record</button> -->\n\n    </ion-col>\n\n  </ion-row>\n\n  <ion-list>\n\n    <ion-item *ngFor="let audio of audioList; index as i;">\n\n      <p>{{audio.filename}}</p>\n\n      {{userData.audio}}\n\n      <!-- <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button> -->\n\n      <div class="upload-audio" (click)="playAudio(audio.filename, i)">\n\n          <ion-icon name="play"></ion-icon>\n\n      </div>\n\n    </ion-item>\n\n  </ion-list>\n\n  <button ion-button type="submit" [disabled]="disable" class="sign_btn"  round full>Save Booking</button>\n\n</form>\n\n</ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\editservicebooking\editservicebooking.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"], __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__["a" /* AuthServiceProvider */], __WEBPACK_IMPORTED_MODULE_4__ionic_native_media__["a" /* Media */],
             __WEBPACK_IMPORTED_MODULE_5__ionic_native_file__["a" /* File */],
@@ -1154,7 +1665,7 @@ var EditservicebookingPage = (function () {
 
 /***/ }),
 
-/***/ 121:
+/***/ 122:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1162,7 +1673,7 @@ var EditservicebookingPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_email_composer__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_servicestate_servicestate__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_servicestate_servicestate__ = __webpack_require__(51);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1238,7 +1749,7 @@ var WalletPage = (function () {
 
 /***/ }),
 
-/***/ 122:
+/***/ 123:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1246,7 +1757,7 @@ var WalletPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_register__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(37);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1324,7 +1835,7 @@ var IntrosliderPage = (function () {
 
 /***/ }),
 
-/***/ 123:
+/***/ 124:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1369,7 +1880,7 @@ var InvitefrdPage = (function () {
 
 /***/ }),
 
-/***/ 124:
+/***/ 125:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1377,11 +1888,11 @@ var InvitefrdPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_file__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_file_transfer__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_path__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file_path__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_camera__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__login_login__ = __webpack_require__(33);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1830,7 +2341,7 @@ var ProfilePage = (function () {
 
 /***/ }),
 
-/***/ 135:
+/***/ 136:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -1843,60 +2354,64 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 135;
+webpackEmptyAsyncContext.id = 136;
 
 /***/ }),
 
-/***/ 177:
+/***/ 178:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/changepass/changepass.module": [
-		305,
-		15
+		306,
+		16
 	],
 	"../pages/contactus/contactus.module": [
-		306,
-		14
+		307,
+		15
 	],
 	"../pages/editservicebooking/editservicebooking.module": [
-		307,
-		13
+		308,
+		14
 	],
 	"../pages/faq/faq.module": [
-		308,
-		12
+		315,
+		13
 	],
 	"../pages/introslider/introslider.module": [
 		309,
-		11
+		12
 	],
 	"../pages/invitefrd/invitefrd.module": [
 		310,
-		10
+		11
 	],
 	"../pages/login/login.module": [
+		313,
+		10
+	],
+	"../pages/profile/profile.module": [
 		311,
 		9
 	],
-	"../pages/profile/profile.module": [
-		313,
-		8
-	],
 	"../pages/quotehistory/quotehistory.module": [
 		312,
+		8
+	],
+	"../pages/quotemap/quotemap.module": [
+		314,
 		7
 	],
 	"../pages/quoteview/quoteview.module": [
-		314,
+		316,
 		6
 	],
 	"../pages/redeem/redeem.module": [
-		315,
+		322,
 		0
 	],
 	"../pages/register/register.module": [
-		316,
+		318,
 		5
 	],
 	"../pages/servicebooking/servicebooking.module": [
@@ -1904,7 +2419,7 @@ var map = {
 		4
 	],
 	"../pages/tabs/tabs.module": [
-		318,
+		320,
 		3
 	],
 	"../pages/viewaccept-quote/viewaccept-quote.module": [
@@ -1912,7 +2427,7 @@ var map = {
 		2
 	],
 	"../pages/wallet/wallet.module": [
-		320,
+		321,
 		1
 	]
 };
@@ -1927,68 +2442,18 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 177;
+webpackAsyncContext.id = 178;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 180:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddDataProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(27);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-/*
-  Generated class for the AddDataProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
-var AddDataProvider = (function () {
-    function AddDataProvider(http) {
-        this.http = http;
-        console.log('Hello AddDataProvider Provider');
-    }
-    AddDataProvider.prototype.getFaq = function () {
-        return this.http.get('http://sunrisetechs.com/api/cusapi.php?action=customerFAQ')
-            .map(function (res) {
-            console.log(res.json());
-            return res.json();
-        });
-    };
-    AddDataProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]])
-    ], AddDataProvider);
-    return AddDataProvider;
-}());
-
-//# sourceMappingURL=add-data.js.map
-
-/***/ }),
-
-/***/ 20:
+/***/ 18:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthServiceProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2053,16 +2518,66 @@ var AuthServiceProvider = (function () {
 
 /***/ }),
 
-/***/ 227:
+/***/ 180:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddDataProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(23);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+/*
+  Generated class for the AddDataProvider provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var AddDataProvider = (function () {
+    function AddDataProvider(http) {
+        this.http = http;
+        console.log('Hello AddDataProvider Provider');
+    }
+    AddDataProvider.prototype.getFaq = function () {
+        return this.http.get('http://sunrisetechs.com/api/cusapi.php?action=customerFAQ')
+            .map(function (res) {
+            console.log(res.json());
+            return res.json();
+        });
+    };
+    AddDataProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_http__["b" /* Http */]])
+    ], AddDataProvider);
+    return AddDataProvider;
+}());
+
+//# sourceMappingURL=add-data.js.map
+
+/***/ }),
+
+/***/ 228:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ViewacceptQuotePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_call_number__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tabs_tabs__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_call_number__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tabs_tabs__ = __webpack_require__(37);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2255,13 +2770,13 @@ var ViewacceptQuotePage = (function () {
 
 /***/ }),
 
-/***/ 228:
+/***/ 229:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(229);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(252);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(253);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -2269,7 +2784,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 252:
+/***/ 253:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2277,50 +2792,52 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_list_list__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_list_list__ = __webpack_require__(304);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_servicebooking_servicebooking__ = __webpack_require__(117);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_register_register__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_login_login__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_quotehistory_quotehistory__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_quoteview_quoteview__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_faq_faq__ = __webpack_require__(118);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_contactus_contactus__ = __webpack_require__(119);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_changepass_changepass__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_invitefrd_invitefrd__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_profile_profile__ = __webpack_require__(124);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_viewaccept_quote_viewaccept_quote__ = __webpack_require__(227);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_tabs_tabs__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_status_bar__ = __webpack_require__(221);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_splash_screen__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__providers_auth_service_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_unique_device_id__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_ionic_select_searchable__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_ionic_select_searchable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23_ionic_select_searchable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_call_number__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_geolocation__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_introslider_introslider__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__ionic_native_facebook__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_wallet_wallet__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__ionic_native_email_composer__ = __webpack_require__(66);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__ionic_native_media__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_file__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_file_transfer__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_file_path__ = __webpack_require__(181);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_camera__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__providers_add_data_add_data__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_push__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__providers_servicestate_servicestate__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_editservicebooking_editservicebooking__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__ionic_native_social_sharing__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_quotehistory_quotehistory__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_quoteview_quoteview__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_quotemap_quotemap__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_faq_faq__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_contactus_contactus__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_changepass_changepass__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_invitefrd_invitefrd__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_profile_profile__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_viewaccept_quote_viewaccept_quote__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_tabs_tabs__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_status_bar__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_splash_screen__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__providers_auth_service_auth_service__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_unique_device_id__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_ionic_select_searchable__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_ionic_select_searchable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24_ionic_select_searchable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_call_number__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_geolocation__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_introslider_introslider__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__ionic_native_facebook__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_wallet_wallet__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__ionic_native_email_composer__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_media__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_file__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_file_transfer__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_file_path__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__ionic_native_camera__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__providers_add_data_add_data__ = __webpack_require__(180);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__ionic_native_push__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__providers_servicestate_servicestate__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_editservicebooking_editservicebooking__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__ionic_native_social_sharing__ = __webpack_require__(227);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -2370,42 +2887,44 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* MyApp */],
                 __WEBPACK_IMPORTED_MODULE_5__pages_home_home__["a" /* HomePage */],
                 __WEBPACK_IMPORTED_MODULE_6__pages_list_list__["a" /* ListPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_tabs_tabs__["a" /* TabsPage */],
+                __WEBPACK_IMPORTED_MODULE_19__pages_tabs_tabs__["a" /* TabsPage */],
                 __WEBPACK_IMPORTED_MODULE_7__pages_servicebooking_servicebooking__["a" /* ServicebookingPage */],
                 __WEBPACK_IMPORTED_MODULE_9__pages_login_login__["a" /* LoginPage */],
                 __WEBPACK_IMPORTED_MODULE_10__pages_quotehistory_quotehistory__["a" /* QuotehistoryPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_faq_faq__["a" /* FaqPage */],
-                __WEBPACK_IMPORTED_MODULE_17__pages_viewaccept_quote_viewaccept_quote__["a" /* ViewacceptQuotePage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_contactus_contactus__["a" /* ContactusPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_changepass_changepass__["a" /* ChangepassPage */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_profile_profile__["a" /* ProfilePage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_invitefrd_invitefrd__["a" /* InvitefrdPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_quotemap_quotemap__["a" /* QuotemapPage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_faq_faq__["a" /* FaqPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_viewaccept_quote_viewaccept_quote__["a" /* ViewacceptQuotePage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_contactus_contactus__["a" /* ContactusPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_changepass_changepass__["a" /* ChangepassPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_profile_profile__["a" /* ProfilePage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_invitefrd_invitefrd__["a" /* InvitefrdPage */],
                 __WEBPACK_IMPORTED_MODULE_11__pages_quoteview_quoteview__["a" /* QuoteviewPage */],
                 __WEBPACK_IMPORTED_MODULE_8__pages_register_register__["a" /* RegisterPage */],
-                __WEBPACK_IMPORTED_MODULE_26__pages_introslider_introslider__["a" /* IntrosliderPage */],
-                __WEBPACK_IMPORTED_MODULE_28__pages_wallet_wallet__["a" /* WalletPage */],
-                __WEBPACK_IMPORTED_MODULE_38__pages_editservicebooking_editservicebooking__["a" /* EditservicebookingPage */],
+                __WEBPACK_IMPORTED_MODULE_27__pages_introslider_introslider__["a" /* IntrosliderPage */],
+                __WEBPACK_IMPORTED_MODULE_29__pages_wallet_wallet__["a" /* WalletPage */],
+                __WEBPACK_IMPORTED_MODULE_39__pages_editservicebooking_editservicebooking__["a" /* EditservicebookingPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["c" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_23_ionic_select_searchable__["SelectSearchableModule"],
+                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */], __WEBPACK_IMPORTED_MODULE_3__angular_http__["c" /* HttpModule */], __WEBPACK_IMPORTED_MODULE_24_ionic_select_searchable__["SelectSearchableModule"],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicModule"].forRoot(__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/changepass/changepass.module#ChangepassPageModule', name: 'ChangepassPage', segment: 'changepass', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/contactus/contactus.module#ContactusPageModule', name: 'ContactusPage', segment: 'contactus', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/editservicebooking/editservicebooking.module#EditservicebookingPageModule', name: 'EditservicebookingPage', segment: 'editservicebooking', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/faq/faq.module#FaqPageModule', name: 'FaqPage', segment: 'faq', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/introslider/introslider.module#IntrosliderPageModule', name: 'IntrosliderPage', segment: 'introslider', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/invitefrd/invitefrd.module#InvitefrdPageModule', name: 'InvitefrdPage', segment: 'invitefrd', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/quotehistory/quotehistory.module#QuotehistoryPageModule', name: 'QuotehistoryPage', segment: 'quotehistory', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/profile/profile.module#ProfilePageModule', name: 'ProfilePage', segment: 'profile', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/quotehistory/quotehistory.module#QuotehistoryPageModule', name: 'QuotehistoryPage', segment: 'quotehistory', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/quotemap/quotemap.module#QuotemapPageModule', name: 'QuotemapPage', segment: 'quotemap', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/faq/faq.module#FaqPageModule', name: 'FaqPage', segment: 'faq', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/quoteview/quoteview.module#QuoteviewPageModule', name: 'QuoteviewPage', segment: 'quoteview', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/redeem/redeem.module#RedeemPageModule', name: 'RedeemPage', segment: 'redeem', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/servicebooking/servicebooking.module#ServicebookingPageModule', name: 'ServicebookingPage', segment: 'servicebooking', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/viewaccept-quote/viewaccept-quote.module#ViewacceptQuotePageModule', name: 'ViewacceptQuotePage', segment: 'viewaccept-quote', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/wallet/wallet.module#WalletPageModule', name: 'WalletPage', segment: 'wallet', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/tabs/tabs.module#TabsPageModule', name: 'TabsPage', segment: 'tabs', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/wallet/wallet.module#WalletPageModule', name: 'WalletPage', segment: 'wallet', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/redeem/redeem.module#RedeemPageModule', name: 'RedeemPage', segment: 'redeem', priority: 'low', defaultHistory: [] }
                     ]
                 }),
             ],
@@ -2417,35 +2936,36 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_7__pages_servicebooking_servicebooking__["a" /* ServicebookingPage */],
                 __WEBPACK_IMPORTED_MODULE_9__pages_login_login__["a" /* LoginPage */],
                 __WEBPACK_IMPORTED_MODULE_8__pages_register_register__["a" /* RegisterPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_tabs_tabs__["a" /* TabsPage */],
-                __WEBPACK_IMPORTED_MODULE_17__pages_viewaccept_quote_viewaccept_quote__["a" /* ViewacceptQuotePage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_faq_faq__["a" /* FaqPage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_contactus_contactus__["a" /* ContactusPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_changepass_changepass__["a" /* ChangepassPage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_invitefrd_invitefrd__["a" /* InvitefrdPage */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_profile_profile__["a" /* ProfilePage */],
+                __WEBPACK_IMPORTED_MODULE_19__pages_tabs_tabs__["a" /* TabsPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_viewaccept_quote_viewaccept_quote__["a" /* ViewacceptQuotePage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_faq_faq__["a" /* FaqPage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_contactus_contactus__["a" /* ContactusPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_changepass_changepass__["a" /* ChangepassPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_invitefrd_invitefrd__["a" /* InvitefrdPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_profile_profile__["a" /* ProfilePage */],
                 __WEBPACK_IMPORTED_MODULE_10__pages_quotehistory_quotehistory__["a" /* QuotehistoryPage */],
                 __WEBPACK_IMPORTED_MODULE_11__pages_quoteview_quoteview__["a" /* QuoteviewPage */],
-                __WEBPACK_IMPORTED_MODULE_26__pages_introslider_introslider__["a" /* IntrosliderPage */],
-                __WEBPACK_IMPORTED_MODULE_28__pages_wallet_wallet__["a" /* WalletPage */],
-                __WEBPACK_IMPORTED_MODULE_38__pages_editservicebooking_editservicebooking__["a" /* EditservicebookingPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_quotemap_quotemap__["a" /* QuotemapPage */],
+                __WEBPACK_IMPORTED_MODULE_27__pages_introslider_introslider__["a" /* IntrosliderPage */],
+                __WEBPACK_IMPORTED_MODULE_29__pages_wallet_wallet__["a" /* WalletPage */],
+                __WEBPACK_IMPORTED_MODULE_39__pages_editservicebooking_editservicebooking__["a" /* EditservicebookingPage */],
             ],
             providers: [
-                __WEBPACK_IMPORTED_MODULE_22__ionic_native_unique_device_id__["a" /* UniqueDeviceID */],
-                __WEBPACK_IMPORTED_MODULE_19__ionic_native_status_bar__["a" /* StatusBar */],
-                __WEBPACK_IMPORTED_MODULE_20__ionic_native_splash_screen__["a" /* SplashScreen */],
-                __WEBPACK_IMPORTED_MODULE_36__ionic_native_push__["a" /* Push */],
-                __WEBPACK_IMPORTED_MODULE_25__ionic_native_geolocation__["a" /* Geolocation */],
-                __WEBPACK_IMPORTED_MODULE_24__ionic_native_call_number__["a" /* CallNumber */],
-                __WEBPACK_IMPORTED_MODULE_30__ionic_native_media__["a" /* Media */],
-                __WEBPACK_IMPORTED_MODULE_27__ionic_native_facebook__["a" /* Facebook */],
-                __WEBPACK_IMPORTED_MODULE_31__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_32__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_33__ionic_native_file_path__["a" /* FilePath */],
-                __WEBPACK_IMPORTED_MODULE_34__ionic_native_camera__["a" /* Camera */],
-                __WEBPACK_IMPORTED_MODULE_29__ionic_native_email_composer__["a" /* EmailComposer */],
-                __WEBPACK_IMPORTED_MODULE_39__ionic_native_social_sharing__["a" /* SocialSharing */],
+                __WEBPACK_IMPORTED_MODULE_23__ionic_native_unique_device_id__["a" /* UniqueDeviceID */],
+                __WEBPACK_IMPORTED_MODULE_20__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_21__ionic_native_splash_screen__["a" /* SplashScreen */],
+                __WEBPACK_IMPORTED_MODULE_37__ionic_native_push__["a" /* Push */],
+                __WEBPACK_IMPORTED_MODULE_26__ionic_native_geolocation__["a" /* Geolocation */],
+                __WEBPACK_IMPORTED_MODULE_25__ionic_native_call_number__["a" /* CallNumber */],
+                __WEBPACK_IMPORTED_MODULE_31__ionic_native_media__["a" /* Media */],
+                __WEBPACK_IMPORTED_MODULE_28__ionic_native_facebook__["a" /* Facebook */],
+                __WEBPACK_IMPORTED_MODULE_32__ionic_native_file__["a" /* File */], __WEBPACK_IMPORTED_MODULE_33__ionic_native_file_transfer__["a" /* FileTransfer */], __WEBPACK_IMPORTED_MODULE_34__ionic_native_file_path__["a" /* FilePath */],
+                __WEBPACK_IMPORTED_MODULE_35__ionic_native_camera__["a" /* Camera */],
+                __WEBPACK_IMPORTED_MODULE_30__ionic_native_email_composer__["a" /* EmailComposer */],
+                __WEBPACK_IMPORTED_MODULE_40__ionic_native_social_sharing__["a" /* SocialSharing */],
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["IonicErrorHandler"] },
-                __WEBPACK_IMPORTED_MODULE_21__providers_auth_service_auth_service__["a" /* AuthServiceProvider */], __WEBPACK_IMPORTED_MODULE_35__providers_add_data_add_data__["a" /* AddDataProvider */],
-                __WEBPACK_IMPORTED_MODULE_37__providers_servicestate_servicestate__["a" /* ServicestateProvider */]
+                __WEBPACK_IMPORTED_MODULE_22__providers_auth_service_auth_service__["a" /* AuthServiceProvider */], __WEBPACK_IMPORTED_MODULE_36__providers_add_data_add_data__["a" /* AddDataProvider */],
+                __WEBPACK_IMPORTED_MODULE_38__providers_servicestate_servicestate__["a" /* ServicestateProvider */]
             ]
         })
     ], AppModule);
@@ -2456,28 +2976,28 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 302:
+/***/ 303:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(221);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(222);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_unique_device_id__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_push__ = __webpack_require__(224);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_quotehistory_quotehistory__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_quoteview_quoteview__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(222);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(223);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_unique_device_id__ = __webpack_require__(224);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_push__ = __webpack_require__(225);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_quotehistory_quotehistory__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_quoteview_quoteview__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_changepass_changepass__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_invitefrd_invitefrd__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_profile_profile__ = __webpack_require__(124);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_introslider_introslider__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_facebook__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_tabs_tabs__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_social_sharing__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_invitefrd_invitefrd__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_profile_profile__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_introslider_introslider__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_native_facebook__ = __webpack_require__(226);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_tabs_tabs__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__ionic_native_social_sharing__ = __webpack_require__(227);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2520,7 +3040,10 @@ var MyApp = (function () {
         this.socialSharing = socialSharing;
         this.actionSheetCtrl = actionSheetCtrl;
         this.rootPage = __WEBPACK_IMPORTED_MODULE_13__pages_introslider_introslider__["a" /* IntrosliderPage */];
+        this.Branch = window['Branch'];
+        this.branchUniversalObj = null;
         this.initializeApp();
+        // this.createDeepLink();
         // this.imgData = JSON.parse(localStorage.getItem('loggedData'));
         // this.image = "http://sunrisetechs.com/images/imgs/" + this.imgData[0]['profile_pic'];
         // console.log("image", this.imgData[0].username);
@@ -2547,6 +3070,84 @@ var MyApp = (function () {
         //   .catch(e => console.log('Error logging into Facebook', e));
         // this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ACTIVATED_APP);
     }
+    MyApp.prototype.handleBranch = function () {
+        if (!this.platform.is('cordova')) {
+            return;
+        }
+        var Branch = window['Branch'];
+        Branch.initSession(function (data) {
+            if (data['+clicked_branch_link']) {
+                // read deep link data on click
+                alert('Deep Link Data: ' + JSON.stringify(data));
+                // this.contentReference();
+            }
+        });
+    };
+    MyApp.prototype.contentReference = function () {
+        var properties = {
+            canonicalIdentifier: 'content/123',
+            canonicalUrl: 'https://example.com/content/123',
+            title: 'Content 123 Title',
+            contentDescription: 'Content 123 Description ' + Date.now(),
+            contentImageUrl: 'http://lorempixel.com/400/400/',
+            price: 12.12,
+            currency: 'GBD',
+            contentIndexingMode: 'private',
+            contentMetadata: {
+                custom: 'data',
+                testing: 123,
+                this_is: true
+            }
+        };
+        var analytics = {
+            channel: 'facebook',
+            feature: 'onboarding',
+            campaign: 'content 123 launch',
+            stage: 'new user',
+            tags: ['one', 'two', 'three']
+        };
+        // optional fields
+        var properties1 = {
+            $desktop_url: 'http://www.example.com/desktop',
+            $android_url: 'http://www.example.com/android',
+            $ios_url: 'http://www.example.com/ios',
+            $ipad_url: 'http://www.example.com/ipad',
+            $match_duration: 2000,
+            custom_string: 'data',
+            custom_integer: Date.now(),
+            custom_boolean: true
+        };
+        this.Branch.createBranchUniversalObject(properties).then(function (res) {
+            res.generateShortUrl(analytics, properties1).then(function (res) {
+                console.log('Response: ' + JSON.stringify(res.url));
+            });
+        });
+    };
+    MyApp.prototype.createDeepLink = function () {
+        var analytics = {
+            channel: 'facebook',
+            feature: 'onboarding',
+            campaign: 'content 123 launch',
+            stage: 'new user',
+            tags: ['one', 'two', 'three']
+        };
+        // optional fields
+        var properties = {
+            $desktop_url: 'http://www.example.com/desktop',
+            $android_url: 'http://www.example.com/android',
+            $ios_url: 'http://www.example.com/ios',
+            $ipad_url: 'http://www.example.com/ipad',
+            $match_duration: 2000,
+            custom_string: 'data',
+            custom_integer: Date.now(),
+            custom_boolean: true
+        };
+        this.branchUniversalObj.generateShortUrl(analytics, properties).then(function (res) {
+            alert('Response: ' + JSON.stringify(res.url));
+        }).catch(function (err) {
+            alert('Error: ' + JSON.stringify(err));
+        });
+    };
     MyApp.prototype.logout = function () {
         var _this = this;
         var alert = this.alertCtrl.create({
@@ -2610,8 +3211,10 @@ var MyApp = (function () {
         this.platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
+            _this.handleBranch();
             _this.statusBar.styleDefault();
             _this.splashScreen.hide();
+            _this.contentReference();
             _this.push.hasPermission()
                 .then(function (res) {
                 if (res.isEnabled) {
@@ -2731,24 +3334,22 @@ var MyApp = (function () {
     };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["Nav"]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["Nav"])
+        __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["Nav"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["Nav"]) === "function" && _a || Object)
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\app\app.html"*/'<ion-menu [content]="content" >\n\n  <ion-header no-border >\n\n    <ion-toolbar no-padding>\n\n      <ion-title style="color:#fff">Menu</ion-title>\n\n    </ion-toolbar>\n\n  </ion-header>\n\n\n\n  <ion-content class="custom">\n\n    <!-- <ion-list >\n\n        \n\n      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" >\n\n        {{p.title}}\n\n      </button>\n\n     \n\n      <button ion-item menuClose (click)="logout()">\n\n          <ion-icon item-start [name]="log-out" ></ion-icon>\n\n          Logout\n\n      </button>\n\n      \n\n    </ion-list> -->\n\n   \n\n    <ion-card text-center class="hide-card">\n\n        <img class="pimg" src="{{image}}" class="custom-avatar"/>\n\n        <h2>{{username}}</h2>\n\n       \n\n        <hr>\n\n    </ion-card>\n\n       <ion-list no-lines>\n\n         <!-- <ion-item text-center>\n\n            <ion-avatar>\n\n                <img class="pimg" src="{{image}}"/>\n\n             </ion-avatar>\n\n         </ion-item>\n\n         -->\n\n          <!-- <ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)" detail-push>\n\n              {{p.title}}\n\n          </ion-item>  -->\n\n          <ion-item menuClose (click)="gotoTabspage()" detail-push>\n\n              <img src="http://sunrisetechs.com/images/imgs/customerAppImages/home.png" />\n\n              Home\n\n          </ion-item>\n\n          <ion-item menuClose (click)="gotoProfilepage()" detail-push>\n\n              <img src="http://sunrisetechs.com/images/imgs/customerAppImages/user.png" />\n\n              Profile\n\n          </ion-item>\n\n          <ion-item menuClose (click)="gotoChangepasspage()" detail-push>\n\n              <img src="http://sunrisetechs.com/images/imgs/customerAppImages/lock.png" />\n\n            Change Password\n\n          </ion-item>\n\n          <ion-item menuClose (click)="inviteFriends()" detail-push>\n\n              <img src="http://sunrisetechs.com/images/imgs/customerAppImages/flag.png" />\n\n             Invite Friends\n\n          </ion-item>\n\n          <hr>\n\n          <ion-item text-center menuClose (click)="logout()" detail-push>\n\n             \n\n                <img src="http://sunrisetechs.com/images/imgs/customerAppImages/logout.png" />\n\n              <!-- <ion-icon item-start name="log-out" ></ion-icon> -->\n\n              Logout\n\n              </ion-item>\n\n\n\n          </ion-list>\n\n  </ion-content>\n\n\n\n</ion-menu>\n\n\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n\n<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>\n\n<!-- <ion-tabs tabsPlacement= "bottom" >\n\n    <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n\n    <ion-tab [root]="tab2Root" tabTitle="FAQ" tabIcon="information-circle"></ion-tab>\n\n    <ion-tab [root]="tab3Root" tabTitle="Contact Us" tabIcon="ios-contact-outline"></ion-tab>\n\n  </ion-tabs> -->\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\app\app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__ionic_native_unique_device_id__["a" /* UniqueDeviceID */],
-            __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__["a" /* AuthServiceProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["Platform"], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"], __WEBPACK_IMPORTED_MODULE_14__ionic_native_facebook__["a" /* Facebook */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_push__["a" /* Push */], __WEBPACK_IMPORTED_MODULE_16__ionic_native_social_sharing__["a" /* SocialSharing */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ActionSheetController"]])
+        __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_native_unique_device_id__["a" /* UniqueDeviceID */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_native_unique_device_id__["a" /* UniqueDeviceID */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__["a" /* AuthServiceProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__["a" /* AuthServiceProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["Platform"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["Platform"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["LoadingController"]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"]) === "function" && _j || Object, typeof (_k = typeof __WEBPACK_IMPORTED_MODULE_14__ionic_native_facebook__["a" /* Facebook */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_14__ionic_native_facebook__["a" /* Facebook */]) === "function" && _k || Object, typeof (_l = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_push__["a" /* Push */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_push__["a" /* Push */]) === "function" && _l || Object, typeof (_m = typeof __WEBPACK_IMPORTED_MODULE_16__ionic_native_social_sharing__["a" /* SocialSharing */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_16__ionic_native_social_sharing__["a" /* SocialSharing */]) === "function" && _m || Object, typeof (_o = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ActionSheetController"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ActionSheetController"]) === "function" && _o || Object])
     ], MyApp);
     return MyApp;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 }());
 
 //# sourceMappingURL=app.component.js.map
 
 /***/ }),
 
-/***/ 303:
+/***/ 304:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2813,13 +3414,13 @@ var ListPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_register__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_auth_service_auth_service__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__changepass_changepass__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_file_transfer__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_http__ = __webpack_require__(23);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2876,6 +3477,7 @@ var LoginPage = (function () {
         this.loginData.deviceId = localStorage.getItem('deviceID');
         console.log('device ID = ', this.loginData.deviceId);
         this.pushData.deviceId = this.loginData.deviceId;
+        this.loggedService();
     }
     Object.defineProperty(LoginPage.prototype, "mobile", {
         get: function () {
@@ -2905,7 +3507,7 @@ var LoginPage = (function () {
         enumerable: true,
         configurable: true
     });
-    LoginPage.prototype.ionViewDidLoad = function () {
+    LoginPage.prototype.loggedService = function () {
         var _this = this;
         if (localStorage.getItem('imageList')) {
             this.imgData = JSON.parse(localStorage.getItem('imageList'));
@@ -2923,7 +3525,6 @@ var LoginPage = (function () {
             duration: 3000,
             position: 'bottom'
         });
-        console.log('ionViewDidLoad LoginPage');
         if (localStorage.getItem("loggedData")) {
             var loggedid_1 = JSON.parse(localStorage.getItem("loggedData"));
             if (localStorage.getItem('serviceBooking')) {
@@ -2941,7 +3542,7 @@ var LoginPage = (function () {
                     console.log(result);
                     _this.responseData = result;
                     if (_this.responseData.status == true) {
-                        toast.present();
+                        // toast.present();
                         if (loggedid_1[0].image) {
                             _this.uploadFile();
                         }
@@ -2949,6 +3550,7 @@ var LoginPage = (function () {
                             _this.uploadAudio();
                         }
                         _this.push(_this.pushData);
+                        _this.bookingComplete();
                     }
                     else {
                         toast1.present();
@@ -2971,7 +3573,7 @@ var LoginPage = (function () {
                     console.log(result);
                     _this.responseData = result;
                     if (_this.responseData.status == true) {
-                        toast.present();
+                        // toast.present();
                         _this.push(_this.pushData);
                         if (loggedid_1[0].image) {
                             _this.uploadFile();
@@ -2979,6 +3581,7 @@ var LoginPage = (function () {
                         if (loggedid_1[0].audio) {
                             _this.uploadAudio();
                         }
+                        _this.bookingComplete();
                     }
                     else {
                         toast1.present();
@@ -2987,6 +3590,9 @@ var LoginPage = (function () {
                 });
             }
         }
+    };
+    LoginPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad LoginPage');
     };
     LoginPage.prototype.push = function (data) {
         console.log("pushData", data);
@@ -3058,14 +3664,14 @@ var LoginPage = (function () {
                     loader.dismiss();
                     localStorage.setItem('loggedData', JSON.stringify(_this.responsedata.data));
                     console.log(result);
-                    toast.present();
+                    //toast.present();
                     if (service_1['image']) {
                         _this.uploadAudio();
                     }
                     if (service_1['audio']) {
                         _this.uploadFile();
                     }
-                    _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+                    _this.bookingComplete();
                 }
                 else {
                     loader.dismiss();
@@ -3086,14 +3692,14 @@ var LoginPage = (function () {
                     loader.dismiss();
                     localStorage.setItem('loggedData', JSON.stringify(_this.responsedata.data));
                     console.log(result);
-                    toast.present();
+                    //toast.present();
                     if (service_2['image']) {
                         _this.uploadAudio();
                     }
                     if (service_2['audio']) {
                         _this.uploadFile();
                     }
-                    _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+                    _this.bookingComplete();
                 }
                 else {
                     loader.dismiss();
@@ -3133,6 +3739,23 @@ var LoginPage = (function () {
                 }
             });
         }
+    };
+    LoginPage.prototype.bookingComplete = function () {
+        var _this = this;
+        var alert = this.alertCtrl.create({
+            title: 'Service Booking',
+            message: 'Service booking successfully submitted with 24 hours you will response from rytefix partner.',
+            buttons: [
+                {
+                    text: 'OK',
+                    handler: function () {
+                        console.log('Buy clicked');
+                        _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+                    }
+                }
+            ]
+        });
+        alert.present();
     };
     LoginPage.prototype.reg = function () {
         this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_2__register_register__["a" /* RegisterPage */]);
@@ -3271,16 +3894,16 @@ var LoginPage = (function () {
 
 /***/ }),
 
-/***/ 38:
+/***/ 36:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuotehistoryPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__editservicebooking_editservicebooking__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quoteview_quoteview__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__editservicebooking_editservicebooking__ = __webpack_require__(121);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3369,14 +3992,14 @@ var QuotehistoryPage = (function () {
 
 /***/ }),
 
-/***/ 39:
+/***/ 37:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__faq_faq__ = __webpack_require__(118);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__contactus_contactus__ = __webpack_require__(119);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3423,7 +4046,339 @@ var TabsPage = (function () {
 
 /***/ }),
 
-/***/ 49:
+/***/ 40:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuoteviewPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tabs_tabs__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_servicestate_servicestate__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__quotehistory_quotehistory__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_http__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__quotemap_quotemap__ = __webpack_require__(120);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+
+
+var QuoteviewPage = (function () {
+    function QuoteviewPage(navCtrl, AuthServiceProvider, navParams, callNumber, alertCtrl, toastCtrl, serviceState, http) {
+        this.navCtrl = navCtrl;
+        this.AuthServiceProvider = AuthServiceProvider;
+        this.navParams = navParams;
+        this.callNumber = callNumber;
+        this.alertCtrl = alertCtrl;
+        this.toastCtrl = toastCtrl;
+        this.serviceState = serviceState;
+        this.http = http;
+        this.pushData = { "deviceId": "", "message": "" };
+    }
+    QuoteviewPage_1 = QuoteviewPage;
+    QuoteviewPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad QuoteviewPage');
+        this.quoteget();
+    };
+    QuoteviewPage.prototype.listshow = function () {
+        this.navCtrl.push(this.navCtrl.getActive().component);
+    };
+    QuoteviewPage.prototype.mapshow = function () {
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_8__quotemap_quotemap__["a" /* QuotemapPage */]);
+    };
+    QuoteviewPage.prototype.push = function (data) {
+        console.log("pushData", data);
+        this.http.post('http://sunrisetechs.com/sunapi/push.php', data).subscribe(function (result) {
+            // this.responseData = result;
+            console.log(result);
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    QuoteviewPage.prototype.quoteget = function () {
+        var _this = this;
+        console.log(localStorage.getItem("loggedData"));
+        var quotedata = JSON.parse(localStorage.getItem("loggedData"));
+        console.log(quotedata);
+        this.AuthServiceProvider.postData(quotedata[0], 'quoteView').then(function (result) {
+            console.log(result);
+            _this.quoteview = result;
+            _this.acceptCheck(_this.quoteview);
+            console.log(_this.quoteview[0].make_name);
+            if (_this.quoteview[0].make_name == null) {
+                _this.make = _this.quoteview[0].make;
+            }
+            else {
+                _this.make = _this.quoteview[0].make_name;
+            }
+            //this.make= this.quoteview[0].make_name;
+            _this.model = _this.quoteview[0].model;
+            _this.soft = _this.quoteview[0].softService;
+            _this.hard = _this.quoteview[0].hardService;
+            _this.othermodel = _this.quoteview[0].othermodel;
+            _this.pickup = _this.quoteview[0].pickup_type;
+            _this.booking_date = _this.quoteview[0].posted_on;
+            _this.image = _this.quoteview[0].image;
+            _this.audio = _this.quoteview[0].audio;
+            // this.navCtrl.setRoot(HomePage);
+        });
+    };
+    QuoteviewPage.prototype.quoteChat = function () {
+        alert("test");
+    };
+    QuoteviewPage.prototype.quoteCall = function (mobile) {
+        console.log(mobile);
+        this.callNumber.callNumber(mobile, true)
+            .then(function () { return console.log('Launched dialer!'); })
+            .catch(function () { return console.log('Error launching dialer'); });
+    };
+    QuoteviewPage.prototype.acceptCheck = function (quoteView) {
+        var _this = this;
+        quoteView.forEach(function (element) {
+            if (element.accept_status == 3) {
+                console.log(element);
+                _this.Check = "accepted";
+                console.log(_this.Check);
+            }
+        });
+    };
+    QuoteviewPage.prototype.quoteAccept = function (id, data) {
+        var _this = this;
+        console.log("quote data", data.device_id);
+        this.pushData.deviceId = data.device_id;
+        this.pushData.message = "Customer has accepted your service. Contact customer to complete the service.";
+        // checking for customer if already accepted the quote
+        if (this.Check == "accepted") {
+            // if accepted throws prompt message to ignore accepted quote
+            var promptalert = this.alertCtrl.create({
+                title: 'Warning',
+                message: 'you have already accepted the quote ! please ignore the accepted quote to accept this.',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: function () {
+                            console.log('Cancel clicked');
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: function () {
+                        }
+                    }
+                ]
+            });
+            promptalert.present();
+        }
+        else {
+            console.log('quote is not accepted previously');
+            var promptalert = this.alertCtrl.create({
+                title: 'Accept Quote',
+                message: 'Do you want to Accept this Quote?',
+                buttons: [
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: function () {
+                            console.log('Cancel clicked');
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        handler: function () {
+                            console.log(id);
+                            _this.AuthServiceProvider.postData(id, 'serviceAccept').then(function (result) {
+                                _this.responsedata = result;
+                                if (_this.responsedata.status == true) {
+                                    //this.refresh();
+                                    _this.quoteAccept1(data);
+                                    _this.push(_this.pushData);
+                                    alert("Your have successfully accepted the quote");
+                                }
+                            });
+                        }
+                    }
+                ]
+            });
+            promptalert.present();
+        }
+    };
+    QuoteviewPage.prototype.quoteAccept1 = function (data) {
+        console.log("data", data);
+        this.navCtrl.push(QuoteviewPage_1, { "data": data });
+    };
+    QuoteviewPage.prototype.quoteIgnore = function (id) {
+        var _this = this;
+        var promptalert = this.alertCtrl.create({
+            title: 'Ignore',
+            message: 'Do you want to Ignore this Quote?',
+            buttons: [
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    handler: function () {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Yes',
+                    handler: function () {
+                        console.log(id);
+                        _this.AuthServiceProvider.postData(id, 'serviceIgnore').then(function (result) {
+                            _this.responsedata = result;
+                            if (_this.responsedata.status == true) {
+                                _this.refresh();
+                                alert("Service ignore successfully");
+                            }
+                        });
+                    }
+                }
+            ]
+        });
+        promptalert.present();
+    };
+    QuoteviewPage.prototype.refresh = function () {
+        this.navCtrl.setRoot(this.navCtrl.getActive().component);
+        console.log("refresh");
+    };
+    QuoteviewPage.prototype.completeQuote = function (vid, bid, data) {
+        var _this = this;
+        // console.log('vid',vid);
+        console.log('compelte data', data);
+        this.pushData.deviceId = data.device_id;
+        this.pushData.message = "Customer has completed your service.";
+        var prompt = this.alertCtrl.create({
+            message: "Service completed in service center and you paid for the service",
+            buttons: [
+                {
+                    text: 'Yes',
+                    handler: function (data) {
+                        console.log('yes clicked');
+                        _this.serviceState.completeService(vid, bid).subscribe(function (data) {
+                            console.log(data);
+                            console.log(data.status);
+                            if (data.status == 'success') {
+                                _this.push(_this.pushData);
+                                var toast = _this.toastCtrl.create({
+                                    message: "Congratulations! You can use the credit",
+                                    duration: 3000,
+                                    position: 'bottom'
+                                });
+                                toast.present();
+                                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__tabs_tabs__["a" /* TabsPage */]);
+                            }
+                        }), function (error) {
+                            console.log(error);
+                        };
+                    }
+                },
+                {
+                    text: 'No',
+                    handler: function (data) {
+                        alert(" First complete the service at service center");
+                        return true;
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    };
+    QuoteviewPage.prototype.declineQuote = function (vid, bid) {
+        var _this = this;
+        // console.log('data',this.quoteview[0]);
+        // let vid = this.quoteview[0].vendor;
+        // let bid= this.quoteview[0].booking_id;
+        console.log('vendor id', vid);
+        console.log('booking id', bid);
+        var prompt = this.alertCtrl.create({
+            message: "Please describe the problem",
+            inputs: [
+                {
+                    //type :'text',
+                    name: 'reason',
+                    placeholder: 'Reason for decline',
+                    value: ""
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: function (data) {
+                        console.log('Cancel clicked');
+                    }
+                },
+                {
+                    text: 'Ok',
+                    handler: function (data) {
+                        // let validateObj = this.validate(data);
+                        if (data.reason == "") {
+                            var toast = _this.toastCtrl.create({
+                                message: "Please enter the reason ",
+                                duration: 3000,
+                                position: 'bottom'
+                            });
+                            toast.present();
+                            return false;
+                        }
+                        else {
+                            var toast = _this.toastCtrl.create({
+                                message: "Now you can accept other quotes",
+                                duration: 3000,
+                                position: 'bottom'
+                            });
+                            toast.present();
+                            _this.serviceState.reportproblem(vid, bid, data.reason).subscribe(function (data) {
+                                console.log(data);
+                                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__quotehistory_quotehistory__["a" /* QuotehistoryPage */]);
+                            }), function (error) {
+                                console.log(error);
+                            };
+                            // this.navCtrl.push(QuoteviewPage);
+                        }
+                    }
+                }
+            ]
+        });
+        prompt.present();
+    };
+    QuoteviewPage = QuoteviewPage_1 = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-quoteview',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quoteview\quoteview.html"*/'<!--\n\n  Generated template for the QuoteviewPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n\n\n  <ion-toolbar no-padding>\n\n      <!-- <button ion-button menuToggle>\n\n          <ion-icon name="menu"></ion-icon>\n\n      </button> -->\n\n    <ion-title>Quote</ion-title>\n\n    <!-- <ion-segment>\n\n        <ion-segment-button  class="button-l" (click)="listshow()">\n\n          List View\n\n        </ion-segment-button>\n\n        <ion-segment-button  class="button-m" (click)="mapshow()">\n\n          Map View\n\n        </ion-segment-button>\n\n      </ion-segment> -->\n\n  </ion-toolbar>\n\n  <ion-segment>\n\n    <ion-segment-button  class="button-l" (click)="listshow()">\n\n      List View\n\n    </ion-segment-button>\n\n    <ion-segment-button  class="button-m" (click)="mapshow()">\n\n      Map View\n\n    </ion-segment-button>\n\n  </ion-segment>\n\n</ion-header>\n\n\n\n\n\n<ion-content style="padding:10px; margin-top:10px;"  >\n\n        <ion-thumbnail  class="item-profile">\n\n                <img src="http://sunrisetechs.com/images/imgs/{{image}}"/>\n\n              </ion-thumbnail>\n\n        \n\n   <ion-list style="margin-top:5px; background-color:#ddd">\n\n          \n\n      <ion-row>\n\n          <ion-col col-12 class="head">\n\n              <h4><b>Booking Details</b></h4>\n\n          </ion-col>\n\n      </ion-row>\n\n           <ion-row>\n\n               <ion-col col-4 text-left>\n\n                <b>Make</b>\n\n               </ion-col>\n\n               <ion-col col-1><b>:</b></ion-col>\n\n               <ion-col col-7 text-left>\n\n                   {{make}}\n\n               </ion-col>\n\n             </ion-row>\n\n             <ion-row>\n\n                 <ion-col col-4 text-left>\n\n                  <b>Model</b>\n\n                 </ion-col>\n\n                 <ion-col col-1><b>:</b></ion-col>\n\n                 <ion-col col-7 text-left>\n\n                     {{model}}\n\n                 </ion-col>\n\n               </ion-row>\n\n               <ion-row>\n\n                   <ion-col col-4 text-left>\n\n                    <b>Problem</b>\n\n                   </ion-col>\n\n                   <ion-col col-1><b>:</b></ion-col>\n\n                   <ion-col col-7 text-left>\n\n                       <div *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</div>\n\n                   </ion-col>\n\n                 </ion-row>\n\n                 <ion-row>\n\n                     <ion-col col-4 text-left>\n\n                      <b>Pickup</b>\n\n                     </ion-col>\n\n                     <ion-col col-1><b>:</b></ion-col>\n\n                     <ion-col col-7 text-left>\n\n                         {{pickup}}\n\n                     </ion-col>\n\n                   </ion-row>\n\n                   <ion-row>\n\n                       <ion-col col-4 text-left>\n\n                        <b> Booking Date</b>\n\n                       </ion-col>\n\n                       <ion-col col-1><b>:</b></ion-col>\n\n                       <ion-col col-7 text-left>\n\n                           {{booking_date}}\n\n                       </ion-col>\n\n                     </ion-row>\n\n                     <div>\n\n                            <audio controls>\n\n                            <source src="http://sunrisetechs.com/images/audio/{{audio}}">\n\n                           \n\n                            </audio>\n\n                            </div>\n\n                        </ion-list>\n\n                   \n\n                          \n\n                        <hr class="style1">   \n\n      <ion-list>\n\n      <ion-item>\n\n          <h2 class="head1"><b>Quotes Received</b></h2>\n\n           </ion-item>\n\n           <ion-list *ngFor="let item of quoteview">\n\n           \n\n                    <ion-row>\n\n                            <ion-col col-12 text-center class="box">\n\n                                {{item.username}}\n\n                            </ion-col>\n\n                          </ion-row>\n\n                      \n\n              \n\n                   \n\n                     <ion-row>\n\n                         <ion-col col-5 text-left>\n\n                          <b>  Original Price</b>\n\n                         </ion-col>\n\n                         <ion-col col-1><b>:</b></ion-col>\n\n                         <ion-col col-6 text-left>\n\n                             {{item.exactprice}}\n\n                         </ion-col>\n\n                       </ion-row>\n\n                       <ion-row *ngIf="item.second_quality_price">\n\n                               <ion-col col-5 text-left>\n\n                                <b> 2nd Quality Price</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.second_quality_price}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                             <ion-row>\n\n                                   <ion-col col-5 text-left>\n\n                                    <b> Time Required</b>\n\n                                   </ion-col>\n\n                                   <ion-col col-1><b>:</b></ion-col>\n\n                                   <ion-col col-6 text-left>\n\n                                       {{item.time_period}}\n\n                                   </ion-col>\n\n                                 </ion-row>\n\n                       <ion-row>\n\n                           <ion-col col-5 text-left>\n\n                            <b> Warranty</b>\n\n                           </ion-col>\n\n                           <ion-col col-1><b>:</b></ion-col>\n\n                           <ion-col col-6 text-left>\n\n                               {{item.warranty}}\n\n                           </ion-col>\n\n                         </ion-row>\n\n                         <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Home Pick Up</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.pickup}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                         <ion-row>\n\n                             <ion-col col-5 text-left>\n\n                              <b> Description</b>\n\n                             </ion-col>\n\n                             <ion-col col-1><b>:</b></ion-col>\n\n                             <ion-col col-6 text-left>\n\n                                 {{item.description}}\n\n                             </ion-col>\n\n                           </ion-row>\n\n                           <ion-row *ngIf="item.accept_status==4">\n\n                                <ion-col col-5 text-left>\n\n                                 <b> Reason</b>\n\n                                </ion-col>\n\n                                <ion-col col-1><b>:</b></ion-col>\n\n                                <ion-col col-6 text-left>\n\n                                  {{item.reason}}\n\n                                </ion-col>\n\n                              </ion-row> \n\n                           <ion-row *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">   \n\n                                <ion-col col-5 text-left>\n\n                                    <b>Contact By</b>\n\n                                </ion-col>\n\n                                <ion-col col-1><b>:</b></ion-col>      \n\n                          <ion-col col-3 >\n\n                                <button ion-button color="primary" small round icon-only (click)="quoteCall(item.mobile)">\n\n                                        <ion-icon ios="ios-call" md="md-call"></ion-icon></button>\n\n                                 </ion-col>\n\n                                 <ion-col col-3>\n\n                                       <button ion-button  color="dark" small round icon-only (click)="quoteChat(item.id)" >\n\n                                   <ion-icon ios="ios-chatbubbles" md="md-chatbubbles"></ion-icon></button>\n\n                                 </ion-col>\n\n                                 </ion-row>\n\n                           <!-- <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Expires In</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                 \n\n                               </ion-col>\n\n                             </ion-row>      -->\n\n               \n\n               \n\n              <div *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">\n\n               <div class="btn-group">\n\n                  <ion-row>\n\n                    <!-- <ion-col col-3>\n\n                        <button ion-button color="dark" [hidden]="item.cancel_status" small class="button" (click)="quoteChat(item.id)" icon-only>Chat</button>          \n\n                    </ion-col> -->\n\n                       <!-- <ion-col col-3>\n\n                               <button ion-button color="secondary" [hidden]="item.cancel_status"  small class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>\n\n                              </ion-col>-->\n\n                           <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-6 text-center> \n\n                               <!-- <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept1(item)" icon-only>Accept</button> -->\n\n                               <button ion-button color="secondary" [hidden]="item.cancel_status"  class="button" (click)="quoteAccept(item.id,item)" >Accept</button>\n\n                              </ion-col>\n\n                               <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-6 text-center>\n\n                                       <button ion-button color="light" [hidden]="item.cancel_status"  class="button" (click)="quoteIgnore(item.id)" >Ignore</button>\n\n                                   </ion-col>\n\n                                   \n\n                                   <div *ngIf="item.accept_status==3">\n\n                                        <button ion-button block color="secondary" class="button" (click)="completeQuote(item.vendor,item.booking_id,item)" block>Complete the service</button>\n\n                                    \n\n                                            <button ion-button block color="dark" class="button" (click)="declineQuote(item.vendor,item.booking_id)" block>  Decline Vendor</button>\n\n                                          </div>\n\n\n\n<!-- ////////////////////////////////////////////////////////////////////////////                                    -->\n\n<!-- <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n               \n\n        <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept(item.id,item)" icon-only>Accept</button>\n\n       </ion-col>\n\n        <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n                <button ion-button color="light" [hidden]="item.cancel_status" small class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>\n\n            </ion-col> -->\n\n                                               \n\n                  </ion-row>\n\n                </div>\n\n                </div>\n\n                <hr class="style1">\n\n            </ion-list>\n\n<hr class="style1">\n\n</ion-list>\n\n\n\n</ion-content> \n\n\n\n\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quoteview\quoteview.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"],
+            __WEBPACK_IMPORTED_MODULE_2__providers_auth_service_auth_service__["a" /* AuthServiceProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_native_call_number__["a" /* CallNumber */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"],
+            __WEBPACK_IMPORTED_MODULE_5__providers_servicestate_servicestate__["a" /* ServicestateProvider */],
+            __WEBPACK_IMPORTED_MODULE_7__angular_http__["b" /* Http */]])
+    ], QuoteviewPage);
+    return QuoteviewPage;
+    var QuoteviewPage_1;
+}());
+
+//# sourceMappingURL=quoteview.js.map
+
+/***/ }),
+
+/***/ 50:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3431,9 +4386,9 @@ var TabsPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__servicebooking_servicebooking__ = __webpack_require__(117);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quotehistory_quotehistory__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__quotehistory_quotehistory__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__wallet_wallet__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__wallet_wallet__ = __webpack_require__(122);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3593,7 +4548,7 @@ var HomePage = (function () {
     ], HomePage.prototype, "slides", void 0);
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-home',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\home\home.html"*/'<ion-header no-border>\n\n        <ion-toolbar no-padding>\n\n            <button ion-button menuToggle>\n\n                <ion-icon class="color-wh" name="menu"></ion-icon>\n\n            </button>\n\n            <ion-title>Home</ion-title>\n\n        </ion-toolbar>\n\n    </ion-header>\n\n    \n\n    <ion-content no-padding *ngIf="home">\n\n      \n\n            <ion-slides class="slides" pager="true"autoplay="2000" loop="true" speed="1000" >\n\n                    <ion-slide>\n\n                      <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banner2.jpg\'>\n\n                    </ion-slide>\n\n                    <ion-slide>\n\n                            <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banner1.jpg\'>\n\n                    </ion-slide>\n\n                    <ion-slide>\n\n                            <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banners.jpg\'>\n\n                    </ion-slide>\n\n                  </ion-slides>\n\n                  <ion-grid>\n\n                  <ion-row>\n\n                      <ion-col col-6 text-center (click)="Gadgets()">\n\n                            <img src="../assets/imgs/icon-1.png" class="img-1"/>\n\n                            <p>Book New Service</p>\n\n                      </ion-col>\n\n                      <ion-col col-6 text-center (click)="quoteHistory()">\n\n                            <img src="../assets/imgs/icon-2.png" class="img-1"/>\n\n                            <p>Booking History</p>\n\n                      </ion-col>\n\n                  </ion-row>\n\n                  <ion-row>\n\n                        <ion-col col-6  text-center (click)="wallet()">\n\n                                <img src="../assets/imgs/icon-3.png" class="img-1"  style="opacity:0.5"/>\n\n                                <p>RF Wallet</p>\n\n                                <span class="balance">₹20</span>\n\n                                \n\n                        </ion-col>\n\n                        <ion-col col-6 text-center>\n\n                                <img src="../assets/imgs/icon-4.png" class="img-1"/>\n\n                                <p>Refer & Earn</p>\n\n                        </ion-col>\n\n                    </ion-row>\n\n                </ion-grid>\n\n       \n\n      \n\n       \n\n        <!-- <ion-card>\n\n    <p>hjfbdsygf</p>\n\n        </ion-card> -->\n\n        <!-- <ion-list>\n\n            <ion-grid>\n\n                <ion-row>\n\n                    <ion-col col-6><a  >\n\n                        <ion-item class="selectbg"> -->\n\n                            <!-- <ion-label hidden>Select Gadgets</ion-label>\n\n                            <ion-select [(ngModel)]="toppings" (ionChange)="Gadgets($event);">\n\n                                <ion-option value="Mobile" selected>Mobile</ion-option>\n\n                                <ion-option value="Laptop">Laptop</ion-option>\n\n                                <ion-option value="Tablet">Tablet</ion-option>\n\n                                <ion-option value="Printer">Printer,cam &others</ion-option>\n\n                            </ion-select> -->\n\n                        <!-- </ion-item></a>\n\n                    </ion-col>\n\n                    <ion-col col-6><a  >\n\n                        <ion-item class="QHSbg"></ion-item>\n\n                    </a>\n\n                       \n\n                    </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                    <ion-col col-6><a  (click)="Gadgets()">\n\n                        <ion-item class="selectbg">\n\n                        </ion-item></a>\n\n                    </ion-col>\n\n                    <ion-col col-6><a >\n\n                        <ion-item class="QHSbg"></ion-item>\n\n                    </a>\n\n                       \n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-grid>\n\n        </ion-list>\n\n    </ion-content>  -->\n\n    <!-- \n\n    <ion-content *ngIf="print">\n\n        <section class = "home-container">\n\n          <div class="row row-center" >\n\n              <div class="col text-center" >\n\n                  <img alt="Logo" height="100" src="assets/imgs/watch.gif" >\n\n              </div>\n\n         </div>\n\n        </section>\n\n    </ion-content> -->\n\n    \n\n    \n\n    '/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\home\home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\home\home.html"*/'<ion-header no-border>\n\n        <ion-toolbar no-padding>\n\n            <button ion-button menuToggle>\n\n                <ion-icon class="color-wh" name="menu"></ion-icon>\n\n            </button>\n\n            <ion-title>Home</ion-title>\n\n        </ion-toolbar>\n\n    </ion-header>\n\n    \n\n    <ion-content no-padding *ngIf="home">\n\n      \n\n            <ion-slides class="slides" pager="true"autoplay="2000" loop="true" speed="1000" >\n\n                    <ion-slide>\n\n                      <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banner2.jpg\'>\n\n                    </ion-slide>\n\n                    <ion-slide>\n\n                            <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banner1.jpg\'>\n\n                    </ion-slide>\n\n                    <ion-slide>\n\n                            <img src = \'http://sunrisetechs.com/images/imgs/customerAppImages/banners.jpg\'>\n\n                    </ion-slide>\n\n                  </ion-slides>\n\n                  <ion-grid>\n\n                  <ion-row>\n\n                      <ion-col col-6 text-center (click)="Gadgets()">\n\n                            <img src="http://sunrisetechs.com/images/imgs/customerAppImages/icon-1.png" class="img-1"/>\n\n                            <p>Book New Service</p>\n\n                      </ion-col>\n\n                      <ion-col col-6 text-center (click)="quoteHistory()">\n\n                            <img src="http://sunrisetechs.com/images/imgs/customerAppImages/icon-2.png" class="img-1"/>\n\n                            <p>Booking History</p>\n\n                      </ion-col>\n\n                  </ion-row>\n\n                  <ion-row>\n\n                        <ion-col col-6  text-center (click)="wallet()">\n\n                                <img src="http://sunrisetechs.com/images/imgs/customerAppImages/icon-3.png" class="img-1"  style="opacity:0.5"/>\n\n                                <p>RF Wallet</p>\n\n                                <span class="balance">₹20</span>\n\n                                \n\n                        </ion-col>\n\n                        <ion-col col-6 text-center>\n\n                                <img src="http://sunrisetechs.com/images/imgs/customerAppImages/icon-4.png" class="img-1"/>\n\n                                <p>Refer & Earn</p>\n\n                        </ion-col>\n\n                    </ion-row>\n\n                </ion-grid>\n\n       \n\n      \n\n       \n\n        <!-- <ion-card>\n\n    <p>hjfbdsygf</p>\n\n        </ion-card> -->\n\n        <!-- <ion-list>\n\n            <ion-grid>\n\n                <ion-row>\n\n                    <ion-col col-6><a  >\n\n                        <ion-item class="selectbg"> -->\n\n                            <!-- <ion-label hidden>Select Gadgets</ion-label>\n\n                            <ion-select [(ngModel)]="toppings" (ionChange)="Gadgets($event);">\n\n                                <ion-option value="Mobile" selected>Mobile</ion-option>\n\n                                <ion-option value="Laptop">Laptop</ion-option>\n\n                                <ion-option value="Tablet">Tablet</ion-option>\n\n                                <ion-option value="Printer">Printer,cam &others</ion-option>\n\n                            </ion-select> -->\n\n                        <!-- </ion-item></a>\n\n                    </ion-col>\n\n                    <ion-col col-6><a  >\n\n                        <ion-item class="QHSbg"></ion-item>\n\n                    </a>\n\n                       \n\n                    </ion-col>\n\n                </ion-row>\n\n                <ion-row>\n\n                    <ion-col col-6><a  (click)="Gadgets()">\n\n                        <ion-item class="selectbg">\n\n                        </ion-item></a>\n\n                    </ion-col>\n\n                    <ion-col col-6><a >\n\n                        <ion-item class="QHSbg"></ion-item>\n\n                    </a>\n\n                       \n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-grid>\n\n        </ion-list>\n\n    </ion-content>  -->\n\n    <!-- \n\n    <ion-content *ngIf="print">\n\n        <section class = "home-container">\n\n          <div class="row row-center" >\n\n              <div class="col text-center" >\n\n                  <img alt="Logo" height="100" src="assets/imgs/watch.gif" >\n\n              </div>\n\n         </div>\n\n        </section>\n\n    </ion-content> -->\n\n    \n\n    \n\n    '/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\home\home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"]])
     ], HomePage);
@@ -3608,488 +4563,9 @@ var HomePage = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return QuoteviewPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(179);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__tabs_tabs__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_servicestate_servicestate__ = __webpack_require__(57);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__quotehistory_quotehistory__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(27);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-
-
-
-var QuoteviewPage = (function () {
-    function QuoteviewPage(navCtrl, AuthServiceProvider, navParams, callNumber, geolocation, alertCtrl, toastCtrl, serviceState, http) {
-        this.navCtrl = navCtrl;
-        this.AuthServiceProvider = AuthServiceProvider;
-        this.navParams = navParams;
-        this.callNumber = callNumber;
-        this.geolocation = geolocation;
-        this.alertCtrl = alertCtrl;
-        this.toastCtrl = toastCtrl;
-        this.serviceState = serviceState;
-        this.http = http;
-        this.pushData = { "deviceId": "", "message": "" };
-        this.regionals = [];
-        this.mapload();
-        this.mapview = true;
-        this.listview = false;
-    }
-    QuoteviewPage_1 = QuoteviewPage;
-    QuoteviewPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad QuoteviewPage');
-        this.quoteget();
-    };
-    QuoteviewPage.prototype.listshow = function () {
-        this.mapview = false;
-        this.listview = true;
-    };
-    QuoteviewPage.prototype.mapshow = function () {
-        this.refresh();
-        this.mapload();
-        this.mapview = true;
-        this.listview = false;
-    };
-    QuoteviewPage.prototype.push = function (data) {
-        console.log("pushData", data);
-        this.http.post('http://sunrisetechs.com/sunapi/push.php', data).subscribe(function (result) {
-            // this.responseData = result;
-            console.log(result);
-        }, function (err) {
-            console.log(err);
-        });
-    };
-    QuoteviewPage.prototype.quoteget = function () {
-        var _this = this;
-        console.log(localStorage.getItem("loggedData"));
-        var quotedata = JSON.parse(localStorage.getItem("loggedData"));
-        console.log(quotedata);
-        this.AuthServiceProvider.postData(quotedata[0], 'quoteView').then(function (result) {
-            console.log(result);
-            _this.quoteview = result;
-            _this.acceptCheck(_this.quoteview);
-            console.log(_this.quoteview[0].make_name);
-            if (_this.quoteview[0].make_name == null) {
-                _this.make = _this.quoteview[0].make;
-            }
-            else {
-                _this.make = _this.quoteview[0].make_name;
-            }
-            //this.make= this.quoteview[0].make_name;
-            _this.model = _this.quoteview[0].model;
-            _this.soft = _this.quoteview[0].softService;
-            _this.hard = _this.quoteview[0].hardService;
-            _this.othermodel = _this.quoteview[0].othermodel;
-            _this.pickup = _this.quoteview[0].pickup_type;
-            _this.booking_date = _this.quoteview[0].posted_on;
-            _this.image = _this.quoteview[0].image;
-            _this.audio = _this.quoteview[0].audio;
-            _this.regionals = result;
-            _this.regionals.forEach(function (o) {
-                Object.keys(o).forEach(function (k) {
-                    if (isFinite(o[k])) {
-                        o[k] = +o[k];
-                    }
-                });
-            });
-            console.log(_this.regionals);
-            _this.mapload();
-            // this.navCtrl.setRoot(HomePage);
-        });
-    };
-    QuoteviewPage.prototype.quoteChat = function () {
-        alert("test");
-    };
-    QuoteviewPage.prototype.quoteCall = function (mobile) {
-        console.log(mobile);
-        this.callNumber.callNumber(mobile, true)
-            .then(function () { return console.log('Launched dialer!'); })
-            .catch(function () { return console.log('Error launching dialer'); });
-    };
-    QuoteviewPage.prototype.acceptCheck = function (quoteView) {
-        var _this = this;
-        quoteView.forEach(function (element) {
-            if (element.accept_status == 3) {
-                console.log(element);
-                _this.Check = "accepted";
-                console.log(_this.Check);
-            }
-        });
-    };
-    QuoteviewPage.prototype.quoteAccept = function (id, data) {
-        var _this = this;
-        console.log("quote data", data.device_id);
-        this.pushData.deviceId = data.device_id;
-        this.pushData.message = "Customer has accepted your service. Contact customer to complete the service.";
-        // checking for customer if already accepted the quote
-        if (this.Check == "accepted") {
-            // if accepted throws prompt message to ignore accepted quote
-            var promptalert = this.alertCtrl.create({
-                title: 'Warning',
-                message: 'you have already accepted the quote ! please ignore the accepted quote to accept this.',
-                buttons: [
-                    {
-                        text: 'Cancel',
-                        role: 'cancel',
-                        handler: function () {
-                            console.log('Cancel clicked');
-                        }
-                    },
-                    {
-                        text: 'Yes',
-                        handler: function () {
-                        }
-                    }
-                ]
-            });
-            promptalert.present();
-        }
-        else {
-            console.log('quote is not accepted previously');
-            var promptalert = this.alertCtrl.create({
-                title: 'Accept Quote',
-                message: 'Do you want to Accept this Quote?',
-                buttons: [
-                    {
-                        text: 'Cancel',
-                        role: 'cancel',
-                        handler: function () {
-                            console.log('Cancel clicked');
-                        }
-                    },
-                    {
-                        text: 'Yes',
-                        handler: function () {
-                            console.log(id);
-                            _this.AuthServiceProvider.postData(id, 'serviceAccept').then(function (result) {
-                                _this.responsedata = result;
-                                if (_this.responsedata.status == true) {
-                                    //this.refresh();
-                                    _this.quoteAccept1(data);
-                                    _this.push(_this.pushData);
-                                    alert("Service accept successfully");
-                                }
-                            });
-                        }
-                    }
-                ]
-            });
-            promptalert.present();
-        }
-    };
-    QuoteviewPage.prototype.quoteAccept1 = function (data) {
-        console.log("data", data);
-        this.navCtrl.push(QuoteviewPage_1, { "data": data });
-    };
-    QuoteviewPage.prototype.quoteIgnore = function (id) {
-        var _this = this;
-        var promptalert = this.alertCtrl.create({
-            title: 'Ignore',
-            message: 'Do you want to Ignore this Quote?',
-            buttons: [
-                {
-                    text: 'Cancel',
-                    role: 'cancel',
-                    handler: function () {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Yes',
-                    handler: function () {
-                        console.log(id);
-                        _this.AuthServiceProvider.postData(id, 'serviceIgnore').then(function (result) {
-                            _this.responsedata = result;
-                            if (_this.responsedata.status == true) {
-                                _this.refresh();
-                                alert("Service ignore successfully");
-                            }
-                        });
-                    }
-                }
-            ]
-        });
-        promptalert.present();
-    };
-    QuoteviewPage.prototype.refresh = function () {
-        this.navCtrl.setRoot(this.navCtrl.getActive().component);
-        console.log("refresh");
-    };
-    QuoteviewPage.prototype.mapload = function () {
-        var _this = this;
-        //  this.loadMap(13.08648395538330,80.27350616455078 );
-        this.options = {
-            enableHighAccuracy: true
-        };
-        this.geolocation.getCurrentPosition(this.options).then(function (pos) {
-            _this.currentPos = pos;
-            console.log(pos);
-            console.log(pos.coords.latitude + ',' + pos.coords.longitude);
-            _this.addMap(pos.coords.latitude, pos.coords.longitude);
-            //  this.loadMap(pos.coords.latitude,pos.coords.longitude);
-        }, function (err) {
-            console.log("error : " + err.message);
-        });
-    };
-    /*##User location load##*/
-    QuoteviewPage.prototype.addMap = function (lat, long) {
-        var _this = this;
-        var latLng = new google.maps.LatLng(lat, long);
-        var mapOptions = {
-            center: latLng,
-            zoom: 5,
-            visible: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            styles: [{ "featureType": "water", "elementType": "geometry", "stylers": [{ "color": "#e9e9e9" }, { "lightness": 17 }] }, { "featureType": "landscape", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 20 }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "color": "#ffffff" }, { "lightness": 17 }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "color": "#ffffff" }, { "lightness": 29 }, { "weight": 0.2 }] }, { "featureType": "road.arterial", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 18 }] }, { "featureType": "road.local", "elementType": "geometry", "stylers": [{ "color": "#ffffff" }, { "lightness": 16 }] }, { "featureType": "poi", "elementType": "geometry", "stylers": [{ "color": "#f5f5f5" }, { "lightness": 21 }] }, { "featureType": "poi.park", "elementType": "geometry", "stylers": [{ "color": "#dedede" }, { "lightness": 21 }] }, { "elementType": "labels.text.stroke", "stylers": [{ "visibility": "on" }, { "color": "#ffffff" }, { "lightness": 16 }] }, { "elementType": "labels.text.fill", "stylers": [{ "saturation": 36 }, { "color": "#333333" }, { "lightness": 40 }] }, { "elementType": "labels.icon", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "geometry", "stylers": [{ "color": "#f2f2f2" }, { "lightness": 19 }] }, { "featureType": "administrative", "elementType": "geometry.fill", "stylers": [{ "color": "#fefefe" }, { "lightness": 20 }] }, { "featureType": "administrative", "elementType": "geometry.stroke", "stylers": [{ "color": "#fefefe" }, { "lightness": 17 }, { "weight": 1.2 }] }]
-        };
-        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-        // this.addMarker();
-        var markers = [];
-        console.log("regionals", this.regionals);
-        var _loop_1 = function (regional) {
-            this_1.nabo_img = "http://maps.google.com/mapfiles/ms/icons/blue-dot.png";
-            console.log(regional.latitude + ',' + regional.longitude);
-            var markerData = {
-                position: {
-                    lat: regional.latitude,
-                    lng: regional.longitude
-                },
-                map: this_1.map,
-                icon: this_1.nabo_img,
-                title: regional.username,
-            };
-            regional.marker = new google.maps.Marker(markerData);
-            markers.push(regional.marker);
-            //let content = regional.username; 
-            //infoWindow.open(this.map, regional.marker);
-            regional.marker.addListener('click', function () {
-                var content = "<div><div><b>Vendor name:</b> " + regional.username +
-                    "</div><p><b>Exact price:</b> " + regional.exactprice +
-                    "</p><p><b>Warranty:</b> " + regional.warranty +
-                    "</p><p><b>Description:</b> " + regional.description +
-                    "</p><button   class='buttonchat' (ng-click)='quoteChat()' >Chat</button>" +
-                    "<button ion-button color='secondary'  class='buttoncall' (click)='quoteCall(" + regional.mobile + ")' icon-only>Call</button>" +
-                    "<button ion-button color='primary'  class='buttonacc' (click)='quoteAccept(" + regional.id + regional + ")' icon-only>Accept</button>" +
-                    "<button ion-button color='light'  class='buttonig' (click)='quoteIgnore(" + regional.id + ")' icon-only>Ignore</button></div>'";
-                var infoWindow = new google.maps.InfoWindow({
-                    content: content
-                });
-                infoWindow.open(_this.map, regional.marker);
-                for (var _i = 0, _a = _this.regionals; _i < _a.length; _i++) {
-                    var c = _a[_i];
-                    console.log(c);
-                    c.current = false;
-                    // c.infoWindow.close();
-                }
-                _this.regionals = regional;
-                var markerData = {
-                    position: {
-                        lat: regional.latitude,
-                        lng: regional.longitude
-                    },
-                    map: _this.map,
-                    title: regional.title,
-                };
-                regional.marker = new google.maps.Marker(markerData);
-                markers.push(regional.marker);
-                console.log(regional.marker);
-                console.log(regional);
-                console.log(regional.latitude + ',' + regional.longitude);
-                //this.othersAddress = regional.username+','+regional.street_address+regional.city +regional.country ;
-                // this.othersAddress = ` ${regional.username}, ${regional.street_address}, ${regional.city}, ${regional.country} ` ;
-                _this.map.panTo(regional.marker.getPosition());
-            });
-        };
-        var this_1 = this;
-        for (var _i = 0, _a = this.regionals; _i < _a.length; _i++) {
-            var regional = _a[_i];
-            _loop_1(regional);
-        }
-    };
-    // loadMap(lat,long){
-    //  console.log(lat+","+long);
-    //   console.log("lat and lang")
-    //   let latLng= new google.maps.LatLng(lat, long);
-    //   console.log(latLng);
-    //   let mapOptions={
-    //     center:latLng,
-    //     zoom:15,
-    //     mapTypeId: google.maps.MapTypeId.ROADMAP
-    //   }
-    // this.map=new google.maps.Map(this.mapElement.nativeElement,mapOptions);
-    // this.addMarker();
-    // }
-    /*##user location mark in map##*/
-    QuoteviewPage.prototype.addMarker = function () {
-        var _this = this;
-        console.log("marker");
-        // let cur_img='http://rayi.in/naboApi/mapicon/nabo_home.png';
-        var marker = new google.maps.Marker({
-            map: this.map,
-            animation: google.maps.Animation.DROP,
-            position: this.map.getCenter()
-        });
-        var content = "<p>This is your current position !</p>";
-        var infoWindow = new google.maps.InfoWindow({
-            content: content
-        });
-        google.maps.event.addListener(marker, 'click', function () {
-            infoWindow.open(_this.map, marker);
-            //this.othersAddress = "This is your current position !";
-        });
-    };
-    QuoteviewPage.prototype.completeQuote = function (vid, bid, data) {
-        var _this = this;
-        // console.log('vid',vid);
-        console.log('compelte data', data);
-        this.pushData.deviceId = data.device_id;
-        this.pushData.message = "Customer has completed your service.";
-        var prompt = this.alertCtrl.create({
-            message: "Service completed in service center and you paid for the service",
-            buttons: [
-                {
-                    text: 'Yes',
-                    handler: function (data) {
-                        console.log('yes clicked');
-                        _this.serviceState.completeService(vid, bid).subscribe(function (data) {
-                            console.log(data);
-                            console.log(data.status);
-                            if (data.status == 'success') {
-                                _this.push(_this.pushData);
-                                var toast = _this.toastCtrl.create({
-                                    message: "Congratulations! You can use the credit",
-                                    duration: 3000,
-                                    position: 'bottom'
-                                });
-                                toast.present();
-                                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__tabs_tabs__["a" /* TabsPage */]);
-                            }
-                        }), function (error) {
-                            console.log(error);
-                        };
-                    }
-                },
-                {
-                    text: 'No',
-                    handler: function (data) {
-                        alert(" Please pay for the service and then complete");
-                        return true;
-                    }
-                }
-            ]
-        });
-        prompt.present();
-    };
-    QuoteviewPage.prototype.declineQuote = function (vid, bid) {
-        var _this = this;
-        // console.log('data',this.quoteview[0]);
-        // let vid = this.quoteview[0].vendor;
-        // let bid= this.quoteview[0].booking_id;
-        console.log('vendor id', vid);
-        console.log('booking id', bid);
-        var prompt = this.alertCtrl.create({
-            message: "Please describe the problem",
-            inputs: [
-                {
-                    //type :'text',
-                    name: 'reason',
-                    placeholder: 'Reason for decline',
-                    value: ""
-                }
-            ],
-            buttons: [
-                {
-                    text: 'Cancel',
-                    handler: function (data) {
-                        console.log('Cancel clicked');
-                    }
-                },
-                {
-                    text: 'Ok',
-                    handler: function (data) {
-                        // let validateObj = this.validate(data);
-                        if (data.reason == "") {
-                            var toast = _this.toastCtrl.create({
-                                message: "Please enter the reason ",
-                                duration: 3000,
-                                position: 'bottom'
-                            });
-                            toast.present();
-                            return false;
-                        }
-                        else {
-                            var toast = _this.toastCtrl.create({
-                                message: "Now you can accept other quotes",
-                                duration: 3000,
-                                position: 'bottom'
-                            });
-                            toast.present();
-                            _this.serviceState.reportproblem(vid, bid, data.reason).subscribe(function (data) {
-                                console.log(data);
-                                _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__quotehistory_quotehistory__["a" /* QuotehistoryPage */]);
-                            }), function (error) {
-                                console.log(error);
-                            };
-                            // this.navCtrl.push(QuoteviewPage);
-                        }
-                    }
-                }
-            ]
-        });
-        prompt.present();
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('map'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"])
-    ], QuoteviewPage.prototype, "mapElement", void 0);
-    QuoteviewPage = QuoteviewPage_1 = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-quoteview',template:/*ion-inline-start:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quoteview\quoteview.html"*/'<!--\n\n  Generated template for the QuoteviewPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header no-border>\n\n\n\n  <ion-toolbar no-padding>\n\n      <!-- <button ion-button menuToggle>\n\n          <ion-icon name="menu"></ion-icon>\n\n      </button> -->\n\n    <ion-title>Quote</ion-title>\n\n    <!-- <ion-segment>\n\n        <ion-segment-button  class="button-l" (click)="listshow()">\n\n          List View\n\n        </ion-segment-button>\n\n        <ion-segment-button  class="button-m" (click)="mapshow()">\n\n          Map View\n\n        </ion-segment-button>\n\n      </ion-segment> -->\n\n  </ion-toolbar>\n\n  <ion-segment>\n\n    <ion-segment-button  class="button-l" (click)="listshow()">\n\n      List View\n\n    </ion-segment-button>\n\n    <ion-segment-button  class="button-m" (click)="mapshow()">\n\n      Map View\n\n    </ion-segment-button>\n\n  </ion-segment>\n\n</ion-header>\n\n\n\n\n\n <ion-content *ngIf="mapview">\n\n        <ion-list>\n\n                <h5 style="color:#000" text-center>Booking Details</h5>\n\n           \n\n                   <ion-row>\n\n                           <ion-col col-5 text-left>\n\n                            <b>Make</b>\n\n                           </ion-col>\n\n                           <ion-col col-1><b>:</b></ion-col>\n\n                           <ion-col col-6 text-left>\n\n                               {{make}}\n\n                           </ion-col>\n\n                         </ion-row>\n\n                         <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b>Model</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{model}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                             <ion-row>\n\n                                   <ion-col col-5 text-left>\n\n                                    <b>Problem</b>\n\n                                   </ion-col>\n\n                                   <ion-col col-1><b>:</b></ion-col>\n\n                                   <ion-col col-6 text-left>\n\n                                           <p *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</p>\n\n                                   </ion-col>\n\n                                 </ion-row>\n\n                                 <ion-row>\n\n                                       <ion-col col-5 text-left>\n\n                                        <b>Pickup</b>\n\n                                       </ion-col>\n\n                                       <ion-col col-1><b>:</b></ion-col>\n\n                                       <ion-col col-6 text-left>\n\n                                           {{pickup}}\n\n                                       </ion-col>\n\n                                     </ion-row>\n\n                                     <ion-row>\n\n                                           <ion-col col-5 text-left>\n\n                                            <b>Booking Date</b>\n\n                                           </ion-col>\n\n                                           <ion-col col-1><b>:</b></ion-col>\n\n                                           <ion-col col-6 text-left>\n\n                                               {{booking_date}}\n\n                                           </ion-col>\n\n                                         </ion-row>\n\n                                       </ion-list>\n\n  \n\n    <ion-content class="map-pin">\n\n        <div #map id="map"></div> \n\n    </ion-content>\n\n  \n\n    <!-- <div class="btn-group switch">\n\n      <button ion-button color="light" class="button" (click)="listshow()" icon-only>List View</button>\n\n      <button ion-button color="light" class="button" (click)="mapshow()" icon-only>Map View</button>\n\n  </div> -->\n\n  \n\n</ion-content>\n\n\n\n\n\n\n\n <!-- <ion-content padding *ngIf="listview">\n\n    <div style="margin-top:80px">\n\n    <ion-card  id="card1" >\n\n        <ion-card-header>\n\n           <h5 class="head"><b>Booking Details</b></h5>\n\n        </ion-card-header>\n\n        <ion-card-content>\n\n           <ion-row>\n\n               <ion-col col-4 text-left>\n\n                <b>Make</b>\n\n               </ion-col>\n\n               <ion-col col-1><b>:</b></ion-col>\n\n               <ion-col col-7 text-left>\n\n                   {{make}}\n\n               </ion-col>\n\n             </ion-row>\n\n             <ion-row>\n\n                 <ion-col col-4 text-left>\n\n                  <b>Model</b>\n\n                 </ion-col>\n\n                 <ion-col col-1><b>:</b></ion-col>\n\n                 <ion-col col-7 text-left>\n\n                     {{model}}\n\n                 </ion-col>\n\n               </ion-row>\n\n               <ion-row>\n\n                   <ion-col col-4 text-left>\n\n                    <b>Problem</b>\n\n                   </ion-col>\n\n                   <ion-col col-1><b>:</b></ion-col>\n\n                   <ion-col col-7 text-left>\n\n                       <p *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</p>\n\n                   </ion-col>\n\n                 </ion-row>\n\n                 <ion-row>\n\n                     <ion-col col-4 text-left>\n\n                      <b>Pickup</b>\n\n                     </ion-col>\n\n                     <ion-col col-1><b>:</b></ion-col>\n\n                     <ion-col col-7 text-left>\n\n                         {{pickup}}\n\n                     </ion-col>\n\n                   </ion-row>\n\n                   <ion-row>\n\n                       <ion-col col-4 text-left>\n\n                        <b> Booking Date</b>\n\n                       </ion-col>\n\n                       <ion-col col-1><b>:</b></ion-col>\n\n                       <ion-col col-7 text-left>\n\n                           {{booking_date}}\n\n                       </ion-col>\n\n                     </ion-row>\n\n                     <div>\n\n                            <audio controls>\n\n                            <source src="http://sunrisetechs.com/images/audio/{{audio}}">\n\n                           \n\n                            </audio>\n\n                            </div>\n\n                     <ion-thumbnail *ngIf="image">\n\n                            <img src="http://sunrisetechs.com/images/imgs/{{image}}"/>\n\n                          </ion-thumbnail>\n\n                   \n\n                          \n\n                    \n\n        </ion-card-content>\n\n      </ion-card>\n\n      <ion-item>\n\n          <h5 class="head1"><b>Quotes Received</b></h5>\n\n           </ion-item>\n\n           <ion-card *ngFor="let item of quoteview" id="card2">\n\n              <ion-card-header class="v-name">\n\n                    <ion-row>\n\n                            <ion-col col-12 text-center >\n\n                                {{item.username}}\n\n                            </ion-col>\n\n                          </ion-row>\n\n              </ion-card-header>\n\n               <ion-card-content>\n\n                   \n\n                     <ion-row>\n\n                         <ion-col col-5 text-left>\n\n                          <b>  Original Spare Price</b>\n\n                         </ion-col>\n\n                         <ion-col col-1><b>:</b></ion-col>\n\n                         <ion-col col-6 text-left>\n\n                             {{item.exactprice}}\n\n                         </ion-col>\n\n                       </ion-row>\n\n                       <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Second Quality Price</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.second_quality_price}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                             <ion-row>\n\n                                   <ion-col col-5 text-left>\n\n                                    <b> Time Required</b>\n\n                                   </ion-col>\n\n                                   <ion-col col-1><b>:</b></ion-col>\n\n                                   <ion-col col-6 text-left>\n\n                                       {{item.time_period}}\n\n                                   </ion-col>\n\n                                 </ion-row>\n\n                       <ion-row>\n\n                           <ion-col col-5 text-left>\n\n                            <b> Warranty</b>\n\n                           </ion-col>\n\n                           <ion-col col-1><b>:</b></ion-col>\n\n                           <ion-col col-6 text-left>\n\n                               {{item.warranty}}\n\n                           </ion-col>\n\n                         </ion-row>\n\n                         <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Home Pick Up</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.pickup_type}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                         <ion-row>\n\n                             <ion-col col-5 text-left>\n\n                              <b> Description</b>\n\n                             </ion-col>\n\n                             <ion-col col-1><b>:</b></ion-col>\n\n                             <ion-col col-6 text-left>\n\n                                 {{item.description}}\n\n                             </ion-col>\n\n                           </ion-row>\n\n                           <ion-row *ngIf="item.accept_status==4">\n\n                               <ion-col col-5 text-left>\n\n                                <b> Reason</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                 {{item.reason}}\n\n                               </ion-col>\n\n                             </ion-row>     \n\n               </ion-card-content>\n\n               \n\n              <div *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">\n\n               <div class="btn-group">\n\n                  <ion-row>\n\n                    <ion-col col-3>\n\n                        <button ion-button color="dark" [hidden]="item.cancel_status" small class="button" (click)="quoteChat(item.id)" icon-only>Chat</button>          \n\n                    </ion-col>\n\n                       <ion-col col-3>\n\n                               <button ion-button color="secondary" [hidden]="item.cancel_status"  small class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>\n\n                              </ion-col>\n\n                           <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n               \n\n                               <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept(item.id,item)" icon-only>Accept</button>\n\n                              </ion-col>\n\n                               <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n                                       <button ion-button color="light" [hidden]="item.cancel_status" small class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>\n\n                                   </ion-col>\n\n                                               \n\n                  </ion-row>\n\n                  <div *ngIf="item.accept_status==3">\n\n                  <button ion-button color="secondary" (click)="completeQuote(item.vendor,item.booking_id)" block>Complete the service</button>\n\n\n\n                      <button ion-button color="dark" (click)="declineQuote(item.vendor,item.booking_id)" block>Report the problem</button>\n\n                    </div>\n\n                </div>\n\n                </div>\n\n  </ion-card>\n\n</div>\n\n</ion-content>  -->\n\n\n\n<ion-content style="padding:10px; margin-top:100px;" *ngIf="listview" >\n\n        <ion-thumbnail  class="item-profile">\n\n                <img src="http://sunrisetechs.com/images/imgs/{{image}}"/>\n\n              </ion-thumbnail>\n\n        \n\n   <ion-list style="margin-top:5px; background-color:#ddd">\n\n          \n\n      <ion-row>\n\n          <ion-col col-12 class="head">\n\n              <h4><b>Booking Details</b></h4>\n\n          </ion-col>\n\n      </ion-row>\n\n           <ion-row>\n\n               <ion-col col-4 text-left>\n\n                <b>Make</b>\n\n               </ion-col>\n\n               <ion-col col-1><b>:</b></ion-col>\n\n               <ion-col col-7 text-left>\n\n                   {{make}}\n\n               </ion-col>\n\n             </ion-row>\n\n             <ion-row>\n\n                 <ion-col col-4 text-left>\n\n                  <b>Model</b>\n\n                 </ion-col>\n\n                 <ion-col col-1><b>:</b></ion-col>\n\n                 <ion-col col-7 text-left>\n\n                     {{model}}\n\n                 </ion-col>\n\n               </ion-row>\n\n               <ion-row>\n\n                   <ion-col col-4 text-left>\n\n                    <b>Problem</b>\n\n                   </ion-col>\n\n                   <ion-col col-1><b>:</b></ion-col>\n\n                   <ion-col col-7 text-left>\n\n                       <div *ngIf="soft!=\'\'||hard !=\'\'||othermodel !=\'\'">{{soft}}{{hard}}{{othermodel}}</div>\n\n                   </ion-col>\n\n                 </ion-row>\n\n                 <ion-row>\n\n                     <ion-col col-4 text-left>\n\n                      <b>Pickup</b>\n\n                     </ion-col>\n\n                     <ion-col col-1><b>:</b></ion-col>\n\n                     <ion-col col-7 text-left>\n\n                         {{pickup}}\n\n                     </ion-col>\n\n                   </ion-row>\n\n                   <ion-row>\n\n                       <ion-col col-4 text-left>\n\n                        <b> Booking Date</b>\n\n                       </ion-col>\n\n                       <ion-col col-1><b>:</b></ion-col>\n\n                       <ion-col col-7 text-left>\n\n                           {{booking_date}}\n\n                       </ion-col>\n\n                     </ion-row>\n\n                     <div>\n\n                            <audio controls>\n\n                            <source src="http://sunrisetechs.com/images/audio/{{audio}}">\n\n                           \n\n                            </audio>\n\n                            </div>\n\n                        </ion-list>\n\n                   \n\n                          \n\n                        <hr class="style1">   \n\n      <ion-list>\n\n      <ion-item>\n\n          <h2 class="head1"><b>Quotes Received</b></h2>\n\n           </ion-item>\n\n           <ion-list *ngFor="let item of quoteview">\n\n           \n\n                    <ion-row>\n\n                            <ion-col col-12 text-center class="box">\n\n                                {{item.username}}\n\n                            </ion-col>\n\n                          </ion-row>\n\n                      \n\n              \n\n                   \n\n                     <ion-row>\n\n                         <ion-col col-5 text-left>\n\n                          <b>  Original Price</b>\n\n                         </ion-col>\n\n                         <ion-col col-1><b>:</b></ion-col>\n\n                         <ion-col col-6 text-left>\n\n                             {{item.exactprice}}\n\n                         </ion-col>\n\n                       </ion-row>\n\n                       <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> 2nd Quality Price</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.second_quality_price}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                             <ion-row>\n\n                                   <ion-col col-5 text-left>\n\n                                    <b> Time Required</b>\n\n                                   </ion-col>\n\n                                   <ion-col col-1><b>:</b></ion-col>\n\n                                   <ion-col col-6 text-left>\n\n                                       {{item.time_period}}\n\n                                   </ion-col>\n\n                                 </ion-row>\n\n                       <ion-row>\n\n                           <ion-col col-5 text-left>\n\n                            <b> Warranty</b>\n\n                           </ion-col>\n\n                           <ion-col col-1><b>:</b></ion-col>\n\n                           <ion-col col-6 text-left>\n\n                               {{item.warranty}}\n\n                           </ion-col>\n\n                         </ion-row>\n\n                         <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Home Pick Up</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                   {{item.pickup_type}}\n\n                               </ion-col>\n\n                             </ion-row>\n\n                         <ion-row>\n\n                             <ion-col col-5 text-left>\n\n                              <b> Description</b>\n\n                             </ion-col>\n\n                             <ion-col col-1><b>:</b></ion-col>\n\n                             <ion-col col-6 text-left>\n\n                                 {{item.description}}\n\n                             </ion-col>\n\n                           </ion-row>\n\n                           <ion-row *ngIf="item.accept_status==4">\n\n                                <ion-col col-5 text-left>\n\n                                 <b> Reason</b>\n\n                                </ion-col>\n\n                                <ion-col col-1><b>:</b></ion-col>\n\n                                <ion-col col-6 text-left>\n\n                                  {{item.reason}}\n\n                                </ion-col>\n\n                              </ion-row> \n\n                           <ion-row *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">   \n\n                                <ion-col col-5 text-left>\n\n                                    <b>Contact By</b>\n\n                                </ion-col>\n\n                                <ion-col col-1><b>:</b></ion-col>      \n\n                          <ion-col col-3 >\n\n                                <button ion-button color="primary" small round icon-only (click)="quoteCall(item.mobile)">\n\n                                        <ion-icon ios="ios-call" md="md-call"></ion-icon></button>\n\n                                 </ion-col>\n\n                                 <ion-col col-3>\n\n                                       <button ion-button  color="dark" small round icon-only (click)="quoteChat(item.id)" >\n\n                                   <ion-icon ios="ios-chatbubbles" md="md-chatbubbles"></ion-icon></button>\n\n                                 </ion-col>\n\n                                 </ion-row>\n\n                           <!-- <ion-row>\n\n                               <ion-col col-5 text-left>\n\n                                <b> Expires In</b>\n\n                               </ion-col>\n\n                               <ion-col col-1><b>:</b></ion-col>\n\n                               <ion-col col-6 text-left>\n\n                                 \n\n                               </ion-col>\n\n                             </ion-row>      -->\n\n               \n\n               \n\n              <div *ngIf="item.accept_status==1||item.accept_status==2||item.accept_status==3">\n\n               <div class="btn-group">\n\n                  <ion-row>\n\n                    <!-- <ion-col col-3>\n\n                        <button ion-button color="dark" [hidden]="item.cancel_status" small class="button" (click)="quoteChat(item.id)" icon-only>Chat</button>          \n\n                    </ion-col> -->\n\n                       <!-- <ion-col col-3>\n\n                               <button ion-button color="secondary" [hidden]="item.cancel_status"  small class="button" (click)="quoteCall(item.mobile)" icon-only>Call</button>\n\n                              </ion-col>-->\n\n                           <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-6 text-center> \n\n                               <!-- <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept1(item)" icon-only>Accept</button> -->\n\n                               <button ion-button color="secondary" [hidden]="item.cancel_status"  class="button" (click)="quoteAccept(item.id,item)" >Accept</button>\n\n                              </ion-col>\n\n                               <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-6 text-center>\n\n                                       <button ion-button color="light" [hidden]="item.cancel_status"  class="button" (click)="quoteIgnore(item.id)" >Ignore</button>\n\n                                   </ion-col>\n\n                                   \n\n                                   <div *ngIf="item.accept_status==3">\n\n                                        <button ion-button block color="secondary" class="button" (click)="completeQuote(item.vendor,item.booking_id,item)" block>Complete the service</button>\n\n                                    \n\n                                            <button ion-button block color="dark" class="button" (click)="declineQuote(item.vendor,item.booking_id)" block>Report the problem</button>\n\n                                          </div>\n\n\n\n<!-- ////////////////////////////////////////////////////////////////////////////                                    -->\n\n<!-- <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n               \n\n        <button ion-button color="primary" [hidden]="item.cancel_status" small class="button" (click)="quoteAccept(item.id,item)" icon-only>Accept</button>\n\n       </ion-col>\n\n        <ion-col *ngIf="item.accept_status==1||item.accept_status==2" col-3>\n\n                <button ion-button color="light" [hidden]="item.cancel_status" small class="button" (click)="quoteIgnore(item.id)" icon-only>Ignore</button>\n\n            </ion-col> -->\n\n                                               \n\n                  </ion-row>\n\n                </div>\n\n                </div>\n\n                <hr class="style1">\n\n            </ion-list>\n\n<hr class="style1">\n\n</ion-list>\n\n\n\n</ion-content> \n\n\n\n\n\n'/*ion-inline-end:"N:\ionicprojects\rytefix\rytefixcust\gitclone\gitclone2\pushworking\rytefix\src\pages\quoteview\quoteview.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavController"],
-            __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__["a" /* AuthServiceProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["NavParams"],
-            __WEBPACK_IMPORTED_MODULE_4__ionic_native_call_number__["a" /* CallNumber */],
-            __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["AlertController"],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["ToastController"],
-            __WEBPACK_IMPORTED_MODULE_6__providers_servicestate_servicestate__["a" /* ServicestateProvider */],
-            __WEBPACK_IMPORTED_MODULE_8__angular_http__["b" /* Http */]])
-    ], QuoteviewPage);
-    return QuoteviewPage;
-    var QuoteviewPage_1;
-}());
-
-//# sourceMappingURL=quoteview.js.map
-
-/***/ }),
-
-/***/ 57:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ServicestateProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -4166,7 +4642,7 @@ var ServicestateProvider = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_service_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_auth_service_auth_service__ = __webpack_require__(18);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4288,12 +4764,12 @@ var ChangepassPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_auth_service_auth_service__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__login_login__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_file__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_file_transfer__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__angular_http__ = __webpack_require__(23);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4663,5 +5139,5 @@ var RegisterPage = (function () {
 
 /***/ })
 
-},[228]);
+},[229]);
 //# sourceMappingURL=main.js.map

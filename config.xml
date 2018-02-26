@@ -3,7 +3,7 @@
     <name>ryt</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://192.168.1.10:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -106,6 +106,13 @@
     </plugin>
     <allow-navigation href="http://192.168.1.15:8100" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.3.1" />
-    <engine name="android" spec="6.3.0" />
     <allow-navigation href="http://192.168.1.8:8100" />
+    <plugin name="branch-cordova-sdk" spec="^2.5.0" />
+    <branch-config>
+        <branch-key value="key_live_omyS9Pp9dkYz6pPMjSCCXojhyDmllJub" />
+        <uri-scheme value="branchcordova" />
+        <link-domain value="cordova.app.link" />
+        <ios-team-release value="PW4Q8885U7" />
+    </branch-config>
+    <engine name="android" spec="6.3.0" />
 </widget>
